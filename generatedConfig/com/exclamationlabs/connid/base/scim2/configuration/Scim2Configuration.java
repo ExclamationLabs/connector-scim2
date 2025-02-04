@@ -12,6 +12,7 @@ import java.util.*;
 import com.exclamationlabs.connid.base.connector.configuration.basetypes.RestConfiguration;
 import com.exclamationlabs.connid.base.connector.configuration.basetypes.ResultsConfiguration;
 import com.exclamationlabs.connid.base.connector.configuration.basetypes.ServiceConfiguration;
+import com.exclamationlabs.connid.base.connector.configuration.basetypes.security.ProxyConfiguration;
 import com.exclamationlabs.connid.base.connector.configuration.basetypes.security.authenticator.DirectAccessTokenConfiguration;
 
 /**
@@ -20,7 +21,7 @@ import com.exclamationlabs.connid.base.connector.configuration.basetypes.securit
 * your changes in this file.  Instead, modify the configuration.structure.yml in this project.
 */
 @ConfigurationClass(skipUnsupported = true, ignore={"active", "name", "source", "currentToken"})
-public class Scim2Configuration implements ConnectorConfiguration, RestConfiguration, ResultsConfiguration, ServiceConfiguration, DirectAccessTokenConfiguration {
+public class Scim2Configuration implements ConnectorConfiguration, RestConfiguration, ResultsConfiguration, ServiceConfiguration, ProxyConfiguration, DirectAccessTokenConfiguration {
 
     protected ConnectorMessages connectorMessages;
 
@@ -57,6 +58,11 @@ public class Scim2Configuration implements ConnectorConfiguration, RestConfigura
     @ConfigurationInfo(path="service.serviceUrl")
     private String serviceUrl;
 
+    @Pattern(regexp = "socks5|http", flags = Pattern.Flag.CASE_INSENSITIVE)
+    @NotBlank(message="proxyType cannot be blank")
+    @ConfigurationInfo(path="security.proxy.proxyType")
+    private String proxyType;
+
     @NotNull(message="importBatchSize cannot be null")
     @ConfigurationInfo(path="results.importBatchSize")
     private Integer importBatchSize = 50;
@@ -72,6 +78,10 @@ public class Scim2Configuration implements ConnectorConfiguration, RestConfigura
     @ConfigurationInfo(path="custom.enableStandardSchema")
     private Boolean enableStandardSchema = false;
 
+    @NotBlank(message="proxyHost cannot be blank")
+    @ConfigurationInfo(path="security.proxy.proxyHost")
+    private String proxyHost;
+
     @NotBlank(message="token cannot be blank")
     @ConfigurationInfo(path="security.authenticator.directAccessToken.token")
     private String token;
@@ -83,6 +93,10 @@ public class Scim2Configuration implements ConnectorConfiguration, RestConfigura
     @NotNull(message="enableSlackSchema cannot be null")
     @ConfigurationInfo(path="custom.enableSlackSchema")
     private Boolean enableSlackSchema = false;
+
+    @NotNull(message="proxyPort cannot be null")
+    @ConfigurationInfo(path="security.proxy.proxyPort")
+    private Integer proxyPort;
 
     @ConfigurationInfo(path="service.duplicateErrorReturnsId")
     private Boolean duplicateErrorReturnsId = false;
@@ -197,6 +211,20 @@ public class Scim2Configuration implements ConnectorConfiguration, RestConfigura
     }
 
     @ConfigurationProperty(
+    displayMessageKey = "Proxy Type",
+    helpMessageKey = "Type of Proxy Server - either `socks5` or `http`",
+    order = 2403,
+    confidential = false,
+    required = true)
+    public String getProxyType() {
+        return this.proxyType;
+    }
+
+    public void setProxyType(String input) {
+        this.proxyType = input;
+    }
+
+    @ConfigurationProperty(
     displayMessageKey = "Import Batch Size",
     helpMessageKey = "If supplied, import operations will be invoked using this given batch size, so that API`s that support paging can import all records using a particular batch size (instead  of all at once.",
     order = 1103,
@@ -253,6 +281,20 @@ public class Scim2Configuration implements ConnectorConfiguration, RestConfigura
     }
 
     @ConfigurationProperty(
+    displayMessageKey = "Proxy Host",
+    helpMessageKey = "Domain or IP Address of Proxy Server",
+    order = 2401,
+    confidential = false,
+    required = true)
+    public String getProxyHost() {
+        return this.proxyHost;
+    }
+
+    public void setProxyHost(String input) {
+        this.proxyHost = input;
+    }
+
+    @ConfigurationProperty(
     displayMessageKey = "Token",
     helpMessageKey = "Fixed token value providing access to the connector",
     order = 2501,
@@ -292,6 +334,20 @@ public class Scim2Configuration implements ConnectorConfiguration, RestConfigura
 
     public void setEnableSlackSchema(Boolean input) {
         this.enableSlackSchema = input;
+    }
+
+    @ConfigurationProperty(
+    displayMessageKey = "Proxy Port",
+    helpMessageKey = "Port Number of Proxy Server",
+    order = 2402,
+    confidential = false,
+    required = true)
+    public Integer getProxyPort() {
+        return this.proxyPort;
+    }
+
+    public void setProxyPort(Integer input) {
+        this.proxyPort = input;
     }
 
     @ConfigurationProperty(
