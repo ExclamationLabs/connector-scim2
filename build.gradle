@@ -65,7 +65,7 @@ dependencies {
     // HTTP/RESTful support
     implementation 'com.google.code.gson:gson:2.10.1'
     implementation 'org.apache.httpcomponents:httpclient:4.5.14'
-    implementation 'net.tirasa.connid:connector-framework-internal:1.5.1.10'
+    implementation "net.tirasa.connid:connector-framework-internal:${connid_connector_framework_version}"
 
     implementation 'commons-codec:commons-codec:1.15'
 
@@ -75,7 +75,7 @@ dependencies {
 
     testImplementation "com.exclamationlabs.connid:connector-base-test-support:${test_connector_version}-+"
 
-    testImplementation 'net.tirasa.connid:connector-framework-internal:1.5.1.10'
+    testImplementation "net.tirasa.connid:connector-framework-internal:${connid_connector_framework_version}"
 }
 
 sourceSets {
@@ -112,7 +112,7 @@ task fatJar(type: Jar) {
     from 'custom', 'build/classes/java/main', 'src/main/resources'
 
     manifest {
-        attributes("ConnectorBundle-FrameworkVersion": "1.4.3.11",
+        attributes("ConnectorBundle-FrameworkVersion": connid_connector_framework_version,
                 "ConnectorBundle-Version": versionNumber,
                 "ConnectorBundle-Name": project.name)
     }
