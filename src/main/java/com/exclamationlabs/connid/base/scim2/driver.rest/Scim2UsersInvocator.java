@@ -12,6 +12,7 @@ import com.exclamationlabs.connid.base.scim2.model.*;
 import com.exclamationlabs.connid.base.scim2.model.response.ListGroupResponse;
 import com.exclamationlabs.connid.base.scim2.model.response.ListUsersResponse;
 import com.exclamationlabs.connid.base.scim2.model.slack.Scim2SlackUser;
+import org.apache.http.HttpStatus;
 import org.identityconnectors.common.logging.Log;
 import org.identityconnectors.framework.common.exceptions.ConnectorException;
 
@@ -56,7 +57,7 @@ public class Scim2UsersInvocator implements DriverInvocator<Scim2Driver, Scim2Us
         }
         else if ( config.getEnableStandardSchema() || config.getEnableAWSSchema() )
         {
-            RestRequest request =
+            RestRequest<Scim2User> request =
                     new RestRequest.Builder<>(Scim2User.class)
                             .withPost()
                             .withRequestUri(driver.getConfiguration().getUsersEndpointUrl())
@@ -79,7 +80,6 @@ public class Scim2UsersInvocator implements DriverInvocator<Scim2Driver, Scim2Us
     @Override
     public void delete(Scim2Driver driver, String userId) throws ConnectorException
     {
-        Scim2User scim2User;
         Scim2Configuration config = driver.getConfiguration();
 
         if (config.getEnableSlackSchema())
@@ -91,7 +91,7 @@ public class Scim2UsersInvocator implements DriverInvocator<Scim2Driver, Scim2Us
                 || config.getEnableDynamicSchema())
         {
             // Delete is usually delete 
-            RestRequest req = new RestRequest.Builder<>(Void.class)
+            RestRequest<Void> req = new RestRequest.Builder<>(Void.class)
                             .withDelete()
                             .withRequestUri(config.getUsersEndpointUrl() + "/" +userId)
                             .build();
@@ -159,13 +159,13 @@ public class Scim2UsersInvocator implements DriverInvocator<Scim2Driver, Scim2Us
         }
         else if (config.getEnableStandardSchema() || config.getEnableAWSSchema())
         {
-            RestRequest req =
+            RestRequest<Scim2User> req =
                     new RestRequest.Builder<>(Scim2User.class)
                             .withGet()
                             .withRequestUri(driver.getConfiguration().getUsersEndpointUrl() + "/" + objectId)
                             .build();
-            RestResponseData<Scim2SlackUser> response = driver.executeRequest(req);
-            if (response.getResponseStatusCode() == 200) {
+            RestResponseData<Scim2User> response = driver.executeRequest(req);
+            if (response.getResponseStatusCode() == HttpStatus.SC_OK) {
                 user = response.getResponseObject();
                 if (user.getGroups() == null || user.getGroups().isEmpty()) {
                     user.setGroups(getGroupsForUser(driver, user.getId()));
@@ -197,12 +197,12 @@ public class Scim2UsersInvocator implements DriverInvocator<Scim2Driver, Scim2Us
         else if (config.getEnableAWSSchema() || config.getEnableStandardSchema())
         {
             String queryString = "?filter=userName%20eq%20%22" + name + "%22";
-            RestRequest req = new RestRequest.Builder<>(ListUsersResponse.class)
+            RestRequest<ListUsersResponse> req = new RestRequest.Builder<>(ListUsersResponse.class)
                     .withGet()
                     .withRequestUri(config.getUsersEndpointUrl() + queryString)
                     .build();
             RestResponseData<ListUsersResponse> response = driver.executeRequest(req);
-            if (response.getResponseStatusCode() == 200)
+            if (response.getResponseStatusCode() == HttpStatus.SC_OK)
             {
                 List<Scim2User> list = response.getResponseObject().getResources();
                 if (list != null && list.size() > 0)
@@ -244,7 +244,7 @@ public class Scim2UsersInvocator implements DriverInvocator<Scim2Driver, Scim2Us
             }
             else if ( paginator.getCurrentPageNumber() != null )
             {
-                Integer startIndex = ((paginator.getCurrentPageNumber()-1) * paginator.getPageSize()) + 1;
+                int startIndex = ((paginator.getCurrentPageNumber()-1) * paginator.getPageSize()) + 1;
                 String start = "startIndex=" + startIndex;
                 parameter = (parameter == null) ? start : parameter + "&" + start  ;
             }
@@ -280,7 +280,7 @@ public class Scim2UsersInvocator implements DriverInvocator<Scim2Driver, Scim2Us
         {
             query = "?" + filterParameter;
         }
-        RestRequest request =
+        RestRequest<ListUsersResponse> request =
                 new RestRequest.Builder<>(ListUsersResponse.class)
                         .withGet()
                         .withRequestUri(config.getUsersEndpointUrl() + query)
@@ -291,7 +291,7 @@ public class Scim2UsersInvocator implements DriverInvocator<Scim2Driver, Scim2Us
         if (response != null && data.getResponseStatusCode() == 200)
         {
             userList = response.getResources();
-            if ( userList != null && userList.size() > 0 ) {
+            if ( userList != null && !userList.isEmpty() && paginator.hasPagination()) {
                 updatePaginator(paginator, userList.size(), response.getTotalResults(), response.getItemsPerPage());
             } else {
                 paginator.setNoMoreResults(true);
@@ -355,13 +355,12 @@ public class Scim2UsersInvocator implements DriverInvocator<Scim2Driver, Scim2Us
                 LOG.error(e, "{0}", e.getMessage());
             }
 
-            RestRequest req = new RestRequest.Builder<>(Scim2User.class)
+            RestRequest<Scim2User> req = new RestRequest.Builder<>(Scim2User.class)
                     .withPut()
                     .withRequestUri(config.getUsersEndpointUrl() + "/" + userId)
                     .withRequestBody(user)
                     .build();
-            RestResponseData<Scim2User> response = driver.executeRequest(req);
-            Scim2User updated = response.getResponseObject();
+            driver.executeRequest(req);
             updateMultiValued(driver, userId, user);
         }
         else if (config.getEnableDynamicSchema())
@@ -373,8 +372,6 @@ public class Scim2UsersInvocator implements DriverInvocator<Scim2Driver, Scim2Us
     public void updateMultiValued(Scim2Driver driver, String userId, Scim2User user)
         throws ConnectorException {
 
-        boolean hasWork = false;
-        Scim2Configuration config = driver.getConfiguration();
         String url = driver.getConfiguration().getUsersEndpointUrl() + "/" + userId;
         Scim2PatchOp patchOp = new Scim2PatchOp();
         patchOp.setOperations(new ArrayList<>());
@@ -391,16 +388,16 @@ public class Scim2UsersInvocator implements DriverInvocator<Scim2Driver, Scim2Us
         patchOp.setOperations(operations);
         if (!operations.isEmpty())
         {
-            RestRequest request =
+            RestRequest<Scim2User> request =
                     new RestRequest.Builder<>(Scim2User.class)
                             .withPatch()
                             .withRequestUri(url)
                             .withRequestBody(patchOp)
                             .build();
             RestResponseData<Scim2User> data = driver.executeRequest(request);
-            if (data.getResponseStatusCode() != 200 && data.getResponseStatusCode() != 204)
+            if (data.getResponseStatusCode() != HttpStatus.SC_OK && data.getResponseStatusCode() != HttpStatus.SC_NO_CONTENT)
             {
-                LOG.warn(String.format("SCIM2 Update User returned HTTP status %s", Integer.toString(data.getResponseStatusCode())));
+                LOG.warn(String.format("SCIM2 Update User returned HTTP status %s", data.getResponseStatusCode()));
             }
         }
     }
@@ -426,7 +423,7 @@ public class Scim2UsersInvocator implements DriverInvocator<Scim2Driver, Scim2Us
             paginator.setNumberOfProcessedPages(0);
         }
         paginator.setNumberOfProcessedPages(paginator.getNumberOfProcessedPages()+1);
-        if ( paginator.getTotalResults() == paginator.getNumberOfProcessedResults() ) {
+        if (Objects.equals(paginator.getTotalResults(), paginator.getNumberOfProcessedResults())) {
             paginator.setNoMoreResults(true);
         }
         if ( totalReturned == 0 )
@@ -439,14 +436,14 @@ public class Scim2UsersInvocator implements DriverInvocator<Scim2Driver, Scim2Us
         List<Map<String, String>> groupMaps = new ArrayList<>();
         try {
 
-            RestRequest request =
+            RestRequest<ListGroupResponse> request =
                     new RestRequest.Builder<>(ListGroupResponse.class)
                             .withGet()
                             .withRequestUri(driver.getConfiguration().getGroupsEndpointUrl()  )
                             .build();
             RestResponseData<ListGroupResponse> data = driver.executeRequest(request);
             ListGroupResponse response = data.getResponseObject();
-            if (response != null && data.getResponseStatusCode() == 200)
+            if (response != null && data.getResponseStatusCode() == HttpStatus.SC_OK)
             {
                 List<Scim2Group> groups = response.getResources();
                 for (Scim2Group group : groups)
@@ -462,20 +459,16 @@ public class Scim2UsersInvocator implements DriverInvocator<Scim2Driver, Scim2Us
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
+            LOG.warn("getGroupsForUser :: Exception: " + e.getMessage());
         }
 
-        if (groupMaps != null) {
-            for (Map<String, String> groupMap : groupMaps) {
-                if (groupMap != null) {
-                    LOG.info("getGroupsForUser :: Group Map: ");
-                    for (Map.Entry<String, String> entry : groupMap.entrySet()) {
-                        LOG.info("Key: " + entry.getKey() + ", Value: " + entry.getValue());
-                    }
+        for (Map<String, String> groupMap : groupMaps) {
+            if (groupMap != null) {
+                LOG.info("getGroupsForUser :: Group Map: ");
+                for (Map.Entry<String, String> entry : groupMap.entrySet()) {
+                    LOG.info("Key: " + entry.getKey() + ", Value: " + entry.getValue());
                 }
             }
-        } else {
-            LOG.info("getGroupsForUser :: Group Maps set is null");
         }
 
         return groupMaps;
@@ -487,7 +480,7 @@ public class Scim2UsersInvocator implements DriverInvocator<Scim2Driver, Scim2Us
                 URLEncoder.encode(userId, StandardCharsets.UTF_8.toString()));
         String query = "?filter=" + URLEncoder.encode(filter, StandardCharsets.UTF_8.toString());
 
-        RestRequest request =
+        RestRequest<ListGroupResponse> request =
                 new RestRequest.Builder<>(ListGroupResponse.class)
                         .withGet()
                         .withRequestUri(driver.getConfiguration().getGroupsEndpointUrl() + query)
@@ -496,11 +489,11 @@ public class Scim2UsersInvocator implements DriverInvocator<Scim2Driver, Scim2Us
 
         RestResponseData<ListGroupResponse> data = driver.executeRequest(request);
 
-        if (data.getResponseStatusCode() != 200 && data.getResponseStatusCode() != 204)
+        if (data.getResponseStatusCode() != HttpStatus.SC_OK && data.getResponseStatusCode() != HttpStatus.SC_NO_CONTENT)
         {
-            LOG.warn(String.format("SCIM2 Update isUserInGroup returned HTTP status %s", Integer.toString(data.getResponseStatusCode())));
+            LOG.warn(String.format("SCIM2 Update isUserInGroup returned HTTP status %s", data.getResponseStatusCode()));
         }else{
-            return data.getResponseObject().getTotalResults() > 0 ? true : false;
+            return data.getResponseObject().getTotalResults() > 0;
         }
 
         return false;

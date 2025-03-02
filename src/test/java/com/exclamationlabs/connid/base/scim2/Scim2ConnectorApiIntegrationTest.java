@@ -1,8 +1,9 @@
+package com.exclamationlabs.connid.base.scim2;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 import com.exclamationlabs.connid.base.connector.configuration.ConfigurationReader;
 import com.exclamationlabs.connid.base.connector.test.ApiIntegrationTest;
-import com.exclamationlabs.connid.base.scim2.Scim2Connector;
 import com.exclamationlabs.connid.base.scim2.attribute.Scim2GroupAttribute;
 import com.exclamationlabs.connid.base.scim2.configuration.Scim2Configuration;
 
@@ -34,7 +35,7 @@ public class Scim2ConnectorApiIntegrationTest
   private static final String idTestGroup      = "S07H5SNR7U5";
   private static final String idScim2Group     = "S07H28BETDL";
 
-  protected String composeComplexType(String value, String type, String display, Boolean primary){
+  static String composeComplexType(String value, String type, String display, Boolean primary){
     StringJoiner joiner = new StringJoiner(",", "{", "}");
     if ( value != null && value.length() > 0 ) {
       joiner.add(String.format("\"value\":\"%s\"", value));

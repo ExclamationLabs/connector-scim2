@@ -1,8 +1,5 @@
 package com.exclamationlabs.connid.base.scim2.driver.rest;
 
-import static com.exclamationlabs.connid.base.scim2.model.response.fault.ErrorResponseCode.*;
-
-import com.exclamationlabs.connid.base.connector.driver.exception.DriverRenewableTokenExpiredException;
 import com.exclamationlabs.connid.base.connector.driver.rest.RestFaultProcessor;
 import com.exclamationlabs.connid.base.connector.logging.Logger;
 import com.exclamationlabs.connid.base.scim2.model.response.fault.Scim2ErrorResponse;
@@ -12,11 +9,11 @@ import org.apache.commons.codec.Charsets;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.Header;
 import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
 import org.apache.http.entity.ContentType;
 import org.apache.http.util.EntityUtils;
 import org.identityconnectors.framework.common.exceptions.AlreadyExistsException;
 import org.identityconnectors.framework.common.exceptions.ConnectorException;
-import org.identityconnectors.framework.common.exceptions.InvalidAttributeValueException;
 
 public class Scim2FaultProcessor implements RestFaultProcessor {
 
@@ -72,10 +69,10 @@ public class Scim2FaultProcessor implements RestFaultProcessor {
       }
     }
     else if ( httpStatus != null ) {
-      if ( httpStatus == HTTP_NOT_IMPLEMENTED ||  httpStatus == HTTP_NOT_FOUND )
+      if ( httpStatus == HttpStatus.SC_NOT_IMPLEMENTED ||  httpStatus == HttpStatus.SC_NOT_FOUND )
       {
         return;
-      }else if (httpStatus == HTTP_TOO_MANY_REQUESTS){
+      }else if (httpStatus == HttpStatus.SC_TOO_MANY_REQUESTS){
         Logger.info(this, "Rate limit exceeded. Response: " + rawResponse);
         try {
           Thread.sleep(1000);
@@ -95,9 +92,9 @@ public class Scim2FaultProcessor implements RestFaultProcessor {
    */
   private Boolean checkRecognizedFaultCodes(Scim2ErrorResponse error) {
     switch (error.getStatus()) {
-      case HTTP_CONFLICT:
+      case HttpStatus.SC_CONFLICT:
         throw new AlreadyExistsException("User or Group already exists.");
-      case HTTP_BAD_REQUEST:
+      case HttpStatus.SC_BAD_REQUEST:
         if (error.getDetail() != null
                 && error.getDetail().toLowerCase().contains("already")
                 &&  error.getDetail().toLowerCase().contains("exists"))
@@ -111,10 +108,10 @@ public class Scim2FaultProcessor implements RestFaultProcessor {
                 + error.getScimType()
                 + "; detail: "
                 + error.getDetail());
-      case HTTP_NOT_FOUND:
+      case HttpStatus.SC_NOT_FOUND:
         // ignore fault and return to invocator
         return false;
-      case HTTP_NOT_IMPLEMENTED:
+      case HttpStatus.SC_NOT_IMPLEMENTED:
         return false;
     }
     return true;

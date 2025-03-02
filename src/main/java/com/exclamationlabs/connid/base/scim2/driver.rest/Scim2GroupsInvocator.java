@@ -14,6 +14,7 @@ import java.util.*;
 
 import com.exclamationlabs.connid.base.scim2.model.response.ListGroupResponse;
 import com.exclamationlabs.connid.base.scim2.model.response.ListUsersResponse;
+import org.apache.http.HttpStatus;
 import org.identityconnectors.common.logging.Log;
 import org.identityconnectors.framework.common.exceptions.ConnectorException;
 
@@ -28,7 +29,7 @@ public class Scim2GroupsInvocator implements DriverInvocator<Scim2Driver, Scim2G
             || config.getEnableStandardSchema()
             || config.getEnableAWSSchema() )
     {
-      RestRequest request =
+      RestRequest<Scim2Group> request =
               new RestRequest.Builder<>(Scim2Group.class)
                       .withPost()
                       .withRequestUri(driver.getConfiguration().getGroupsEndpointUrl())
@@ -52,7 +53,7 @@ public class Scim2GroupsInvocator implements DriverInvocator<Scim2Driver, Scim2G
   public void delete(Scim2Driver driver, String groupId) throws ConnectorException {
     // Delete is usually delete
     Scim2Configuration config = driver.getConfiguration();
-    RestRequest req = new RestRequest.Builder<>(Void.class)
+    RestRequest<Void> req = new RestRequest.Builder<>(Void.class)
             .withDelete()
             .withRequestUri(config.getGroupsEndpointUrl() + "/" +groupId)
             .build();
@@ -79,17 +80,17 @@ public class Scim2GroupsInvocator implements DriverInvocator<Scim2Driver, Scim2G
     {
       query = "?" + filterParameter;
     }
-    RestRequest request =
+    RestRequest<ListGroupResponse> request =
             new RestRequest.Builder<>(ListGroupResponse.class)
                     .withGet()
                     .withRequestUri(config.getGroupsEndpointUrl() + query )
                     .build();
     RestResponseData<ListGroupResponse> data = driver.executeRequest(request);
     ListGroupResponse response = data.getResponseObject();
-    if ( response != null && data.getResponseStatusCode() == 200 )
+    if ( response != null && data.getResponseStatusCode() == HttpStatus.SC_OK)
     {
       groupList = response.getResources();
-      if ( groupList != null && groupList.size() > 0 )
+      if ( groupList != null && !groupList.isEmpty() && paginator.hasPagination())
       {
         Scim2UsersInvocator.updatePaginator(paginator, groupList.size(), response.getTotalResults(), response.getItemsPerPage());
       }
@@ -125,13 +126,13 @@ public class Scim2GroupsInvocator implements DriverInvocator<Scim2Driver, Scim2G
             || config.getEnableAWSSchema()
             || config.getEnableSlackSchema())
     {
-      RestRequest req =
+      RestRequest<Scim2Group> req =
               new RestRequest.Builder<>(Scim2Group.class)
                       .withGet()
                       .withRequestUri(config.getGroupsEndpointUrl() + "/" + objectId)
                       .build();
       RestResponseData<Scim2Group> response = driver.executeRequest(req);
-      if (response.getResponseStatusCode() == 200) {
+      if (response.getResponseStatusCode() == HttpStatus.SC_OK) {
         group = response.getResponseObject();
         if (group.getMembers() == null || group.getMembers().isEmpty()) {
           group.setMembers(getUsersForGroup(driver, group.getId()));
@@ -141,13 +142,13 @@ public class Scim2GroupsInvocator implements DriverInvocator<Scim2Driver, Scim2G
     else if (config.getEnableDynamicSchema())
     {
       // Assume dynamic is the same for now since a Group member is a map
-      RestRequest req =
+      RestRequest<Scim2Group> req =
               new RestRequest.Builder<>(Scim2Group.class)
                       .withGet()
                       .withRequestUri(config.getGroupsEndpointUrl() + "/" + objectId)
                       .build();
       RestResponseData<Scim2Group> response = driver.executeRequest(req);
-      if (response.getResponseStatusCode() == 200) {
+      if (response.getResponseStatusCode() == HttpStatus.SC_OK) {
         group = response.getResponseObject();
         if (group.getMembers() == null || group.getMembers().isEmpty()) {
           group.setMembers(getUsersForGroup(driver, group.getId()));
@@ -164,18 +165,18 @@ public class Scim2GroupsInvocator implements DriverInvocator<Scim2Driver, Scim2G
     Scim2Configuration config = driver.getConfiguration();
     String displayName = URLEncoder.encode(objectName);
     String query = "?filter=displayName+eq+%22" + displayName + "%22";
-    RestRequest request =
+    RestRequest<ListGroupResponse> request =
             new RestRequest.Builder<>(ListGroupResponse.class)
                     .withGet()
                     .withRequestUri(config.getGroupsEndpointUrl() + query )
                     .build();
     RestResponseData<ListGroupResponse> data = driver.executeRequest(request);
 
-    if (data.getResponseStatusCode() == 200 && data.getResponseObject() != null )
+    if (data.getResponseStatusCode() == HttpStatus.SC_OK && data.getResponseObject() != null )
     {
       ListGroupResponse response = data.getResponseObject();
       List<Scim2Group> list = response.getResources();
-      if (list != null && list.size() > 0)
+      if (list != null && !list.isEmpty())
       {
         group = list.get(0);
         if (group.getMembers() == null || group.getMembers().isEmpty()) {
@@ -196,18 +197,17 @@ public class Scim2GroupsInvocator implements DriverInvocator<Scim2Driver, Scim2G
   public void update(Scim2Driver driver, String groupId, Scim2Group model)
       throws ConnectorException {
     Scim2Configuration config = driver.getConfiguration();
-    if ( model.getDisplayName() != null && model.getDisplayName().length() > 0 ) {
+    if ( model.getDisplayName() != null && !model.getDisplayName().isEmpty()) {
       try
       {
         model.setId(groupId);
-        RestRequest req = new RestRequest.Builder<>(Scim2Group.class)
+        RestRequest<Scim2Group> req = new RestRequest.Builder<>(Scim2Group.class)
                 .withPut()
                 .withRequestUri(config.getGroupsEndpointUrl() + "/" + groupId)
                 .withRequestBody(model)
                 .build();
         RestResponseData<Scim2Group> response = driver.executeRequest(req);
-        Scim2Group updated = response.getResponseObject();
-        if ( response.getResponseStatusCode() == 501) {
+        if ( response.getResponseStatusCode() == HttpStatus.SC_NOT_IMPLEMENTED) {
           Scim2PatchOpSingle patchOp = new Scim2PatchOpSingle();
           patchOp.setOperations(new ArrayList<>());
           Scim2OperationSingle op = new Scim2OperationSingle();
@@ -222,8 +222,7 @@ public class Scim2GroupsInvocator implements DriverInvocator<Scim2Driver, Scim2G
                   .withRequestUri(config.getGroupsEndpointUrl() + "/" + groupId)
                   .withRequestBody(patchOp)
                   .build();
-          response = driver.executeRequest(req);
-          updated = response.getResponseObject();
+          driver.executeRequest(req);
         }
       }
       catch ( Exception e )
@@ -267,16 +266,16 @@ public class Scim2GroupsInvocator implements DriverInvocator<Scim2Driver, Scim2G
 
     if ( hasWork )
     {
-      RestRequest request =
+      RestRequest<Scim2Group> request =
               new RestRequest.Builder<>(Scim2Group.class)
                       .withPatch()
                       .withRequestUri(url)
                       .withRequestBody(patchOp)
                       .build();
       RestResponseData<Scim2Group> data = driver.executeRequest(request);
-      if (data.getResponseStatusCode() != 200 && data.getResponseStatusCode() != 204)
+      if (data.getResponseStatusCode() != HttpStatus.SC_OK && data.getResponseStatusCode() != HttpStatus.SC_NO_CONTENT)
       {
-        LOG.warn(String.format("SCIM2 Update Group Members returned HTTP status %s", Integer.toString(data.getResponseStatusCode())));
+        LOG.warn(String.format("SCIM2 Update Group Members returned HTTP status %s", data.getResponseStatusCode()));
       }
     }
   }
@@ -285,14 +284,14 @@ public class Scim2GroupsInvocator implements DriverInvocator<Scim2Driver, Scim2G
     Set<Map<String, String>> groupMaps = new HashSet<>();
     try {
 
-      RestRequest request =
+      RestRequest<ListUsersResponse> request =
               new RestRequest.Builder<>(ListUsersResponse.class)
                       .withGet()
                       .withRequestUri(driver.getConfiguration().getUsersEndpointUrl()  )
                       .build();
       RestResponseData<ListUsersResponse> data = driver.executeRequest(request);
       ListUsersResponse response = data.getResponseObject();
-      if (response != null && data.getResponseStatusCode() == 200)
+      if (response != null && data.getResponseStatusCode() == HttpStatus.SC_OK)
       {
         List<Scim2User> users = response.getResources();
         for (Scim2User user : users)
@@ -308,23 +307,19 @@ public class Scim2GroupsInvocator implements DriverInvocator<Scim2Driver, Scim2G
       }
 
     } catch (Exception e) {
-      e.printStackTrace();
+      LOG.warn("getUsersForGroup :: Exception: " + e.getMessage());
     }
 
-    if (groupMaps != null) {
       for (Map<String, String> groupMap : groupMaps) {
-        if (groupMap != null) {
-          LOG.info("getUsersForGroup :: Group Map: ");
-          for (Map.Entry<String, String> entry : groupMap.entrySet()) {
-            LOG.info("Key: " + entry.getKey() + ", Value: " + entry.getValue());
+          if (groupMap != null) {
+              LOG.info("getUsersForGroup :: Group Map: ");
+              for (Map.Entry<String, String> entry : groupMap.entrySet()) {
+                  LOG.info("Key: " + entry.getKey() + ", Value: " + entry.getValue());
+              }
           }
-        }
       }
-    } else {
-      LOG.info("getUsersForGroup :: Group Maps set is null");
-    }
 
-    return groupMaps;
+      return groupMaps;
   }
 
   private static boolean isUserInGroup(Scim2Driver driver,String userId, String groupId) throws Exception {
@@ -333,7 +328,7 @@ public class Scim2GroupsInvocator implements DriverInvocator<Scim2Driver, Scim2G
             URLEncoder.encode(userId, StandardCharsets.UTF_8.toString()));
     String query = "?filter=" + URLEncoder.encode(filter, StandardCharsets.UTF_8.toString());
 
-    RestRequest request =
+    RestRequest<ListGroupResponse> request =
             new RestRequest.Builder<>(ListGroupResponse.class)
                     .withGet()
                     .withRequestUri(driver.getConfiguration().getGroupsEndpointUrl() + query)
@@ -342,11 +337,11 @@ public class Scim2GroupsInvocator implements DriverInvocator<Scim2Driver, Scim2G
 
     RestResponseData<ListGroupResponse> data = driver.executeRequest(request);
 
-    if (data.getResponseStatusCode() != 200 && data.getResponseStatusCode() != 204)
+    if (data.getResponseStatusCode() != HttpStatus.SC_OK && data.getResponseStatusCode() != HttpStatus.SC_NO_CONTENT)
     {
-      LOG.warn(String.format("SCIM2 Update isUserInGroup returned HTTP status %s", Integer.toString(data.getResponseStatusCode())));
+      LOG.warn(String.format("SCIM2 Update isUserInGroup returned HTTP status %s", data.getResponseStatusCode()));
     }else{
-      return data.getResponseObject().getTotalResults() > 0 ? true : false;
+      return data.getResponseObject().getTotalResults() > 0;
     }
 
     return false;
