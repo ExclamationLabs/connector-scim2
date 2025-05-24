@@ -107,30 +107,29 @@ public class Scim2ConnectorApiIntegrationTest
     // Creates a user that will be deleted at the end
     ObjectClass objClazz = new ObjectClass("Scim2User");
     Set<Attribute> attributes = new HashSet<>();
-    attributes.add(new AttributeBuilder().setName("userName").addValue("gwashington").build());
-    attributes.add(new AttributeBuilder().setName("externalId").addValue("gwashington").build());
+    attributes.add(new AttributeBuilder().setName("userName").addValue("ewashington").build());
+    attributes.add(new AttributeBuilder().setName("externalId").addValue("ewashington").build());
     attributes.add(new AttributeBuilder().setName("name_familyName").addValue("Washington").build());
-    attributes.add(new AttributeBuilder().setName("name_givenName").addValue("George").build());
+    attributes.add(new AttributeBuilder().setName("name_givenName").addValue("Elijah").build());
     attributes.add(new AttributeBuilder().setName("name_middleName").addValue("Founder").build());
     attributes.add(new AttributeBuilder().setName("name_honorificPrefix").addValue("General").build());
     attributes.add(new AttributeBuilder().setName("name_honorificSuffix").addValue("Senior").build());
-    attributes.add(new AttributeBuilder().setName("displayName").addValue("George Washington").build());
+    attributes.add(new AttributeBuilder().setName("displayName").addValue("Elijah Washington").build());
     attributes.add(new AttributeBuilder().setName("locale").addValue("en_US.UTF-8").build());
-    // attributes.add(new AttributeBuilder().setName("nickName").addValue("Tommy").build());
     attributes.add(new AttributeBuilder().setName("preferredLanguage").addValue("en").build());
     attributes.add(new AttributeBuilder().setName("profileUrl").addValue("http://www.exclamationlabs.com/").build());
-    attributes.add(new AttributeBuilder().setName("title").addValue("President").build());
+    attributes.add(new AttributeBuilder().setName("title").addValue("Secretary").build());
     attributes.add(new AttributeBuilder().setName("timezone").addValue("America/New_York").build());
     attributes.add(new AttributeBuilder().setName("userType").addValue("Employee").build());
 
     Set<String> phones = new HashSet<>();
-    phones.add(composeComplexType("954-555-1776", "work", null, true));
-    phones.add(composeComplexType("954-555-1800", "mobile", null, false));
+    phones.add(composeComplexType("954-555-1492", "work", null, true));
+    phones.add(composeComplexType("954-555-2300", "mobile", null, false));
     attributes.add(new AttributeBuilder().setName("phoneNumbers").addValue(phones).build());
 
     Set<String> emails = new HashSet<>();
-    emails.add(composeComplexType("services-dev+gwwork@provisioniam.com", "work", null, true));
-    emails.add(composeComplexType("services-dev+gwhome@provisioniam.com", "home", null, null));
+    emails.add(composeComplexType("services-dev+ewwork@provisioniam.com", "work", null, true));
+    emails.add(composeComplexType("services-dev+ewhome@provisioniam.com", "home", null, null));
     attributes.add(new AttributeBuilder().setName("emails").addValue(emails).build());
 
     Set<String> photos = new HashSet<>();
@@ -202,9 +201,10 @@ public class Scim2ConnectorApiIntegrationTest
   @Test
   @Order(120)
   void testUserGet() {
+    var idTest = "U08TVLK9MQQ"; // U08TVLK9MQQ; // idThomasJefferson
     ObjectClass objClazz = new ObjectClass("Scim2User");
     Attribute id =
-        new AttributeBuilder().setName(Uid.NAME).addValue(idThomasJefferson).build();
+        new AttributeBuilder().setName(Uid.NAME).addValue(idTest).build();
 
     getConnectorFacade()
         .search(
@@ -215,7 +215,7 @@ public class Scim2ConnectorApiIntegrationTest
     assertEquals(1, results.size());
     String userId = results.get(0).getAttributeByName(Uid.NAME).getValue().get(0).toString();
     assertTrue(StringUtils.isNotBlank(userId));
-    assertEquals(idThomasJefferson, userId);
+    assertEquals(idTest, userId);
   }
 
   @Test
@@ -237,7 +237,7 @@ public class Scim2ConnectorApiIntegrationTest
   @Test
   @Order(125)
   void testUserGetByName() {
-    ToListResultsHandler listHandler = new ToListResultsHandler();
+    results = new ArrayList<>();
     ObjectClass objClazz = new ObjectClass("Scim2User");
     Attribute name =
             new AttributeBuilder().setName(Name.NAME).addValue(existingUserName).build();
@@ -245,11 +245,10 @@ public class Scim2ConnectorApiIntegrationTest
     getConnectorFacade().search(
                     objClazz,
                     new EqualsFilter(name),
-                    listHandler,
+                    handler,
                     new OperationOptionsBuilder().build());
-    List<ConnectorObject> users = listHandler.getObjects();
-    assertEquals(1, users.size());
-    String userName = users.get(0).getAttributeByName(Name.NAME).getValue().get(0).toString();
+    assertEquals(1, results.size());
+    String userName = results.get(0).getAttributeByName(Name.NAME).getValue().get(0).toString();
     assertEquals(existingUserName, userName);
   }
 
@@ -289,12 +288,30 @@ public class Scim2ConnectorApiIntegrationTest
   @Test
   @Order(200)
   void testGroupList() {
-    ToListResultsHandler listHandler = new ToListResultsHandler();
+    results = new ArrayList<>();
     ObjectClass objClazz = new ObjectClass("Scim2Group");
     OperationOptions options = new OperationOptionsBuilder().build();
-    getConnectorFacade().search(objClazz,null,listHandler, options);
-    List<ConnectorObject> groups = listHandler.getObjects();
-    assertNotNull(groups);
+    getConnectorFacade().search(objClazz,null, handler, options);
+    assertFalse(results.isEmpty());
+  }
+
+  @Test
+  @Order(202)
+  void testGroupGetOneById() {
+    results = new ArrayList<>();
+    ObjectClass objClazz = new ObjectClass("Scim2Group");
+    Attribute id =
+            new AttributeBuilder().setName(Uid.NAME).addValue(idScim2Group).build();
+    getConnectorFacade()
+            .search(
+                    objClazz,
+                    new EqualsFilter(id),
+                    handler,
+                    new OperationOptionsBuilder().build());
+    assertEquals(1, results.size());
+    String groupId = results.get(0).getAttributeByName(Uid.NAME).getValue().get(0).toString();
+    assertTrue(StringUtils.isNotBlank(groupId));
+    assertEquals(idScim2Group, groupId);
   }
 
   @Test
@@ -303,7 +320,7 @@ public class Scim2ConnectorApiIntegrationTest
     Set<Attribute> attributes = new HashSet<>();
     ObjectClass objGroup = new ObjectClass("Scim2Group");
     OperationOptions options = new OperationOptionsBuilder().build();
-    attributes.add(new AttributeBuilder().setName("displayName").addValue("ProvisionTest").build());
+    attributes.add(new AttributeBuilder().setName("displayName").addValue("ProvisionTestSAT").build());
     Set<String> members = new HashSet<>();
     members.add(composeComplexType(idGeorgeWashington, "User", null, null));
     members.add(composeComplexType(idJeffersonDavis, "User", null, null));
@@ -316,16 +333,14 @@ public class Scim2ConnectorApiIntegrationTest
   @Order(220)
   void testGroupGetByName()
   {
+    results = new ArrayList<>();
     ObjectClass objGroup = new ObjectClass("Scim2Group");
     OperationOptions options = new OperationOptionsBuilder().build();
-    ToListResultsHandler listHandler = new ToListResultsHandler();
     Attribute name =
             new AttributeBuilder().setName(Name.NAME).addValue(existingGroupName).build();
-    getConnectorFacade().search(objGroup,new EqualsFilter(name),listHandler, options);
-    List<ConnectorObject> groups = listHandler.getObjects();
-    assertNotNull(groups);
-    assertEquals(1, groups.size());
-    String groupName = groups.get(0).getAttributeByName(Name.NAME).getValue().get(0).toString();
+    getConnectorFacade().search(objGroup,new EqualsFilter(name), handler, options);
+    assertEquals(1, results.size());
+    String groupName = results.get(0).getAttributeByName(Name.NAME).getValue().get(0).toString();
   }
 
   @Test
@@ -364,17 +379,17 @@ public class Scim2ConnectorApiIntegrationTest
   }
 
   @Test
-  @Disabled
+  //@Disabled
   @Order(310)
   void testUserDelete() {
     ObjectClass objClazz = new ObjectClass("Scim2User");
-    getConnectorFacade().delete(objClazz, new Uid("U07GJHF2BGD"), new OperationOptionsBuilder().build());
+    getConnectorFacade().delete(objClazz, new Uid("U08TVLK9MQQ"), new OperationOptionsBuilder().build());
   }
   @Test
-  @Disabled
+  //@Disabled
   @Order(320)
   void testGroupDelete() {
     ObjectClass objClazz = new ObjectClass("Scim2Group");
-    getConnectorFacade().delete(objClazz, new Uid("U07GJHF2BGD"), new OperationOptionsBuilder().build());
+    getConnectorFacade().delete(objClazz, new Uid("S08TGGX1YBH"), new OperationOptionsBuilder().build());
   }
 }

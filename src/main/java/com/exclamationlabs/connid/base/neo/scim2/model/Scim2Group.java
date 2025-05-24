@@ -7,6 +7,7 @@ import com.exclamationlabs.connid.base.edition.neo.annotation.model.ModelObjectC
 import com.exclamationlabs.connid.base.edition.neo.model.ConnIdType;
 import com.exclamationlabs.connid.base.edition.neo.model.IdentityModel;
 import lombok.Data;
+import org.identityconnectors.framework.common.objects.AttributeInfo;
 
 import java.util.List;
 
@@ -22,6 +23,6 @@ public class Scim2Group implements IdentityModel {
     @ModelAttribute(identifier = ConnIdType.NAME)
     private String displayName;
 
-    @ModelAttributeHolder
-    private Scim2ComplexType members;
+    @ModelAttribute(flags = {AttributeInfo.Flags.MULTIVALUED})
+    private List<Scim2ComplexType> members;
 }
