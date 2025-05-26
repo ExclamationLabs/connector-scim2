@@ -7,9 +7,11 @@ import com.exclamationlabs.connid.base.connector.results.ResultsPaginator;
 import com.exclamationlabs.connid.base.edition.neo.IamType;
 import com.exclamationlabs.connid.base.edition.neo.driver.FullAccessDriver;
 import com.exclamationlabs.connid.base.edition.neo.driver.rest.RestClient;
+import com.exclamationlabs.connid.base.edition.neo.driver.rest.RestResponse;
 import com.exclamationlabs.connid.base.neo.scim2.schema.SchemaFactory;
 import com.exclamationlabs.connid.base.neo.scim2.schema.Scim2Schema;
 import com.exclamationlabs.connid.base.scim2.configuration.Scim2Configuration;
+import org.apache.http.HttpStatus;
 import org.identityconnectors.framework.common.exceptions.ConfigurationException;
 import org.identityconnectors.framework.common.exceptions.ConnectorException;
 
@@ -45,7 +47,10 @@ public class Scim2Driver implements FullAccessDriver<Scim2Configuration> {
 
     @Override
     public void test(Scim2Configuration scim2Configuration) throws ConnectorException {
-
+        RestResponse<String> schemaResponse = restClient.get("/Schemas", String.class);
+        if (schemaResponse.getStatusCode() != 200) {
+            throw new ConnectorException("Failed to get SCIM2 Schemas: " + schemaResponse.getStatusCode());
+        }
     }
 
     @Override

@@ -1,8 +1,6 @@
 package com.exclamationlabs.connid.base.neo.scim2.model;
 
 import com.exclamationlabs.connid.base.edition.neo.annotation.model.ModelAttribute;
-import com.exclamationlabs.connid.base.edition.neo.annotation.model.ModelAttributeHolder;
-import com.exclamationlabs.connid.base.scim2.model.Scim2ComplexType;
 import lombok.Data;
 
 @Data
@@ -21,7 +19,7 @@ public class Scim2EnterpriseUser  {
     private String employeeNumber;
 
     @ModelAttribute(modes={"ENTERPRISE_USER"})
-    private Scim2ComplexType manager;
+    private Scim2ValueDisplayType manager;
 
     @ModelAttribute(modes={"ENTERPRISE_USER"})
     private String organization;

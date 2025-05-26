@@ -1,15 +1,12 @@
 package com.exclamationlabs.connid.base.neo.scim2;
 
 import com.exclamationlabs.connid.base.connector.driver.exception.DriverDataNotFoundException;
-import com.exclamationlabs.connid.base.connector.driver.rest.RestRequest;
 import com.exclamationlabs.connid.base.connector.logging.Logger;
 import com.exclamationlabs.connid.base.connector.results.ResultsFilter;
 import com.exclamationlabs.connid.base.connector.results.ResultsPaginator;
 import com.exclamationlabs.connid.base.edition.neo.IamType;
 import com.exclamationlabs.connid.base.edition.neo.driver.FullAccessInvocator;
-import com.exclamationlabs.connid.base.neo.scim2.model.Scim2Group;
 import com.exclamationlabs.connid.base.neo.scim2.model.Scim2User;
-import com.exclamationlabs.connid.base.neo.scim2.model.response.Scim2GroupsResponse;
 import com.exclamationlabs.connid.base.neo.scim2.model.response.Scim2UsersResponse;
 import com.exclamationlabs.connid.base.neo.scim2.schema.SchemaFactory;
 import com.exclamationlabs.connid.base.scim2.configuration.Scim2Configuration;

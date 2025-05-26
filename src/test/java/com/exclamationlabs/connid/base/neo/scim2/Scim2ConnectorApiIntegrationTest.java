@@ -53,13 +53,13 @@ public class Scim2ConnectorApiIntegrationTest
 
   static String composeComplexType(String value, String type, String display, Boolean primary){
     StringJoiner joiner = new StringJoiner(",", "{", "}");
-    if ( value != null && value.length() > 0 ) {
+    if ( value != null && !value.isEmpty()) {
       joiner.add(String.format("\"value\":\"%s\"", value));
     }
-    if ( type != null && type.length() > 0 ) {
+    if ( type != null && !type.isEmpty()) {
       joiner.add(String.format("\"type\":\"%s\"", type));
     }
-    if ( display != null && display.length() > 0 ) {
+    if ( display != null && !display.isEmpty()) {
       joiner.add(String.format("\"display\":\"%s\"", display));
     }
     if ( primary != null ) {
@@ -67,6 +67,19 @@ public class Scim2ConnectorApiIntegrationTest
     }
     return joiner.toString();
   }
+
+
+  static String composeValueDisplayType(String value, String display){
+    StringJoiner joiner = new StringJoiner(",", "{", "}");
+    if ( value != null && !value.isEmpty()) {
+      joiner.add(String.format("\"value\":\"%s\"", value));
+    }
+    if ( display != null && !display.isEmpty()) {
+      joiner.add(String.format("\"display\":\"%s\"", display));
+    }
+    return joiner.toString();
+  }
+
   @Override
   protected Scim2Configuration getConfiguration() {
     return new Scim2Configuration("slack_scim2");
@@ -103,18 +116,17 @@ public class Scim2ConnectorApiIntegrationTest
 
   @Test
   @Order(100)
-  void testUserCreate() {
-    // Creates a user that will be deleted at the end
+  void testProfileUserCreate() {
     ObjectClass objClazz = new ObjectClass("Scim2User");
     Set<Attribute> attributes = new HashSet<>();
-    attributes.add(new AttributeBuilder().setName("userName").addValue("ewashington").build());
-    attributes.add(new AttributeBuilder().setName("externalId").addValue("ewashington").build());
+    attributes.add(new AttributeBuilder().setName("userName").addValue("hwashington").build());
+    attributes.add(new AttributeBuilder().setName("externalId").addValue("hwashington").build());
     attributes.add(new AttributeBuilder().setName("name_familyName").addValue("Washington").build());
-    attributes.add(new AttributeBuilder().setName("name_givenName").addValue("Elijah").build());
+    attributes.add(new AttributeBuilder().setName("name_givenName").addValue("Hank").build());
     attributes.add(new AttributeBuilder().setName("name_middleName").addValue("Founder").build());
     attributes.add(new AttributeBuilder().setName("name_honorificPrefix").addValue("General").build());
     attributes.add(new AttributeBuilder().setName("name_honorificSuffix").addValue("Senior").build());
-    attributes.add(new AttributeBuilder().setName("displayName").addValue("Elijah Washington").build());
+    attributes.add(new AttributeBuilder().setName("displayName").addValue("Hank Washington").build());
     attributes.add(new AttributeBuilder().setName("locale").addValue("en_US.UTF-8").build());
     attributes.add(new AttributeBuilder().setName("preferredLanguage").addValue("en").build());
     attributes.add(new AttributeBuilder().setName("profileUrl").addValue("http://www.exclamationlabs.com/").build());
@@ -128,14 +140,101 @@ public class Scim2ConnectorApiIntegrationTest
     attributes.add(new AttributeBuilder().setName("phoneNumbers").addValue(phones).build());
 
     Set<String> emails = new HashSet<>();
-    emails.add(composeComplexType("services-dev+ewwork@provisioniam.com", "work", null, true));
-    emails.add(composeComplexType("services-dev+ewhome@provisioniam.com", "home", null, null));
+    emails.add(composeComplexType("services-dev+hwwork@provisioniam.com", "work", null, true));
+    emails.add(composeComplexType("services-dev+hwhome@provisioniam.com", "home", null, null));
     attributes.add(new AttributeBuilder().setName("emails").addValue(emails).build());
 
     Set<String> photos = new HashSet<>();
     photos.add(composeComplexType("https://gravatar.com/avatar/abdf31385275b3157dbb610b80041a44?size=256", "photo", null, true));
     attributes.add(new AttributeBuilder().setName("photos").addValue(photos).build());
 
+    // Slack profile field
+    attributes.add(new AttributeBuilder().setName("startDate").addValue("2023-09-15T00:00:00+0000").build());
+
+    // Enterprise fields
+    attributes.add(new AttributeBuilder().setName("department").addValue("Some Dept").build());
+    attributes.add(new AttributeBuilder().setName("division").addValue("Acme Division").build());
+    attributes.add(new AttributeBuilder().setName("employeeNumber").addValue("H12345678").build());
+    attributes.add(new AttributeBuilder().setName("organization").addValue("Organized").build());
+    attributes.add(new AttributeBuilder().setName("manager").addValue(composeValueDisplayType("M123456", "Hanks Mgr")).build());
+
+    Uid newId = getConnectorFacade().create(
+            objClazz, attributes, new OperationOptionsBuilder().build());
+    assertNotNull(newId);
+    assertNotNull(newId.getUidValue());
+    generatedUserId = newId.getUidValue();
+  }
+
+  @Test
+  @Disabled // HTTP 400 invalid_request_payload even when POST matches documented examples exactly
+  @Order(101)
+  void testGuestUserCreate() {
+    ObjectClass objClazz = new ObjectClass("Scim2User");
+    Set<Attribute> attributes = new HashSet<>();
+    attributes.add(new AttributeBuilder().setName("userName").addValue("dwashington").build());
+    attributes.add(new AttributeBuilder().setName("displayName").addValue("Doug Washington").build());
+
+    Set<String> emails = new HashSet<>();
+    emails.add(composeValueDisplayType("dwash@provisioniam.com", "Doug Washington"));
+    attributes.add(new AttributeBuilder().setName("emails").addValue(emails).build());
+
+    // Slack Guest fields
+    attributes.add(new AttributeBuilder().setName("guestType").addValue("multi").build());
+    Set<String> channels = new HashSet<>();
+    channels.add(composeValueDisplayType("ABC", "American Broadcasting Channel"));
+    channels.add(composeValueDisplayType("NBC", "National Broadcasting Channel"));
+    attributes.add(new AttributeBuilder().setName("channels").addValue(channels).build());
+
+    Uid newId = getConnectorFacade().create(
+            objClazz, attributes, new OperationOptionsBuilder().build());
+    assertNotNull(newId);
+    assertNotNull(newId.getUidValue());
+    generatedUserId = newId.getUidValue();
+  }
+
+  @Test
+  @Order(102)
+  void testProfileUserWithGroupsCreate() {
+    ObjectClass objClazz = new ObjectClass("Scim2User");
+    Set<Attribute> attributes = new HashSet<>();
+    attributes.add(new AttributeBuilder().setName("userName").addValue("jwashington").build());
+    attributes.add(new AttributeBuilder().setName("externalId").addValue("jwashington").build());
+    attributes.add(new AttributeBuilder().setName("name_familyName").addValue("Washington").build());
+    attributes.add(new AttributeBuilder().setName("name_givenName").addValue("Jack").build());
+    attributes.add(new AttributeBuilder().setName("name_middleName").addValue("Founder").build());
+    attributes.add(new AttributeBuilder().setName("name_honorificPrefix").addValue("General").build());
+    attributes.add(new AttributeBuilder().setName("name_honorificSuffix").addValue("Senior").build());
+    attributes.add(new AttributeBuilder().setName("displayName").addValue("Jack Washington").build());
+    attributes.add(new AttributeBuilder().setName("locale").addValue("en_US.UTF-8").build());
+    attributes.add(new AttributeBuilder().setName("preferredLanguage").addValue("en").build());
+    attributes.add(new AttributeBuilder().setName("profileUrl").addValue("http://www.exclamationlabs.com/").build());
+    attributes.add(new AttributeBuilder().setName("title").addValue("Secretary").build());
+    attributes.add(new AttributeBuilder().setName("timezone").addValue("America/New_York").build());
+    attributes.add(new AttributeBuilder().setName("userType").addValue("Employee").build());
+
+    Set<String> phones = new HashSet<>();
+    phones.add(composeComplexType("954-555-1492", "work", null, true));
+    phones.add(composeComplexType("954-555-2300", "mobile", null, false));
+    attributes.add(new AttributeBuilder().setName("phoneNumbers").addValue(phones).build());
+
+    Set<String> emails = new HashSet<>();
+    emails.add(composeComplexType("services-dev+jwwork@provisioniam.com", "work", null, true));
+    emails.add(composeComplexType("services-dev+jwhome@provisioniam.com", "home", null, null));
+    attributes.add(new AttributeBuilder().setName("emails").addValue(emails).build());
+
+    Set<String> groups = new HashSet<>();
+    groups.add(composeValueDisplayType(idScim2Group, "SCIM2" ));
+    groups.add(composeValueDisplayType(idTestGroup, "Test Group" ));
+    attributes.add(new AttributeBuilder().setName("groups").addValue(groups).build());
+
+    // Slack profile field
+    attributes.add(new AttributeBuilder().setName("startDate").addValue("2023-09-15T00:00:00+0000").build());
+
+    // Enterprise fields
+    attributes.add(new AttributeBuilder().setName("department").addValue("Some Dept").build());
+    attributes.add(new AttributeBuilder().setName("division").addValue("Acme Division").build());
+    attributes.add(new AttributeBuilder().setName("employeeNumber").addValue("H12345678").build());
+    attributes.add(new AttributeBuilder().setName("organization").addValue("Organized").build());
 
     Uid newId = getConnectorFacade().create(
             objClazz, attributes, new OperationOptionsBuilder().build());
@@ -201,7 +300,7 @@ public class Scim2ConnectorApiIntegrationTest
   @Test
   @Order(120)
   void testUserGet() {
-    var idTest = "U08TVLK9MQQ"; // U08TVLK9MQQ; // idThomasJefferson
+    var idTest = "U08TR5B0014"; // U08TVLK9MQQ; // idThomasJefferson
     ObjectClass objClazz = new ObjectClass("Scim2User");
     Attribute id =
         new AttributeBuilder().setName(Uid.NAME).addValue(idTest).build();

@@ -6,6 +6,7 @@ public enum SchemaName {
 
     ENTERPRISE_USER,
 
-    SLACK_USER,
+    SLACK_PROFILE_USER,
+    SLACK_GUEST_USER,
     SLACK_GROUP
 }

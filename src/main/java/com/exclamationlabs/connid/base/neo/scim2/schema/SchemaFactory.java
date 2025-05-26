@@ -32,8 +32,10 @@ public class SchemaFactory {
                                 "urn:ietf:params:scim:schemas:core:2.0:User"),
                         new Scim2Schema(ENTERPRISE_USER.name(),
                                 "urn:ietf:params:scim:schemas:extension:enterprise:2.0:User"),
-                        new Scim2Schema(SLACK_USER.name(),
-                                "urn:ietf:params:scim:schemas:extension:slack:profile:2.0:User")); break;
+                        new Scim2Schema(SLACK_PROFILE_USER.name(),
+                                "urn:ietf:params:scim:schemas:extension:slack:profile:2.0:User"),
+                        new Scim2Schema(SLACK_GUEST_USER.name(),
+                                "urn:ietf:params:scim:schemas:extension:slack:guest:2.0:User")); break;
 
                 default: throw new ConfigurationException("Unsupported user mode: " + mode);
             }

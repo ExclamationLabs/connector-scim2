@@ -7,26 +7,21 @@ import lombok.Setter;
 
 @Getter
 @Setter
-public class Scim2ComplexType implements JsonDeserializable {
+public class Scim2ValueDisplayType implements JsonDeserializable {
   private String value;
   private String display;
-  private String type;
-  private boolean primary;
 
   @Override
   public String toString() {
-//    var gson = new Gson();
-//    return gson.toJson(this);
-    return String.format("{\"value\":\"%s\"}", value);
+    var gson = new Gson();
+    return gson.toJson(this);
   }
 
   @Override
   public void fromString(String input) {
     var gson = new Gson();
-    Scim2ComplexType complexType = gson.fromJson(input, Scim2ComplexType.class);
+    Scim2ValueDisplayType complexType = gson.fromJson(input, Scim2ValueDisplayType.class);
     this.value = complexType.getValue();
     this.display = complexType.getDisplay();
-    this.type = complexType.getType();
-    this.primary = complexType.isPrimary();
   }
 }

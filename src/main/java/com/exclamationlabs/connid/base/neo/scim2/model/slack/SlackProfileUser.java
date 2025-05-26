@@ -6,6 +6,6 @@ import lombok.Data;
 @Data
 public class SlackProfileUser {
 
-  @ModelAttribute(modes={"SLACK_USER"})
+  @ModelAttribute(modes={"SLACK_PROFILE_USER"})
   private String startDate;
 }

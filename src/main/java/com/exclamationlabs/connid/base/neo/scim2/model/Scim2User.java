@@ -81,7 +81,7 @@ public class Scim2User implements IdentityModel {
     private List<Scim2ComplexType> addresses;
 
     @ModelAttribute(flags = {AttributeInfo.Flags.MULTIVALUED})
-    private List<Scim2ComplexType> groups;
+    private List<Scim2ValueDisplayType> groups;
 
     @ModelAttribute(flags = {AttributeInfo.Flags.MULTIVALUED})
     private List<Scim2ComplexType> entitlements;
@@ -96,11 +96,11 @@ public class Scim2User implements IdentityModel {
     @SerializedName("urn:ietf:params:scim:schemas:extension:enterprise:2.0:User")
     private Scim2EnterpriseUser enterpriseUser;
 
-    @ModelAttributeHolder(modes={"SLACK_USER"})
+    @ModelAttributeHolder(modes={"SLACK_GUEST_USER"})
     @SerializedName("urn:ietf:params:scim:schemas:extension:slack:guest:2.0:User")
     private SlackGuestUser guestInfo;
 
-    @ModelAttributeHolder(modes={"SLACK_USER"})
+    @ModelAttributeHolder(modes={"SLACK_PROFILE_USER"})
     @SerializedName("urn:ietf:params:scim:schemas:extension:slack:profile:2.0:User")
     private SlackProfileUser profileInfo;
 }
