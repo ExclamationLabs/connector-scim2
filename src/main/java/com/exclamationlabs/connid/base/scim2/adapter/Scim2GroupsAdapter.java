@@ -68,6 +68,9 @@ public class Scim2GroupsAdapter extends BaseAdapter<Scim2Group, Scim2Configurati
      * value, $ref, and type
      */
     result.add(new ConnectorAttribute(members.name(), STRING, MULTIVALUED));
+    if ( configuration.getSelfRef() != null && configuration.getSelfRef() ) {
+      result.add(new ConnectorAttribute(selfRef.name(), STRING, NOT_CREATABLE, NOT_UPDATEABLE));
+    }
 
     return result;
   }
@@ -97,9 +100,42 @@ public class Scim2GroupsAdapter extends BaseAdapter<Scim2Group, Scim2Configurati
           memberSet.add(member);
       }
       attributes.add(AttributeBuilder.build(members.name(), memberSet));
+      if ( configuration.getSelfRef() != null && configuration.getSelfRef() ) {
+        attributes.add(AttributeBuilder.build(selfRef.name(), builderSelfRef(group)));
+      }
     }
     return attributes;
   }
+
+  /**
+   * Generate the structured information containing the self reference (e.g. for the comparing of the objects)
+   *
+   * @param group
+   * @return json structured Self reference
+   */
+  private String builderSelfRef(Scim2Group group) {
+    String result;
+    Gson gson = new Gson();
+    Map<String, String> retValue = new LinkedHashMap<>();
+
+    if ( group != null ) {
+      retValue.put("value", group.getId());
+      retValue.put("$ref",
+              configuration.getServiceUrl() +
+                      Objects.toString(configuration.getGroupsEndpointUrl(), "") +
+                      "/" + group.getId()
+      );
+      retValue.put("display", Objects.toString(group.getDisplayName(), ""));
+      result = gson.toJson(retValue);
+      if (result != null) {
+        if (!result.isEmpty()) {
+          return result;
+        }
+      }
+    }
+    return "";
+  }
+
 
   @Override
   protected Scim2Group constructModel(

@@ -54,6 +54,12 @@ custom:
         order: 3070
         display: 'Groups Endpoint URL'
         help: 'Discovered from the resource type or entered manually'
+      selfRef:
+        type: boolean
+        default: 'false'
+        order: 3088
+        display: 'Self Reference'
+        help: 'Enable to calculate self reference value for the object.'
     optional:
       userSchemaIdList:
         type: string_array

@@ -73,6 +73,9 @@ public class Scim2UserAdapter extends BaseAdapter<Scim2User, Scim2Configuration>
     result.add(new ConnectorAttribute(entitlements.name(), STRING, MULTIVALUED));
     result.add(new ConnectorAttribute(roles.name(), STRING, MULTIVALUED));
     result.add(new ConnectorAttribute(x509Certificates.name(), STRING, MULTIVALUED));
+    if ( configuration.getSelfRef() != null && configuration.getSelfRef() ) {
+      result.add(new ConnectorAttribute(selfRef.name(), STRING, NOT_CREATABLE, NOT_UPDATEABLE));
+    }
     return result;
   }
 
@@ -432,6 +435,9 @@ public class Scim2UserAdapter extends BaseAdapter<Scim2User, Scim2Configuration>
     // attributes.add(AttributeBuilder.build(userName.name(), user.getIdentityNameValue()));
     attributes.add(AttributeBuilder.build(Name.NAME, user.getUserName()));
     attributes.add(AttributeBuilder.build(userType.name(), user.getUserType()));
+    if ( configuration.getSelfRef() != null && configuration.getSelfRef() ) {
+      attributes.add(AttributeBuilder.build(selfRef.name(), builderSelfRef(user)));
+    }
 
     Set<String> addressSet = putAddresses(user.getAddresses());
     if ( addressSet != null )
@@ -486,6 +492,35 @@ public class Scim2UserAdapter extends BaseAdapter<Scim2User, Scim2Configuration>
       attributes.add(AttributeBuilder.build(x509Certificates.name(), x509CertificatesSet));
     }
     return attributes;
+  }
+
+  /**
+   * Generate the structured information containing the self reference (e.g. for the comparing of the objects)
+   *
+   * @param user
+   * @return json structured Self reference
+   */
+  private String builderSelfRef(Scim2User user) {
+    String result;
+    Gson gson = new Gson();
+    Map<String, String> retValue = new LinkedHashMap<>();
+
+    if (user != null) {
+      retValue.put("value", user.getId());
+      retValue.put("$ref",
+              configuration.getServiceUrl() +
+                      Objects.toString(configuration.getUsersEndpointUrl(), "") +
+                      "/" + user.getId()
+      );
+      retValue.put("display", Objects.toString(user.getUserName(), ""));
+      result = gson.toJson(retValue);
+      if (result != null) {
+        if (!result.isEmpty()) {
+          return result;
+        }
+      }
+    }
+    return "";
   }
 
   /**
