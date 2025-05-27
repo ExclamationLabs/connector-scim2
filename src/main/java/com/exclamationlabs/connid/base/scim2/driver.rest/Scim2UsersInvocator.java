@@ -478,7 +478,13 @@ public class Scim2UsersInvocator implements DriverInvocator<Scim2Driver, Scim2Us
         String filter = String.format("id eq \"%s\" and members eq \"%s\"",
                 URLEncoder.encode(groupId, StandardCharsets.UTF_8.toString()),
                 URLEncoder.encode(userId, StandardCharsets.UTF_8.toString()));
-        String query = "?filter=" + URLEncoder.encode(filter, StandardCharsets.UTF_8.toString());
+        String query = "";
+        if (driver.getConfiguration().getUserInGroupSkipFilterKeyword() != null &&
+                driver.getConfiguration().getUserInGroupSkipFilterKeyword() ) {
+            query = "?" + URLEncoder.encode(filter, StandardCharsets.UTF_8.toString());
+        } else {
+            query = "?filter=" + URLEncoder.encode(filter, StandardCharsets.UTF_8.toString());
+        }
 
         RestRequest<ListGroupResponse> request =
                 new RestRequest.Builder<>(ListGroupResponse.class)
