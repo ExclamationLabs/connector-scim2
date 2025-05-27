@@ -68,6 +68,9 @@ public class Scim2GroupsAdapter extends BaseAdapter<Scim2Group, Scim2Configurati
      * value, $ref, and type
      */
     result.add(new ConnectorAttribute(members.name(), STRING, MULTIVALUED));
+    if ( configuration.getShortList() != null && configuration.getShortList() ) {
+      result.add(new ConnectorAttribute(members_value.name(), STRING, MULTIVALUED));
+    }
     if ( configuration.getSelfRef() != null && configuration.getSelfRef() ) {
       result.add(new ConnectorAttribute(selfRef.name(), STRING, NOT_CREATABLE, NOT_UPDATEABLE));
     }
@@ -80,6 +83,7 @@ public class Scim2GroupsAdapter extends BaseAdapter<Scim2Group, Scim2Configurati
   {
     Set<Attribute> attributes = new HashSet<>();
     Set<String> memberSet = new HashSet<>();
+    Set<String> memberValueSet = new HashSet<>();
     //attributes.add(AttributeBuilder.build(displayName.name(), group.getDisplayName()));
     attributes.add(AttributeBuilder.build(Name.NAME, group.getIdentityNameValue()));
     attributes.add(AttributeBuilder.build(id.name(), group.getId()));
@@ -95,11 +99,17 @@ public class Scim2GroupsAdapter extends BaseAdapter<Scim2Group, Scim2Configurati
           StringJoiner joiner = new StringJoiner(",", "{", "}");
           item.forEach((key, value) -> {
             joiner.add(String.format("\"%s\":\"%s\"", key, value));
+            if ( key.equals("value")) {
+              memberValueSet.add(value);
+            }
           });
           member = joiner.toString();
           memberSet.add(member);
       }
       attributes.add(AttributeBuilder.build(members.name(), memberSet));
+      if ( configuration.getShortList() != null && configuration.getShortList() ) {
+        attributes.add(AttributeBuilder.build(members_value.name(), memberValueSet));
+      }
       if ( configuration.getSelfRef() != null && configuration.getSelfRef() ) {
         attributes.add(AttributeBuilder.build(selfRef.name(), builderSelfRef(group)));
       }
@@ -166,10 +176,47 @@ public class Scim2GroupsAdapter extends BaseAdapter<Scim2Group, Scim2Configurati
     // Add these members
     jsonMembers = readAssignments(addedMultiValueAttributes, members);
     group.setAddMembers(getMembersFromJSON(jsonMembers));
+
+    if ( configuration.getShortList() != null && configuration.getShortList() ) {
+      Set<String> jsonMembersValue = readAssignments(attributes, members_value);
+      group.setMembers(getMembersFromJSON(
+              convertSetToSetOfJsons(jsonMembersValue, "value")
+      ));
+      // Removed these members
+      jsonMembersValue = readAssignments(removedMultiValueAttributes, members_value);
+      group.setRemoveMembers(getMembersFromJSON(
+              convertSetToSetOfJsons(jsonMembersValue, "value")
+      ));
+      // Add these members
+      jsonMembersValue = readAssignments(addedMultiValueAttributes, members_value);
+      group.setAddMembers(getMembersFromJSON(
+              convertSetToSetOfJsons(jsonMembersValue, "value")
+      ));
+    }
+
     // Set the schema List to groups
     Set<String> schemaList = new HashSet<>();
     schemaList.add(SCIM2_CORE_GROUP_SCHEMA);
     group.setSchemas(schemaList);
     return group;
   }
+
+  /**
+   * Helper method to convert set of String into set of JSONs
+   * @param array Set<String> to convert
+   * @param key Value to add as a key to each value
+   * @return final set of JSONs : {"key":"value"}
+   */
+  public static Set<String> convertSetToSetOfJsons(Set<String> array, String key) {
+    if (array != null) {
+      Iterator iterValue = array.iterator();
+      Set<String> retVal = new HashSet<String>();
+      while (iterValue.hasNext()) {
+        retVal.add("{\"" + key + "\":\"" + iterValue.next() + "\"}");
+      }
+      return retVal;
+    }
+    return null;
+  }
+
 }
