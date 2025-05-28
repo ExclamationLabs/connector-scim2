@@ -479,8 +479,8 @@ public class Scim2UsersInvocator implements DriverInvocator<Scim2Driver, Scim2Us
                 URLEncoder.encode(groupId, StandardCharsets.UTF_8.toString()),
                 URLEncoder.encode(userId, StandardCharsets.UTF_8.toString()));
         String query = "";
-        if (driver.getConfiguration().getUserInGroupSkipFilterKeyword() != null &&
-                driver.getConfiguration().getUserInGroupSkipFilterKeyword() ) {
+        if (driver.getConfiguration().getGroupSkipFilterKeyword() != null &&
+                driver.getConfiguration().getGroupSkipFilterKeyword() ) {
             query = "?" + URLEncoder.encode(filter, StandardCharsets.UTF_8.toString());
         } else {
             query = "?filter=" + URLEncoder.encode(filter, StandardCharsets.UTF_8.toString());

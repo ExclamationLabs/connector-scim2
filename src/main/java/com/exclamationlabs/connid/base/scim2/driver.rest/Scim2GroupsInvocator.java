@@ -164,7 +164,14 @@ public class Scim2GroupsInvocator implements DriverInvocator<Scim2Driver, Scim2G
     Scim2Group group = null;
     Scim2Configuration config = driver.getConfiguration();
     String displayName = URLEncoder.encode(objectName);
-    String query = "?filter=displayName+eq+%22" + displayName + "%22";
+    String query;
+    if (driver.getConfiguration().getGroupSkipFilterKeyword() != null &&
+            driver.getConfiguration().getGroupSkipFilterKeyword() ) {
+      query = "?displayName+eq+%22" + displayName + "%22";
+    } else {
+      query = "?filter=displayName+eq+%22" + displayName + "%22";
+    }
+
     RestRequest<ListGroupResponse> request =
             new RestRequest.Builder<>(ListGroupResponse.class)
                     .withGet()
@@ -283,11 +290,14 @@ public class Scim2GroupsInvocator implements DriverInvocator<Scim2Driver, Scim2G
   private Set<Map<String, String>> getUsersForGroup(Scim2Driver driver, String groupId) {
     Set<Map<String, String>> groupMaps = new HashSet<>();
     try {
+      String filter = String.format("groups.value eq \"%s\"",
+              URLEncoder.encode(groupId, StandardCharsets.UTF_8.toString()));
+      String query = "?filter=" + URLEncoder.encode(filter, StandardCharsets.UTF_8.toString());
 
       RestRequest<ListUsersResponse> request =
               new RestRequest.Builder<>(ListUsersResponse.class)
                       .withGet()
-                      .withRequestUri(driver.getConfiguration().getUsersEndpointUrl()  )
+                      .withRequestUri(driver.getConfiguration().getUsersEndpointUrl() + query )
                       .build();
       RestResponseData<ListUsersResponse> data = driver.executeRequest(request);
       ListUsersResponse response = data.getResponseObject();
@@ -326,7 +336,13 @@ public class Scim2GroupsInvocator implements DriverInvocator<Scim2Driver, Scim2G
     String filter = String.format("id eq \"%s\" and members eq \"%s\"",
             URLEncoder.encode(groupId, StandardCharsets.UTF_8.toString()),
             URLEncoder.encode(userId, StandardCharsets.UTF_8.toString()));
-    String query = "?filter=" + URLEncoder.encode(filter, StandardCharsets.UTF_8.toString());
+    String query;
+    if (driver.getConfiguration().getGroupSkipFilterKeyword() != null &&
+            driver.getConfiguration().getGroupSkipFilterKeyword() ) {
+      query = "?" + URLEncoder.encode(filter, StandardCharsets.UTF_8.toString());
+    } else {
+      query = "?filter=" + URLEncoder.encode(filter, StandardCharsets.UTF_8.toString());
+    }
 
     RestRequest<ListGroupResponse> request =
             new RestRequest.Builder<>(ListGroupResponse.class)

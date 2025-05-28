@@ -66,12 +66,12 @@ custom:
         order: 3090
         display: 'Short list for group/member attribute'
         help: 'To enable utilize of groups_value and members_value attribute.'
-      userInGroupSkipFilterKeyword:
+      groupSkipFilterKeyword:
         type: boolean
         default: 'false'
         order: 3091
-        display: 'Custom UserInGroup Filter'
-        help: 'Some resources does not use \"filter\" keyword for UserInGroup searching. Enable to stop using it.'
+        display: 'Custom Group Filter '
+        help: 'Some resources does not use \"filter\" keyword for Group filtering. Enable to stop using it.'
     optional:
       userSchemaIdList:
         type: string_array
