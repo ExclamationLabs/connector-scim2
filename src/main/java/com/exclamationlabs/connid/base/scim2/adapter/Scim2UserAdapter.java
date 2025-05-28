@@ -198,11 +198,10 @@ public class Scim2UserAdapter extends BaseAdapter<Scim2User, Scim2Configuration>
     * @return Set of JSON formatted strings
     */
   public Set<String> getSetOfJSONFromListOfMap(Boolean shortList, List<Map<String, String>> list){
-    if ( list != null ) {
-      if ( list.size() > 0 ) {
+    if ( list != null && list.size() > 0 ) {
         Set<String> set = new HashSet<>();
         for(Map<String, String> item: list) {
-          if (shortList) {
+          if ( shortList != null && shortList) {
             item.forEach((key, value) -> {
               if (key.equals("value")) {
                 set.add(value);
