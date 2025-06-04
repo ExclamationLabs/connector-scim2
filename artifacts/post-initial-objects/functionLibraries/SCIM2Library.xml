@@ -14,16 +14,44 @@
     <iteration>0</iteration>
     <iterationToken/>
     <function>
-        <name>getValueIfPrimary</name>
-        <description>Returns a value if the json object has primary == true</description>
-        <documentation>
-            This function is intended to parse a simple JSON object that converts directly into Map of name/value pairs
-            The SCIM2 User Schema specification returns an array of these
-            that include names like "value:, "type", "primary", and "display"
-            This function scans the object and returns a value when primary is true
-        </documentation>
+        <name>valueParser</name>
         <parameter xsi:type="c:ExpressionParameterType">
-            <name>inbound</name>
+            <name>input</name>
+            <type xmlns:xsd="http://www.w3.org/2001/XMLSchema">xsd:string</type>
+        </parameter>
+        <script>
+            <code>
+                import groovy.json.JsonSlurper
+                jsonSlurper = new JsonSlurper()
+
+                // only one attribute at a time is sent into this mapper
+                log.warn("Attribute {}", input)
+                // {"display":"bla", "value":"abc123"}
+
+                Map data = jsonSlurper.parseText(input)
+
+
+                // If there is no value or value is an empty string, return null
+                if ( data != null &amp;&amp; data instanceof Map) {
+                    if(data?.value == null || data?.value?.isEmpty() ){
+                        return null
+                    }
+                    log.info('Attribute value is {} ', data?.value)
+                    return data.value
+                }
+                // return null since nothing is found
+                return null
+            </code>
+        </script>
+    </function>
+    <function>
+        <name>addressParser</name>
+        <parameter xsi:type="c:ExpressionParameterType">
+            <name>input</name>
+            <type xmlns:xsd="http://www.w3.org/2001/XMLSchema">xsd:string</type>
+        </parameter>
+        <parameter xsi:type="c:ExpressionParameterType">
+            <name>item</name>
             <type xmlns:xsd="http://www.w3.org/2001/XMLSchema">xsd:string</type>
         </parameter>
         <returnType xmlns:xsd="http://www.w3.org/2001/XMLSchema">xsd:string</returnType>
@@ -32,27 +60,96 @@
                 import groovy.json.JsonSlurper
                 jsonSlurper = new JsonSlurper()
 
-                // return null when the input is null or emptu string
-                if ( inbound == null || inbound.trim().length() == 0)
-                {
+                if(input == null || input == ""){
+                    return null
+                }
+
+                data = jsonSlurper.parseText(input)
+
+                switch(item){
+                    case "streetAddress":
+                        return data.streetAddress
+                    case "locality":
+                        return data.locality
+                    case "region":
+                        return data.region
+                    case "postalCode":
+                        return data.postalCode
+                    case "country":
+                        return data.country
+                    default:
+                        return null
+                }
+            </code>
+        </script>
+    </function>
+    <function>
+        <name>jsonParser</name>
+        <parameter xsi:type="c:ExpressionParameterType">
+            <name>response</name>
+            <type xmlns:xsd="http://www.w3.org/2001/XMLSchema">xsd:string</type>
+        </parameter>
+        <parameter xsi:type="c:ExpressionParameterType">
+            <name>primary</name>
+            <type xmlns:xsd="http://www.w3.org/2001/XMLSchema">xsd:string</type>
+        </parameter>
+        <parameter xsi:type="c:ExpressionParameterType">
+            <name>type</name>
+            <type xmlns:xsd="http://www.w3.org/2001/XMLSchema">xsd:string</type>
+        </parameter>
+        <parameter xsi:type="c:ExpressionParameterType">
+            <name>group</name>
+            <type xmlns:xsd="http://www.w3.org/2001/XMLSchema">xsd:boolean</type>
+        </parameter>
+        <returnType xmlns:xsd="http://www.w3.org/2001/XMLSchema">xsd:string</returnType>
+        <script>
+            <code>
+                import groovy.json.JsonSlurper
+                jsonSlurper = new JsonSlurper()
+
+                if(response == null || response == ""){
                     return null
                 }
 
                 // Store parsed response in a collection to make use of Groovy's findAll closure
-                Map data = jsonSlurper.parseText(inbound);
+                data = [jsonSlurper.parseText(response)]
 
                 // If there is no value or value is an empty string, return null
-                if ( data != null &amp;&amp; data instanceof Map) {
-                    if( data.primary != null &amp;&amp; data.primary ) {
-                        if(data?.value == null || data?.value?.isEmpty() ){
-                            return null;
-                        }
-                        log.info('Primary value is {} ', data?.value);
-                        return data.value;
-                    }
+                if(data?.value == null || data?.value == ''){
+                    return null
                 }
-                // return null since nothing is found
-                return null
+
+                // Groups and Roles don't have type or primary, just id and displayName
+                if(group){
+                    return data.value
+                }
+
+                // return the item found, or null if nothing is found
+                return data.findAll{it?.primary?.toString() == primary || it?.type == type}?.value
+            </code>
+        </script>
+    </function>
+    <function>
+        <name>jsonComposer</name>
+        <parameter xsi:type="c:ExpressionParameterType">
+            <name>map</name>
+            <type xmlns:xsd="http://www.w3.org/2001/XMLSchema">xsd:anyType</type>
+        </parameter>
+        <returnType xmlns:xsd="http://www.w3.org/2001/XMLSchema">xsd:string</returnType>
+        <script>
+            <code>
+                jsonArray = []
+                jsonMap = '{'
+
+                map.each{ key, value -&gt;
+                    jsonArray += '"' + key + '": "' + value + '"'
+                }
+
+                jsonMap += jsonArray.join(",") + '}'
+
+                log.error("JSON_MAP: {}", jsonMap)
+
+                return jsonMap
             </code>
         </script>
     </function>
