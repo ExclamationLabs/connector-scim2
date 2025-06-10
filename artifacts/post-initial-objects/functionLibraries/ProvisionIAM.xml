@@ -8,7 +8,7 @@
                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                  oid="95117427-afed-4c94-8f08-7fcc16216aad"
                  version="3" >
-    <name>provisionIAM</name>
+    <name>ProvisionIAM</name>
     <description>SCIM2 Function Library by ProvisionIAM</description>
     <documentation>Set of functions designed to parse or output json objects</documentation>
     <iteration>0</iteration>
@@ -150,6 +150,49 @@
                 log.error("JSON_MAP: {}", jsonMap)
 
                 return jsonMap
+            </code>
+        </script>
+    </function>
+    <function>
+        <name>getValueIfPrimary</name>
+        <description>Returns a value if the json object has primary == true</description>
+        <documentation>
+            This function is intended to parse a simple JSON object that converts directly into Map of name/value pairs
+            The SCIM2 User Schema specification returns an array of these
+            that include names like "value:, "type", "primary", and "display"
+            This function scans the object and returns a value when primary is true
+        </documentation>
+        <parameter xsi:type="c:ExpressionParameterType">
+            <name>inbound</name>
+            <type xmlns:xsd="http://www.w3.org/2001/XMLSchema">xsd:string</type>
+        </parameter>
+        <returnType xmlns:xsd="http://www.w3.org/2001/XMLSchema">xsd:string</returnType>
+        <script>
+            <code>
+                import groovy.json.JsonSlurper
+                jsonSlurper = new JsonSlurper()
+
+                // return null when the input is null or emptu string
+                if ( inbound == null || inbound.trim().length() == 0)
+                {
+                return null
+                }
+
+                // Store parsed response in a collection to make use of Groovy's findAll closure
+                Map data = jsonSlurper.parseText(inbound);
+
+                // If there is no value or value is an empty string, return null
+                if ( data != null &amp;&amp; data instanceof Map) {
+                if( data.primary != null &amp;&amp; data.primary ) {
+                if(data?.value == null || data?.value?.isEmpty() ){
+                return null;
+                }
+                log.info('Primary value is {} ', data?.value);
+                return data.value;
+                }
+                }
+                // return null since nothing is found
+                return null
             </code>
         </script>
     </function>
