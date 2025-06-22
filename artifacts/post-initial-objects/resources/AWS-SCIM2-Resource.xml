@@ -462,12 +462,12 @@
                         </xsd:appinfo>
                     </xsd:annotation>
                     <xsd:sequence>
-                        <xsd:element maxOccurs="unbounded" minOccurs="0" name="members" type="xsd:string">
+                        <xsd:element name="id" type="xsd:string">
                             <xsd:annotation>
                                 <xsd:appinfo>
-                                    <a:displayOrder>120</a:displayOrder>
-                                    <ra:nativeAttributeName>members</ra:nativeAttributeName>
-                                    <ra:frameworkAttributeName>members</ra:frameworkAttributeName>
+                                    <a:displayOrder>10</a:displayOrder>
+                                    <ra:nativeAttributeName>id</ra:nativeAttributeName>
+                                    <ra:frameworkAttributeName>id</ra:frameworkAttributeName>
                                     <ra:returnedByDefault>true</ra:returnedByDefault>
                                 </xsd:appinfo>
                             </xsd:annotation>
@@ -475,31 +475,19 @@
                         <xsd:element name="displayName" type="xsd:string">
                             <xsd:annotation>
                                 <xsd:appinfo>
-                                    <a:displayOrder>110</a:displayOrder>
+                                    <a:displayOrder>20</a:displayOrder>
                                     <ra:nativeAttributeName>displayName</ra:nativeAttributeName>
-                                    <ra:frameworkAttributeName>__NAME__</ra:frameworkAttributeName>
+                                    <ra:frameworkAttributeName>displayName</ra:frameworkAttributeName>
                                     <ra:returnedByDefault>true</ra:returnedByDefault>
                                 </xsd:appinfo>
                             </xsd:annotation>
                         </xsd:element>
-                        <xsd:element minOccurs="0" name="externalId" type="xsd:string">
+                        <xsd:element maxOccurs="unbounded" minOccurs="0" name="members" type="xsd:string">
                             <xsd:annotation>
                                 <xsd:appinfo>
-                                    <a:displayOrder>130</a:displayOrder>
-                                    <ra:nativeAttributeName>externalId</ra:nativeAttributeName>
-                                    <ra:frameworkAttributeName>externalId</ra:frameworkAttributeName>
-                                    <ra:returnedByDefault>true</ra:returnedByDefault>
-                                </xsd:appinfo>
-                            </xsd:annotation>
-                        </xsd:element>
-                        <xsd:element name="id" type="xsd:string">
-                            <xsd:annotation>
-                                <xsd:appinfo>
-                                    <a:displayOrder>100</a:displayOrder>
-                                    <a:access>create</a:access>
-                                    <a:access>read</a:access>
-                                    <ra:nativeAttributeName>id</ra:nativeAttributeName>
-                                    <ra:frameworkAttributeName>__UID__</ra:frameworkAttributeName>
+                                    <a:displayOrder>30</a:displayOrder>
+                                    <ra:nativeAttributeName>members</ra:nativeAttributeName>
+                                    <ra:frameworkAttributeName>members</ra:frameworkAttributeName>
                                     <ra:returnedByDefault>true</ra:returnedByDefault>
                                 </xsd:appinfo>
                             </xsd:annotation>
