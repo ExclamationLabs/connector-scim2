@@ -217,7 +217,6 @@ public class Scim2UserAdapter extends BaseAdapter<Scim2User, Scim2Configuration>
         }
         return set;
       }
-    }
     return null;
   }
 
