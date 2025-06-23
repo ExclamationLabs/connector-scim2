@@ -74,7 +74,8 @@ public enum Scim2UserAttribute {
   x509Certificates_value,
   x509Certificates_display,
   x509Certificates_type,
-  x509Certificates_primary;
+  x509Certificates_primary,
+  selfRef;
 
 
   Scim2UserAttribute(String s) {

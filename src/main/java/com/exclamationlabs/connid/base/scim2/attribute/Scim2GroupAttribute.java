@@ -8,5 +8,6 @@ public enum Scim2GroupAttribute {
   members,
   members_value,
   members_$ref,
-  members_type
+  members_type,
+  selfRef
 }

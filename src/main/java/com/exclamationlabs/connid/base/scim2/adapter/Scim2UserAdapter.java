@@ -70,9 +70,15 @@ public class Scim2UserAdapter extends BaseAdapter<Scim2User, Scim2Configuration>
     result.add(new ConnectorAttribute(ims.name(), STRING, MULTIVALUED));
     result.add(new ConnectorAttribute(photos.name(), STRING, MULTIVALUED));
     result.add(new ConnectorAttribute(groups.name(), STRING, MULTIVALUED, NOT_UPDATEABLE, NOT_CREATABLE));
+    if ( configuration.getShortList() != null && configuration.getShortList() ) {
+      result.add(new ConnectorAttribute(groups_value.name(), STRING, MULTIVALUED));
+    }
     result.add(new ConnectorAttribute(entitlements.name(), STRING, MULTIVALUED));
     result.add(new ConnectorAttribute(roles.name(), STRING, MULTIVALUED));
     result.add(new ConnectorAttribute(x509Certificates.name(), STRING, MULTIVALUED));
+    if ( configuration.getSelfRef() != null && configuration.getSelfRef() ) {
+      result.add(new ConnectorAttribute(selfRef.name(), STRING, NOT_CREATABLE, NOT_UPDATEABLE));
+    }
     return result;
   }
 
@@ -180,22 +186,40 @@ public class Scim2UserAdapter extends BaseAdapter<Scim2User, Scim2Configuration>
    * @return Set of JSON formatted strings
    */
   public Set<String> getSetOfJSONFromListOfMap(List<Map<String, String>> list){
-    Set<String> set = null;
-    if ( list != null && list.size() > 0 )
-    {
-      String json = null;
-      set = new HashSet<>();
-      for(Map<String, String> item: list) {
-        StringJoiner joiner = new StringJoiner(",", "{", "}");
-        item.forEach((key, value) -> {
-          joiner.add(String.format("\"%s\":\"%s\"", key, value));
-        });
-        json = joiner.toString();
-        set.add(json);
-      }
-    }
-    return set;
+    return getSetOfJSONFromListOfMap(false, list);
   }
+
+  /**
+    * Construct a Set of JSON formatted strings
+    * from of list of maps containing name values pairs or just values
+    * based on parameter value
+    * @param shortList switch if just value should be return instead of json structure
+    * @param list List of maps
+    * @return Set of JSON formatted strings
+    */
+  public Set<String> getSetOfJSONFromListOfMap(Boolean shortList, List<Map<String, String>> list){
+    if ( list != null && list.size() > 0 ) {
+        Set<String> set = new HashSet<>();
+        for(Map<String, String> item: list) {
+          if ( shortList != null && shortList) {
+            item.forEach((key, value) -> {
+              if (key.equals("value")) {
+                set.add(value);
+              }
+            });
+          } else {
+            StringJoiner joiner = new StringJoiner(",", "{", "}");
+            item.forEach((key, value) -> {
+              joiner.add(String.format("\"%s\":\"%s\"", key, value));
+            });
+            set.add( joiner.toString() );
+          }
+        }
+        return set;
+      }
+    return null;
+  }
+
   /**
    * Convert Collection of SCIM2 Complex Type to Set of JSON Strings
    * @param complexTypes Collection of complex types to be converted
@@ -432,6 +456,9 @@ public class Scim2UserAdapter extends BaseAdapter<Scim2User, Scim2Configuration>
     // attributes.add(AttributeBuilder.build(userName.name(), user.getIdentityNameValue()));
     attributes.add(AttributeBuilder.build(Name.NAME, user.getUserName()));
     attributes.add(AttributeBuilder.build(userType.name(), user.getUserType()));
+    if ( configuration.getSelfRef() != null && configuration.getSelfRef() ) {
+      attributes.add(AttributeBuilder.build(selfRef.name(), builderSelfRef(user)));
+    }
 
     Set<String> addressSet = putAddresses(user.getAddresses());
     if ( addressSet != null )
@@ -455,6 +482,11 @@ public class Scim2UserAdapter extends BaseAdapter<Scim2User, Scim2Configuration>
     if ( groupSet != null )
     {
       attributes.add(AttributeBuilder.build(groups.name(), groupSet));
+      if ( configuration.getShortList() != null && configuration.getShortList() ) {
+        attributes.add(AttributeBuilder.build(groups_value.name(),
+                getSetOfJSONFromListOfMap(true, user.getGroups())
+        ));
+      }
     }
 
     Set<String> imsSet = putComplexTypes(user.getIms());
@@ -486,6 +518,35 @@ public class Scim2UserAdapter extends BaseAdapter<Scim2User, Scim2Configuration>
       attributes.add(AttributeBuilder.build(x509Certificates.name(), x509CertificatesSet));
     }
     return attributes;
+  }
+
+  /**
+   * Generate the structured information containing the self reference (e.g. for the comparing of the objects)
+   *
+   * @param user
+   * @return json structured Self reference
+   */
+  private String builderSelfRef(Scim2User user) {
+    String result;
+    Gson gson = new Gson();
+    Map<String, String> retValue = new LinkedHashMap<>();
+
+    if (user != null) {
+      retValue.put("value", user.getId());
+      retValue.put("$ref",
+              configuration.getServiceUrl() +
+                      Objects.toString(configuration.getUsersEndpointUrl(), "") +
+                      "/" + user.getId()
+      );
+      retValue.put("display", Objects.toString(user.getUserName(), ""));
+      result = gson.toJson(retValue);
+      if (result != null) {
+        if (!result.isEmpty()) {
+          return result;
+        }
+      }
+    }
+    return "";
   }
 
   /**

@@ -54,6 +54,24 @@ custom:
         order: 3070
         display: 'Groups Endpoint URL'
         help: 'Discovered from the resource type or entered manually'
+      selfRef:
+        type: boolean
+        default: 'false'
+        order: 3080
+        display: 'Self Reference'
+        help: 'Enable to calculate self reference value for the object.'
+      shortList:
+        type: boolean
+        default: 'false'
+        order: 3090
+        display: 'Short list for group/member attribute'
+        help: 'To enable utilize of groups_value and members_value attribute.'
+      groupSkipFilterKeyword:
+        type: boolean
+        default: 'false'
+        order: 3091
+        display: 'Custom Group Filter '
+        help: 'Some resources does not use \"filter\" keyword for Group filtering. Enable to stop using it.'
     optional:
       userSchemaIdList:
         type: string_array
