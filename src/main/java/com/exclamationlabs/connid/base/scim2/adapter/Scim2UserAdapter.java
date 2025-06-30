@@ -69,6 +69,7 @@ public class Scim2UserAdapter extends BaseAdapter<Scim2User, Scim2Configuration>
     result.add(new ConnectorAttribute(phoneNumbers.name(), STRING, MULTIVALUED));
     result.add(new ConnectorAttribute(ims.name(), STRING, MULTIVALUED));
     result.add(new ConnectorAttribute(photos.name(), STRING, MULTIVALUED));
+    result.add(new ConnectorAttribute(groups_value.name(), STRING, MULTIVALUED, NOT_UPDATEABLE, NOT_CREATABLE));
     result.add(new ConnectorAttribute(groups.name(), STRING, MULTIVALUED, NOT_UPDATEABLE, NOT_CREATABLE));
     result.add(new ConnectorAttribute(entitlements.name(), STRING, MULTIVALUED));
     result.add(new ConnectorAttribute(roles.name(), STRING, MULTIVALUED));
@@ -173,6 +174,21 @@ public class Scim2UserAdapter extends BaseAdapter<Scim2User, Scim2Configuration>
     return list;
   }
 
+  public List<Map<String, String>> convertListOfValuesToMap(Set<String> listOfIds)
+  {
+    List<Map<String, String>> list = new ArrayList<>();
+    Gson gson = new Gson();
+
+    if ( listOfIds != null && !listOfIds.isEmpty() ) {
+      for (String item : listOfIds) {
+        HashMap<String,String> valueMap = new HashMap();
+        valueMap.put("value", gson.fromJson(item,String.class));
+        list.add(valueMap);
+      }
+    }
+    return list;
+  }
+
   /**
    * Construct a Set of JSON formatted strings
    * from of list of maps containing name values pairs
@@ -195,6 +211,25 @@ public class Scim2UserAdapter extends BaseAdapter<Scim2User, Scim2Configuration>
       }
     }
     return set;
+  }
+
+  public Set<String> getSetOfValuesFromListOfMap(List<Map<String, String>> list){
+    Set<String> set;
+    if ( list != null && list.size() > 0 )
+    {
+      String json = null;
+      set = new HashSet<>();
+      for(Map<String, String> item: list) {
+        item.forEach((key, value) -> {
+          if( key.equalsIgnoreCase("value")) {
+            set.add(value);
+          }
+        });
+      }
+    } else {
+        set = null;
+    }
+      return set;
   }
   /**
    * Convert Collection of SCIM2 Complex Type to Set of JSON Strings
@@ -457,6 +492,12 @@ public class Scim2UserAdapter extends BaseAdapter<Scim2User, Scim2Configuration>
       attributes.add(AttributeBuilder.build(groups.name(), groupSet));
     }
 
+    Set<String> groupSetValues = getSetOfValuesFromListOfMap(user.getGroups());
+    if ( groupSetValues != null )
+    {
+      attributes.add(AttributeBuilder.build(groups_value.name(), groupSetValues));
+    }
+
     Set<String> imsSet = putComplexTypes(user.getIms());
     if ( imsSet != null )
     {
@@ -664,6 +705,13 @@ public class Scim2UserAdapter extends BaseAdapter<Scim2User, Scim2Configuration>
     user.setGroupsAdded(getListOfMapFromJSON(groupList));
     groupList = readAssignments(removedMultiValueAttributes, groups);
     user.setGroupsRemoved(getListOfMapFromJSON(groupList));
+
+    Set<String> groupListValues = readAssignments(attributes, groups_value);
+    user.setGroups(convertListOfValuesToMap(groupListValues));
+    groupListValues = readAssignments(addedMultiValueAttributes, groups_value);
+    user.setGroupsAdded(convertListOfValuesToMap(groupListValues));
+    groupListValues = readAssignments(removedMultiValueAttributes, groups_value);
+    user.setGroupsRemoved(convertListOfValuesToMap(groupListValues));
 
     // Set Schemas
     if ( user.getSchemas() == null || user.getSchemas().isEmpty()) {

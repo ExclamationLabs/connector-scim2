@@ -1,53 +1,151 @@
-<resource xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:icfs="http://midpoint.evolveum.com/xml/ns/public/connector/icf-1/resource-schema-3" xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3" xmlns:q="http://prism.evolveum.com/xml/ns/public/query-3" xmlns:ri="http://midpoint.evolveum.com/xml/ns/public/resource/instance-3" xmlns:t="http://prism.evolveum.com/xml/ns/public/types-3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" oid="c122a0fb-2a26-4e34-bab5-7593206e1842">
-    <name>AWS (SCIM2)</name>
+<resource xmlns="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:c="http://midpoint.evolveum.com/xml/ns/public/common/common-3" xmlns:icfs="http://midpoint.evolveum.com/xml/ns/public/connector/icf-1/resource-schema-3" xmlns:org="http://midpoint.evolveum.com/xml/ns/public/common/org-3" xmlns:q="http://prism.evolveum.com/xml/ns/public/query-3" xmlns:ri="http://midpoint.evolveum.com/xml/ns/public/resource/instance-3" xmlns:t="http://prism.evolveum.com/xml/ns/public/types-3" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" oid="2fc0f25d-653d-4b72-a22b-04391c23db43" version="58" >
+    <name>scim2 aws -with association</name>
+    <description>scim2 aws -with association</description>
+    <metadata>
+        <requestTimestamp>2025-06-05T12:38:11.031-04:00</requestTimestamp>
+        <requestorRef oid="00000000-0000-0000-0000-000000000002" relation="org:default" type="c:UserType"/>
+        <createTimestamp>2025-06-05T12:38:11.397-04:00</createTimestamp>
+        <creatorRef oid="00000000-0000-0000-0000-000000000002" relation="org:default" type="c:UserType"/>
+        <createChannel>http://midpoint.evolveum.com/xml/ns/public/common/channels-3#user</createChannel>
+        <modifyTimestamp>2025-06-26T12:20:03.013-04:00</modifyTimestamp>
+        <modifierRef oid="00000000-0000-0000-0000-000000000002" relation="org:default" type="c:UserType"/>
+        <modifyChannel>http://midpoint.evolveum.com/xml/ns/public/common/channels-3#user</modifyChannel>
+    </metadata>
     <lifecycleState>active</lifecycleState>
+    <operationExecution id="75">
+        <recordType>simple</recordType>
+        <timestamp>2025-06-19T11:40:48.509-04:00</timestamp>
+        <operation>
+            <objectDelta>
+                <t:changeType>modify</t:changeType>
+                <t:objectType>c:ResourceType</t:objectType>
+            </objectDelta>
+            <executionResult>
+                <operation>com.evolveum.midpoint.model.impl.lens.ChangeExecutor.executeDelta</operation>
+                <status>success</status>
+                <importance>normal</importance>
+                <token>1000000000000002502</token>
+            </executionResult>
+            <objectName>scim2 aws -with association</objectName>
+        </operation>
+        <status>success</status>
+        <initiatorRef oid="00000000-0000-0000-0000-000000000002" relation="org:default" type="c:UserType"/>
+        <channel>http://midpoint.evolveum.com/xml/ns/public/common/channels-3#user</channel>
+    </operationExecution>
+    <operationExecution id="77">
+        <recordType>simple</recordType>
+        <timestamp>2025-06-19T11:45:30.130-04:00</timestamp>
+        <operation>
+            <objectDelta>
+                <t:changeType>modify</t:changeType>
+                <t:objectType>c:ResourceType</t:objectType>
+            </objectDelta>
+            <executionResult>
+                <operation>com.evolveum.midpoint.model.impl.lens.ChangeExecutor.executeDelta</operation>
+                <status>success</status>
+                <importance>normal</importance>
+                <token>1000000000000003165</token>
+            </executionResult>
+            <objectName>scim2 aws -with association</objectName>
+        </operation>
+        <status>success</status>
+        <initiatorRef oid="00000000-0000-0000-0000-000000000002" relation="org:default" type="c:UserType"/>
+        <channel>http://midpoint.evolveum.com/xml/ns/public/common/channels-3#user</channel>
+    </operationExecution>
+    <operationExecution id="79">
+        <recordType>simple</recordType>
+        <timestamp>2025-06-26T09:54:34.392-04:00</timestamp>
+        <operation>
+            <objectDelta>
+                <t:changeType>modify</t:changeType>
+                <t:objectType>c:ResourceType</t:objectType>
+            </objectDelta>
+            <executionResult>
+                <operation>com.evolveum.midpoint.model.impl.lens.ChangeExecutor.executeDelta</operation>
+                <status>success</status>
+                <importance>normal</importance>
+                <token>1000000000000019245</token>
+            </executionResult>
+            <objectName>scim2 aws -with association</objectName>
+        </operation>
+        <status>success</status>
+        <initiatorRef oid="00000000-0000-0000-0000-000000000002" relation="org:default" type="c:UserType"/>
+        <channel>http://midpoint.evolveum.com/xml/ns/public/common/channels-3#user</channel>
+    </operationExecution>
+    <operationExecution id="80">
+        <recordType>simple</recordType>
+        <timestamp>2025-06-26T12:20:03.046-04:00</timestamp>
+        <operation>
+            <objectDelta>
+                <t:changeType>modify</t:changeType>
+                <t:objectType>c:ResourceType</t:objectType>
+            </objectDelta>
+            <executionResult>
+                <operation>com.evolveum.midpoint.model.impl.lens.ChangeExecutor.executeDelta</operation>
+                <status>success</status>
+                <importance>normal</importance>
+                <token>1000000000000024280</token>
+            </executionResult>
+            <objectName>scim2 aws -with association</objectName>
+        </operation>
+        <status>success</status>
+        <initiatorRef oid="00000000-0000-0000-0000-000000000002" relation="org:default" type="c:UserType"/>
+        <channel>http://midpoint.evolveum.com/xml/ns/public/common/channels-3#user</channel>
+    </operationExecution>
     <iteration>0</iteration>
     <iterationToken/>
     <operationalState>
         <lastAvailabilityStatus>up</lastAvailabilityStatus>
         <message>Status set to UP because resource schema was successfully fetched</message>
-        <timestamp>2024-12-21T03:18:20.459Z</timestamp>
+        <timestamp>2025-06-05T12:38:12.146-04:00</timestamp>
         <nodeId>DefaultNode</nodeId>
     </operationalState>
-    <operationalStateHistory>
+    <operationalStateHistory id="3">
         <lastAvailabilityStatus>up</lastAvailabilityStatus>
         <message>Status set to UP because resource schema was successfully fetched</message>
-        <timestamp>2024-12-21T03:18:20.459Z</timestamp>
+        <timestamp>2025-06-05T12:38:12.146-04:00</timestamp>
         <nodeId>DefaultNode</nodeId>
     </operationalStateHistory>
-    <connectorRef oid="8c260210-a866-460b-b3fd-3ee62ed8cc9f" relation="org:default" type="c:ConnectorType">
-        <filter>
-            <q:text>connectorType = 'com.exclamationlabs.connid.base.scim2.Scim2Connector' and connectorVersion = '1.2.7'</q:text>
-        </filter>
-    </connectorRef>
+    <connectorRef oid="c831a966-07cd-4e46-9fbf-f4b184a2795e" relation="org:default" type="c:ConnectorType"/>
     <connectorConfiguration xmlns:icfc="http://midpoint.evolveum.com/xml/ns/public/connector/icf-1/connector-schema-3">
-        <icfc:configurationProperties xmlns:cfg="http://midpoint.evolveum.com/xml/ns/public/connector/icf-1/bundle/connector-scim2/com.exclamationlabs.connid.base.scim2.Scim2Connector">
-            <cfg:ioErrorRetries>1</cfg:ioErrorRetries>
-            <cfg:deepGet>false</cfg:deepGet>
-            <cfg:deepImport>false</cfg:deepImport>
-            <cfg:importBatchSize>10</cfg:importBatchSize>
-            <cfg:pagination>true</cfg:pagination>
-            <cfg:serviceUrl xmlns="http://midpoint.evolveum.com/xml/ns/public/connector/icf-1/bundle/connector-scim2/com.exclamationlabs.connid.base.scim2.Scim2Connector" xmlns:s="http://midpoint.evolveum.com/xml/ns/public/model/scripting-3">https://scim.us-east-1.amazonaws.com/f3v27950f77-d2cc-453a-b097-b6a898685ea0/scim/v2</cfg:serviceUrl>
-            <cfg:duplicateErrorReturnsId>true</cfg:duplicateErrorReturnsId>
-            <cfg:token>AWS-SCIM-Token</cfg:token>
-            <cfg:enableEnterpriseUser>true</cfg:enableEnterpriseUser>
-            <cfg:usersEndpointUrl>/Users</cfg:usersEndpointUrl>
-            <cfg:groupsEndpointUrl>/Groups</cfg:groupsEndpointUrl>
-            <cfg:userSchemaIdList xmlns="http://midpoint.evolveum.com/xml/ns/public/connector/icf-1/bundle/connector-scim2/com.exclamationlabs.connid.base.scim2.Scim2Connector" xmlns:s="http://midpoint.evolveum.com/xml/ns/public/model/scripting-3" xmlns:se="http://midpoint.evolveum.com/xml/ns/public/model/scripting/extension-3">"[urn:ietf:params:scim:schemas:extension:enterprise:2.0:User]"</cfg:userSchemaIdList>
-            <cfg:groupSchemaIdList xmlns="http://midpoint.evolveum.com/xml/ns/public/connector/icf-1/bundle/connector-scim2/com.exclamationlabs.connid.base.scim2.Scim2Connector" xmlns:s="http://midpoint.evolveum.com/xml/ns/public/model/scripting-3">"[urn:ietf:params:scim:schemas:core:2.0:Group]"</cfg:groupSchemaIdList>
-            <cfg:enableStandardSchema>true</cfg:enableStandardSchema>
-            <cfg:enableAWSSchema>true</cfg:enableAWSSchema>
-            <cfg:enableDynamicSchema>true</cfg:enableDynamicSchema>
+        <icfc:configurationProperties xmlns:gen579="http://midpoint.evolveum.com/xml/ns/public/connector/icf-1/bundle/connector-scim2/com.exclamationlabs.connid.base.scim2.Scim2Connector">
+            <gen579:ioErrorRetries>5</gen579:ioErrorRetries>
+            <gen579:deepGet>false</gen579:deepGet>
+            <gen579:deepImport>false</gen579:deepImport>
+            <gen579:importBatchSize>50</gen579:importBatchSize>
+            <gen579:pagination>true</gen579:pagination>
+            <gen579:serviceUrl>https://scim.us-east-1.amazonaws.com/f3v27950f77-d2cc-453a-b097-b6a898685ea0/scim/v2</gen579:serviceUrl>
+            <gen579:duplicateErrorReturnsId>false</gen579:duplicateErrorReturnsId>
+            <gen579:token>
+                <t:encryptedData>
+                    <t:encryptionMethod>
+                        <t:algorithm>http://www.w3.org/2001/04/xmlenc#aes256-cbc</t:algorithm>
+                    </t:encryptionMethod>
+                    <t:keyInfo>
+                        <t:keyName>8ATk8IFkE++4MI16o8L4+rq5THw=</t:keyName>
+                    </t:keyInfo>
+                    <t:cipherData>
+                        <t:cipherValue>Igus06nx5JUgfwSolTXNEKTqIl5OmRVtjMG5GtwSzhO9vmangOPofSWVg845QhtXmAr7cQQsqPFFCVxTrm8U9vX/kuyrt4xriqiUBTdfVEXk/XKPvlWAO43O0cxEbUAFpBXQzRI/HutitehcsBOgbejlhL3YktXMcZnrHDyxys1ZYx1xCv0fXqpgDq7WMWLNczejP4g+aIxmOWR2SmbzRK92JmyGCe8n27WKpclo+agjTsf6Ibgbsm2pe9g0TtefSEm8EwtorgRENkXWjUvZy2EaqoKKzWCW2qXRJ1Ih/3g1wa1v7RvInqWhNXvQEdOwomZBJeQSSf+60WQbiQ4MS1vQWyRr9FiCS3TjhpiIWD+xmdW81igzXst0K1EbIbuZGyY2NctPMe8Pmgkg/GeLrm5wt/EIfRCx6HZQrhIGf1NGmkaf3p8WUZW4ldJpERBBN9R0HwEQAJqb3SdD70ToKuMQkdt3e7KPbdC4gWQluZ6LmmY7SwNFrdBjfPSR7aO5ZtI8uubQUGEJPw7WjXMmFNCr+YEfb3FYvtZGmBEHAfYiuhKVDXhIH5Pc+CiCI4JA+JZB26mcLh1y2S7wySsd0tSQ1s7s9lpuf0V9VENQQGAk8z8kX/x1rGZjj2Vbl5D/UK6YBzCdjfBEEetUgJHcq25/pGPNNJcZMvYbLPjaFjifDG1vQAlh7m8DKIbfmsNJDHHOiOVKvSteEr4rqz0yc8zf/GgPV2TeJSwzDbjU1bKRuZX8sRId3D1afx5iLPfk+V2SfrSC9pLrlAQ6vGCKscEae3vl5q/cDcAbxdMFsM6IclE6H+VwH2pOhccj+9es</t:cipherValue>
+                    </t:cipherData>
+                </t:encryptedData>
+            </gen579:token>
+            <gen579:enableStandardSchema>true</gen579:enableStandardSchema>
+            <gen579:enableEnterpriseUser>true</gen579:enableEnterpriseUser>
+            <gen579:usersEndpointUrl>/Users</gen579:usersEndpointUrl>
+            <gen579:groupsEndpointUrl>/Groups</gen579:groupsEndpointUrl>
+            <gen579:userSchemaIdList>urn:ietf:params:scim:schemas:core:2.0:User</gen579:userSchemaIdList>
+            <gen579:groupSchemaIdList>urn:ietf:params:scim:schemas:core:2.0:Group</gen579:groupSchemaIdList>
         </icfc:configurationProperties>
-        <icfc:resultsHandlerConfiguration>
-            <icfc:enableNormalizingResultsHandler>false</icfc:enableNormalizingResultsHandler>
-            <icfc:enableFilteredResultsHandler>false</icfc:enableFilteredResultsHandler>
-            <icfc:filteredResultsHandlerInValidationMode>true</icfc:filteredResultsHandlerInValidationMode>
-            <icfc:enableCaseInsensitiveFilter>false</icfc:enableCaseInsensitiveFilter>
-            <icfc:enableAttributesToGetSearchResultsHandler>true</icfc:enableAttributesToGetSearchResultsHandler>
-        </icfc:resultsHandlerConfiguration>
     </connectorConfiguration>
     <schema>
+        <cachingMetadata>
+            <retrievalTimestamp>2025-06-26T12:20:03.590-04:00</retrievalTimestamp>
+            <serialNumber>bc9c4192fcdeb134-8545dba53588710d</serialNumber>
+        </cachingMetadata>
+        <generationConstraints>
+            <generateObjectClass>ri:Scim2Group</generateObjectClass>
+            <generateObjectClass>ri:Scim2User</generateObjectClass>
+        </generationConstraints>
         <definition>
             <xsd:schema xmlns:a="http://prism.evolveum.com/xml/ns/public/annotation-3" xmlns:ra="http://midpoint.evolveum.com/xml/ns/public/resource/annotation-3" xmlns:tns="http://midpoint.evolveum.com/xml/ns/public/resource/instance-3" xmlns:xsd="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://midpoint.evolveum.com/xml/ns/public/resource/instance-3" xml:space="preserve">
                 <xsd:import namespace="http://prism.evolveum.com/xml/ns/public/types-3"/>
@@ -56,314 +154,323 @@
                 <xsd:complexType name="Scim2User">
                     <xsd:annotation>
                         <xsd:appinfo>
-                            <a:container>true</a:container>
-                            <ra:resourceObject>true</ra:resourceObject>
-                            <ra:nativeObjectClass>Scim2User</ra:nativeObjectClass>
-                            <ra:default>false</ra:default>
-                            <ra:auxiliary>false</ra:auxiliary>
-                            <ra:embedded>false</ra:embedded>
-                            <ra:namingAttribute>ri:userName</ra:namingAttribute>
-                            <ra:displayNameAttribute>ri:userName</ra:displayNameAttribute>
+                            <a:container/>
+                            <ra:resourceObject/>
                             <ra:identifier>ri:id</ra:identifier>
                             <ra:secondaryIdentifier>ri:userName</ra:secondaryIdentifier>
+                            <ra:displayNameAttribute>ri:userName</ra:displayNameAttribute>
+                            <ra:namingAttribute>ri:userName</ra:namingAttribute>
+                            <ra:nativeObjectClass>Scim2User</ra:nativeObjectClass>
                         </xsd:appinfo>
                     </xsd:annotation>
                     <xsd:sequence>
                         <xsd:element maxOccurs="unbounded" minOccurs="0" name="phoneNumbers" type="xsd:string">
                             <xsd:annotation>
                                 <xsd:appinfo>
+                                    <a:displayName>phoneNumbers</a:displayName>
                                     <a:displayOrder>120</a:displayOrder>
                                     <ra:nativeAttributeName>phoneNumbers</ra:nativeAttributeName>
                                     <ra:frameworkAttributeName>phoneNumbers</ra:frameworkAttributeName>
-                                    <ra:returnedByDefault>true</ra:returnedByDefault>
                                 </xsd:appinfo>
                             </xsd:annotation>
                         </xsd:element>
                         <xsd:element minOccurs="0" name="active" type="xsd:boolean">
                             <xsd:annotation>
                                 <xsd:appinfo>
+                                    <a:displayName>active</a:displayName>
                                     <a:displayOrder>130</a:displayOrder>
                                     <ra:nativeAttributeName>active</ra:nativeAttributeName>
                                     <ra:frameworkAttributeName>active</ra:frameworkAttributeName>
-                                    <ra:returnedByDefault>true</ra:returnedByDefault>
                                 </xsd:appinfo>
                             </xsd:annotation>
                         </xsd:element>
                         <xsd:element maxOccurs="unbounded" minOccurs="0" name="groups" type="xsd:string">
                             <xsd:annotation>
                                 <xsd:appinfo>
+                                    <a:displayName>groups</a:displayName>
                                     <a:displayOrder>140</a:displayOrder>
                                     <a:access>read</a:access>
                                     <ra:nativeAttributeName>groups</ra:nativeAttributeName>
                                     <ra:frameworkAttributeName>groups</ra:frameworkAttributeName>
-                                    <ra:returnedByDefault>true</ra:returnedByDefault>
+                                </xsd:appinfo>
+                            </xsd:annotation>
+                        </xsd:element>
+                        <xsd:element maxOccurs="unbounded" minOccurs="0" name="groups_value" type="xsd:string">
+                            <xsd:annotation>
+                                <xsd:appinfo>
+                                    <a:displayName>groups_value</a:displayName>
+                                    <a:displayOrder>150</a:displayOrder>
+                                    <a:access>read</a:access>
+                                    <ra:nativeAttributeName>groups_value</ra:nativeAttributeName>
+                                    <ra:frameworkAttributeName>groups_value</ra:frameworkAttributeName>
                                 </xsd:appinfo>
                             </xsd:annotation>
                         </xsd:element>
                         <xsd:element minOccurs="0" name="name_familyName" type="xsd:string">
                             <xsd:annotation>
                                 <xsd:appinfo>
-                                    <a:displayOrder>150</a:displayOrder>
+                                    <a:displayName>name_familyName</a:displayName>
+                                    <a:displayOrder>160</a:displayOrder>
                                     <ra:nativeAttributeName>name_familyName</ra:nativeAttributeName>
                                     <ra:frameworkAttributeName>name_familyName</ra:frameworkAttributeName>
-                                    <ra:returnedByDefault>true</ra:returnedByDefault>
                                 </xsd:appinfo>
                             </xsd:annotation>
                         </xsd:element>
                         <xsd:element minOccurs="0" name="costCenter" type="xsd:string">
                             <xsd:annotation>
                                 <xsd:appinfo>
-                                    <a:displayOrder>160</a:displayOrder>
+                                    <a:displayName>costCenter</a:displayName>
+                                    <a:displayOrder>170</a:displayOrder>
                                     <ra:nativeAttributeName>costCenter</ra:nativeAttributeName>
                                     <ra:frameworkAttributeName>costCenter</ra:frameworkAttributeName>
-                                    <ra:returnedByDefault>true</ra:returnedByDefault>
                                 </xsd:appinfo>
                             </xsd:annotation>
                         </xsd:element>
                         <xsd:element minOccurs="0" name="name_honorificSuffix" type="xsd:string">
                             <xsd:annotation>
                                 <xsd:appinfo>
-                                    <a:displayOrder>170</a:displayOrder>
+                                    <a:displayName>name_honorificSuffix</a:displayName>
+                                    <a:displayOrder>180</a:displayOrder>
                                     <ra:nativeAttributeName>name_honorificSuffix</ra:nativeAttributeName>
                                     <ra:frameworkAttributeName>name_honorificSuffix</ra:frameworkAttributeName>
-                                    <ra:returnedByDefault>true</ra:returnedByDefault>
                                 </xsd:appinfo>
                             </xsd:annotation>
                         </xsd:element>
                         <xsd:element maxOccurs="unbounded" name="emails" type="xsd:string">
                             <xsd:annotation>
                                 <xsd:appinfo>
-                                    <a:displayOrder>180</a:displayOrder>
+                                    <a:displayName>emails</a:displayName>
+                                    <a:displayOrder>190</a:displayOrder>
                                     <ra:nativeAttributeName>emails</ra:nativeAttributeName>
                                     <ra:frameworkAttributeName>emails</ra:frameworkAttributeName>
-                                    <ra:returnedByDefault>true</ra:returnedByDefault>
                                 </xsd:appinfo>
                             </xsd:annotation>
                         </xsd:element>
                         <xsd:element minOccurs="0" name="division" type="xsd:string">
                             <xsd:annotation>
                                 <xsd:appinfo>
-                                    <a:displayOrder>190</a:displayOrder>
+                                    <a:displayName>division</a:displayName>
+                                    <a:displayOrder>200</a:displayOrder>
                                     <ra:nativeAttributeName>division</ra:nativeAttributeName>
                                     <ra:frameworkAttributeName>division</ra:frameworkAttributeName>
-                                    <ra:returnedByDefault>true</ra:returnedByDefault>
                                 </xsd:appinfo>
                             </xsd:annotation>
                         </xsd:element>
                         <xsd:element minOccurs="0" name="employeeNumber" type="xsd:string">
                             <xsd:annotation>
                                 <xsd:appinfo>
-                                    <a:displayOrder>200</a:displayOrder>
+                                    <a:displayName>employeeNumber</a:displayName>
+                                    <a:displayOrder>210</a:displayOrder>
                                     <ra:nativeAttributeName>employeeNumber</ra:nativeAttributeName>
                                     <ra:frameworkAttributeName>employeeNumber</ra:frameworkAttributeName>
-                                    <ra:returnedByDefault>true</ra:returnedByDefault>
                                 </xsd:appinfo>
                             </xsd:annotation>
                         </xsd:element>
                         <xsd:element minOccurs="0" name="organization" type="xsd:string">
                             <xsd:annotation>
                                 <xsd:appinfo>
-                                    <a:displayOrder>210</a:displayOrder>
+                                    <a:displayName>organization</a:displayName>
+                                    <a:displayOrder>220</a:displayOrder>
                                     <ra:nativeAttributeName>organization</ra:nativeAttributeName>
                                     <ra:frameworkAttributeName>organization</ra:frameworkAttributeName>
-                                    <ra:returnedByDefault>true</ra:returnedByDefault>
                                 </xsd:appinfo>
                             </xsd:annotation>
                         </xsd:element>
                         <xsd:element minOccurs="0" name="manager_displayName" type="xsd:string">
                             <xsd:annotation>
                                 <xsd:appinfo>
-                                    <a:displayOrder>220</a:displayOrder>
+                                    <a:displayName>manager_displayName</a:displayName>
+                                    <a:displayOrder>230</a:displayOrder>
                                     <ra:nativeAttributeName>manager_displayName</ra:nativeAttributeName>
                                     <ra:frameworkAttributeName>manager_displayName</ra:frameworkAttributeName>
-                                    <ra:returnedByDefault>true</ra:returnedByDefault>
                                 </xsd:appinfo>
                             </xsd:annotation>
                         </xsd:element>
                         <xsd:element minOccurs="0" name="name_middleName" type="xsd:string">
                             <xsd:annotation>
                                 <xsd:appinfo>
-                                    <a:displayOrder>230</a:displayOrder>
+                                    <a:displayName>name_middleName</a:displayName>
+                                    <a:displayOrder>240</a:displayOrder>
                                     <ra:nativeAttributeName>name_middleName</ra:nativeAttributeName>
                                     <ra:frameworkAttributeName>name_middleName</ra:frameworkAttributeName>
-                                    <ra:returnedByDefault>true</ra:returnedByDefault>
                                 </xsd:appinfo>
                             </xsd:annotation>
                         </xsd:element>
                         <xsd:element minOccurs="0" name="manager_managerId" type="xsd:string">
                             <xsd:annotation>
                                 <xsd:appinfo>
-                                    <a:displayOrder>240</a:displayOrder>
+                                    <a:displayName>manager_managerId</a:displayName>
+                                    <a:displayOrder>250</a:displayOrder>
                                     <ra:nativeAttributeName>manager_managerId</ra:nativeAttributeName>
                                     <ra:frameworkAttributeName>manager_managerId</ra:frameworkAttributeName>
-                                    <ra:returnedByDefault>true</ra:returnedByDefault>
                                 </xsd:appinfo>
                             </xsd:annotation>
                         </xsd:element>
                         <xsd:element minOccurs="0" name="name_honorificPrefix" type="xsd:string">
                             <xsd:annotation>
                                 <xsd:appinfo>
-                                    <a:displayOrder>250</a:displayOrder>
+                                    <a:displayName>name_honorificPrefix</a:displayName>
+                                    <a:displayOrder>260</a:displayOrder>
                                     <ra:nativeAttributeName>name_honorificPrefix</ra:nativeAttributeName>
                                     <ra:frameworkAttributeName>name_honorificPrefix</ra:frameworkAttributeName>
-                                    <ra:returnedByDefault>true</ra:returnedByDefault>
                                 </xsd:appinfo>
                             </xsd:annotation>
                         </xsd:element>
                         <xsd:element minOccurs="0" name="name_formatted" type="xsd:string">
                             <xsd:annotation>
                                 <xsd:appinfo>
-                                    <a:displayOrder>260</a:displayOrder>
+                                    <a:displayName>name_formatted</a:displayName>
+                                    <a:displayOrder>270</a:displayOrder>
                                     <ra:nativeAttributeName>name_formatted</ra:nativeAttributeName>
                                     <ra:frameworkAttributeName>name_formatted</ra:frameworkAttributeName>
-                                    <ra:returnedByDefault>true</ra:returnedByDefault>
                                 </xsd:appinfo>
                             </xsd:annotation>
                         </xsd:element>
                         <xsd:element minOccurs="0" name="name_givenName" type="xsd:string">
                             <xsd:annotation>
                                 <xsd:appinfo>
-                                    <a:displayOrder>270</a:displayOrder>
+                                    <a:displayName>name_givenName</a:displayName>
+                                    <a:displayOrder>280</a:displayOrder>
                                     <ra:nativeAttributeName>name_givenName</ra:nativeAttributeName>
                                     <ra:frameworkAttributeName>name_givenName</ra:frameworkAttributeName>
-                                    <ra:returnedByDefault>true</ra:returnedByDefault>
                                 </xsd:appinfo>
                             </xsd:annotation>
                         </xsd:element>
                         <xsd:element minOccurs="0" name="profileUrl" type="xsd:string">
                             <xsd:annotation>
                                 <xsd:appinfo>
-                                    <a:displayOrder>280</a:displayOrder>
+                                    <a:displayName>profileUrl</a:displayName>
+                                    <a:displayOrder>290</a:displayOrder>
                                     <ra:nativeAttributeName>profileUrl</ra:nativeAttributeName>
                                     <ra:frameworkAttributeName>profileUrl</ra:frameworkAttributeName>
-                                    <ra:returnedByDefault>true</ra:returnedByDefault>
                                 </xsd:appinfo>
                             </xsd:annotation>
                         </xsd:element>
                         <xsd:element minOccurs="0" name="userType" type="xsd:string">
                             <xsd:annotation>
                                 <xsd:appinfo>
-                                    <a:displayOrder>290</a:displayOrder>
+                                    <a:displayName>userType</a:displayName>
+                                    <a:displayOrder>300</a:displayOrder>
                                     <ra:nativeAttributeName>userType</ra:nativeAttributeName>
                                     <ra:frameworkAttributeName>userType</ra:frameworkAttributeName>
-                                    <ra:returnedByDefault>true</ra:returnedByDefault>
                                 </xsd:appinfo>
                             </xsd:annotation>
                         </xsd:element>
                         <xsd:element maxOccurs="unbounded" minOccurs="0" name="x509Certificates" type="xsd:string">
                             <xsd:annotation>
                                 <xsd:appinfo>
-                                    <a:displayOrder>300</a:displayOrder>
+                                    <a:displayName>x509Certificates</a:displayName>
+                                    <a:displayOrder>310</a:displayOrder>
                                     <ra:nativeAttributeName>x509Certificates</ra:nativeAttributeName>
                                     <ra:frameworkAttributeName>x509Certificates</ra:frameworkAttributeName>
-                                    <ra:returnedByDefault>true</ra:returnedByDefault>
                                 </xsd:appinfo>
                             </xsd:annotation>
                         </xsd:element>
                         <xsd:element name="userName" type="xsd:string">
                             <xsd:annotation>
                                 <xsd:appinfo>
+                                    <a:displayName>userName</a:displayName>
                                     <a:displayOrder>110</a:displayOrder>
                                     <ra:nativeAttributeName>userName</ra:nativeAttributeName>
                                     <ra:frameworkAttributeName>__NAME__</ra:frameworkAttributeName>
-                                    <ra:returnedByDefault>true</ra:returnedByDefault>
                                 </xsd:appinfo>
                             </xsd:annotation>
                         </xsd:element>
                         <xsd:element minOccurs="0" name="timezone" type="xsd:string">
                             <xsd:annotation>
                                 <xsd:appinfo>
-                                    <a:displayOrder>310</a:displayOrder>
+                                    <a:displayName>timezone</a:displayName>
+                                    <a:displayOrder>320</a:displayOrder>
                                     <ra:nativeAttributeName>timezone</ra:nativeAttributeName>
                                     <ra:frameworkAttributeName>timezone</ra:frameworkAttributeName>
-                                    <ra:returnedByDefault>true</ra:returnedByDefault>
                                 </xsd:appinfo>
                             </xsd:annotation>
                         </xsd:element>
                         <xsd:element maxOccurs="unbounded" minOccurs="0" name="photos" type="xsd:string">
                             <xsd:annotation>
                                 <xsd:appinfo>
-                                    <a:displayOrder>320</a:displayOrder>
+                                    <a:displayName>photos</a:displayName>
+                                    <a:displayOrder>330</a:displayOrder>
                                     <ra:nativeAttributeName>photos</ra:nativeAttributeName>
                                     <ra:frameworkAttributeName>photos</ra:frameworkAttributeName>
-                                    <ra:returnedByDefault>true</ra:returnedByDefault>
                                 </xsd:appinfo>
                             </xsd:annotation>
                         </xsd:element>
                         <xsd:element minOccurs="0" name="displayName" type="xsd:string">
                             <xsd:annotation>
                                 <xsd:appinfo>
-                                    <a:displayOrder>330</a:displayOrder>
+                                    <a:displayName>displayName</a:displayName>
+                                    <a:displayOrder>340</a:displayOrder>
                                     <ra:nativeAttributeName>displayName</ra:nativeAttributeName>
                                     <ra:frameworkAttributeName>displayName</ra:frameworkAttributeName>
-                                    <ra:returnedByDefault>true</ra:returnedByDefault>
                                 </xsd:appinfo>
                             </xsd:annotation>
                         </xsd:element>
                         <xsd:element maxOccurs="unbounded" minOccurs="0" name="entitlements" type="xsd:string">
                             <xsd:annotation>
                                 <xsd:appinfo>
-                                    <a:displayOrder>340</a:displayOrder>
+                                    <a:displayName>entitlements</a:displayName>
+                                    <a:displayOrder>350</a:displayOrder>
                                     <ra:nativeAttributeName>entitlements</ra:nativeAttributeName>
                                     <ra:frameworkAttributeName>entitlements</ra:frameworkAttributeName>
-                                    <ra:returnedByDefault>true</ra:returnedByDefault>
                                 </xsd:appinfo>
                             </xsd:annotation>
                         </xsd:element>
                         <xsd:element minOccurs="0" name="manager_value" type="xsd:string">
                             <xsd:annotation>
                                 <xsd:appinfo>
-                                    <a:displayOrder>350</a:displayOrder>
+                                    <a:displayName>manager_value</a:displayName>
+                                    <a:displayOrder>360</a:displayOrder>
                                     <ra:nativeAttributeName>manager_value</ra:nativeAttributeName>
                                     <ra:frameworkAttributeName>manager_value</ra:frameworkAttributeName>
-                                    <ra:returnedByDefault>true</ra:returnedByDefault>
                                 </xsd:appinfo>
                             </xsd:annotation>
                         </xsd:element>
                         <xsd:element minOccurs="0" name="department" type="xsd:string">
                             <xsd:annotation>
                                 <xsd:appinfo>
-                                    <a:displayOrder>360</a:displayOrder>
+                                    <a:displayName>department</a:displayName>
+                                    <a:displayOrder>370</a:displayOrder>
                                     <ra:nativeAttributeName>department</ra:nativeAttributeName>
                                     <ra:frameworkAttributeName>department</ra:frameworkAttributeName>
-                                    <ra:returnedByDefault>true</ra:returnedByDefault>
                                 </xsd:appinfo>
                             </xsd:annotation>
                         </xsd:element>
                         <xsd:element maxOccurs="unbounded" minOccurs="0" name="ims" type="xsd:string">
                             <xsd:annotation>
                                 <xsd:appinfo>
-                                    <a:displayOrder>370</a:displayOrder>
+                                    <a:displayName>ims</a:displayName>
+                                    <a:displayOrder>380</a:displayOrder>
                                     <ra:nativeAttributeName>ims</ra:nativeAttributeName>
                                     <ra:frameworkAttributeName>ims</ra:frameworkAttributeName>
-                                    <ra:returnedByDefault>true</ra:returnedByDefault>
                                 </xsd:appinfo>
                             </xsd:annotation>
                         </xsd:element>
                         <xsd:element minOccurs="0" name="nickName" type="xsd:string">
                             <xsd:annotation>
                                 <xsd:appinfo>
-                                    <a:displayOrder>380</a:displayOrder>
+                                    <a:displayName>nickName</a:displayName>
+                                    <a:displayOrder>390</a:displayOrder>
                                     <ra:nativeAttributeName>nickName</ra:nativeAttributeName>
                                     <ra:frameworkAttributeName>nickName</ra:frameworkAttributeName>
-                                    <ra:returnedByDefault>true</ra:returnedByDefault>
                                 </xsd:appinfo>
                             </xsd:annotation>
                         </xsd:element>
                         <xsd:element minOccurs="0" name="locale" type="xsd:string">
                             <xsd:annotation>
                                 <xsd:appinfo>
-                                    <a:displayOrder>390</a:displayOrder>
+                                    <a:displayName>locale</a:displayName>
+                                    <a:displayOrder>400</a:displayOrder>
                                     <ra:nativeAttributeName>locale</ra:nativeAttributeName>
                                     <ra:frameworkAttributeName>locale</ra:frameworkAttributeName>
-                                    <ra:returnedByDefault>true</ra:returnedByDefault>
                                 </xsd:appinfo>
                             </xsd:annotation>
                         </xsd:element>
                         <xsd:element minOccurs="0" name="password" type="t:ProtectedStringType">
                             <xsd:annotation>
                                 <xsd:appinfo>
-                                    <a:displayOrder>400</a:displayOrder>
+                                    <a:displayName>password</a:displayName>
+                                    <a:displayOrder>410</a:displayOrder>
                                     <a:access>create</a:access>
                                     <a:access>update</a:access>
                                     <ra:nativeAttributeName>password</ra:nativeAttributeName>
@@ -375,130 +482,151 @@
                         <xsd:element maxOccurs="unbounded" minOccurs="0" name="roles" type="xsd:string">
                             <xsd:annotation>
                                 <xsd:appinfo>
-                                    <a:displayOrder>410</a:displayOrder>
+                                    <a:displayName>roles</a:displayName>
+                                    <a:displayOrder>420</a:displayOrder>
                                     <ra:nativeAttributeName>roles</ra:nativeAttributeName>
                                     <ra:frameworkAttributeName>roles</ra:frameworkAttributeName>
-                                    <ra:returnedByDefault>true</ra:returnedByDefault>
                                 </xsd:appinfo>
                             </xsd:annotation>
                         </xsd:element>
                         <xsd:element minOccurs="0" name="preferredLanguage" type="xsd:string">
                             <xsd:annotation>
                                 <xsd:appinfo>
-                                    <a:displayOrder>420</a:displayOrder>
+                                    <a:displayName>preferredLanguage</a:displayName>
+                                    <a:displayOrder>430</a:displayOrder>
                                     <ra:nativeAttributeName>preferredLanguage</ra:nativeAttributeName>
                                     <ra:frameworkAttributeName>preferredLanguage</ra:frameworkAttributeName>
-                                    <ra:returnedByDefault>true</ra:returnedByDefault>
                                 </xsd:appinfo>
                             </xsd:annotation>
                         </xsd:element>
                         <xsd:element maxOccurs="unbounded" minOccurs="0" name="addresses" type="xsd:string">
                             <xsd:annotation>
                                 <xsd:appinfo>
-                                    <a:displayOrder>430</a:displayOrder>
+                                    <a:displayName>addresses</a:displayName>
+                                    <a:displayOrder>440</a:displayOrder>
                                     <ra:nativeAttributeName>addresses</ra:nativeAttributeName>
                                     <ra:frameworkAttributeName>addresses</ra:frameworkAttributeName>
-                                    <ra:returnedByDefault>true</ra:returnedByDefault>
                                 </xsd:appinfo>
                             </xsd:annotation>
                         </xsd:element>
                         <xsd:element minOccurs="0" name="title" type="xsd:string">
                             <xsd:annotation>
                                 <xsd:appinfo>
-                                    <a:displayOrder>440</a:displayOrder>
+                                    <a:displayName>title</a:displayName>
+                                    <a:displayOrder>450</a:displayOrder>
                                     <ra:nativeAttributeName>title</ra:nativeAttributeName>
                                     <ra:frameworkAttributeName>title</ra:frameworkAttributeName>
-                                    <ra:returnedByDefault>true</ra:returnedByDefault>
                                 </xsd:appinfo>
                             </xsd:annotation>
                         </xsd:element>
                         <xsd:element minOccurs="0" name="manager_ref" type="xsd:string">
                             <xsd:annotation>
                                 <xsd:appinfo>
-                                    <a:displayOrder>450</a:displayOrder>
+                                    <a:displayName>manager_ref</a:displayName>
+                                    <a:displayOrder>460</a:displayOrder>
                                     <ra:nativeAttributeName>manager_ref</ra:nativeAttributeName>
                                     <ra:frameworkAttributeName>manager_ref</ra:frameworkAttributeName>
-                                    <ra:returnedByDefault>true</ra:returnedByDefault>
                                 </xsd:appinfo>
                             </xsd:annotation>
                         </xsd:element>
                         <xsd:element minOccurs="0" name="externalId" type="xsd:string">
                             <xsd:annotation>
                                 <xsd:appinfo>
-                                    <a:displayOrder>460</a:displayOrder>
+                                    <a:displayName>externalId</a:displayName>
+                                    <a:displayOrder>470</a:displayOrder>
                                     <ra:nativeAttributeName>externalId</ra:nativeAttributeName>
                                     <ra:frameworkAttributeName>externalId</ra:frameworkAttributeName>
-                                    <ra:returnedByDefault>true</ra:returnedByDefault>
                                 </xsd:appinfo>
                             </xsd:annotation>
                         </xsd:element>
                         <xsd:element name="id" type="xsd:string">
                             <xsd:annotation>
                                 <xsd:appinfo>
+                                    <a:displayName>id</a:displayName>
                                     <a:displayOrder>100</a:displayOrder>
                                     <a:access>create</a:access>
                                     <a:access>read</a:access>
                                     <ra:nativeAttributeName>id</ra:nativeAttributeName>
                                     <ra:frameworkAttributeName>__UID__</ra:frameworkAttributeName>
-                                    <ra:returnedByDefault>true</ra:returnedByDefault>
                                 </xsd:appinfo>
                             </xsd:annotation>
                         </xsd:element>
+                        <xsd:any maxOccurs="unbounded" minOccurs="0" namespace="##other" processContents="lax"/>
                     </xsd:sequence>
                 </xsd:complexType>
                 <xsd:complexType name="Scim2Group">
                     <xsd:annotation>
                         <xsd:appinfo>
-                            <a:container>true</a:container>
-                            <ra:resourceObject>true</ra:resourceObject>
-                            <ra:nativeObjectClass>Scim2Group</ra:nativeObjectClass>
-                            <ra:default>false</ra:default>
-                            <ra:auxiliary>false</ra:auxiliary>
-                            <ra:embedded>false</ra:embedded>
-                            <ra:namingAttribute>ri:displayName</ra:namingAttribute>
-                            <ra:displayNameAttribute>ri:displayName</ra:displayNameAttribute>
+                            <a:container/>
+                            <ra:resourceObject/>
                             <ra:identifier>ri:id</ra:identifier>
                             <ra:secondaryIdentifier>ri:displayName</ra:secondaryIdentifier>
+                            <ra:displayNameAttribute>ri:displayName</ra:displayNameAttribute>
+                            <ra:namingAttribute>ri:displayName</ra:namingAttribute>
+                            <ra:nativeObjectClass>Scim2Group</ra:nativeObjectClass>
                         </xsd:appinfo>
                     </xsd:annotation>
                     <xsd:sequence>
-                        <xsd:element name="id" type="xsd:string">
+                        <xsd:element maxOccurs="unbounded" minOccurs="0" name="members" type="xsd:string">
                             <xsd:annotation>
                                 <xsd:appinfo>
-                                    <a:displayOrder>10</a:displayOrder>
-                                    <ra:nativeAttributeName>id</ra:nativeAttributeName>
-                                    <ra:frameworkAttributeName>id</ra:frameworkAttributeName>
-                                    <ra:returnedByDefault>true</ra:returnedByDefault>
+                                    <a:displayName>members</a:displayName>
+                                    <a:displayOrder>120</a:displayOrder>
+                                    <ra:nativeAttributeName>members</ra:nativeAttributeName>
+                                    <ra:frameworkAttributeName>members</ra:frameworkAttributeName>
+                                </xsd:appinfo>
+                            </xsd:annotation>
+                        </xsd:element>
+                        <xsd:element maxOccurs="unbounded" minOccurs="0" name="members_value" type="xsd:string">
+                            <xsd:annotation>
+                                <xsd:appinfo>
+                                    <a:displayName>members_value</a:displayName>
+                                    <a:displayOrder>130</a:displayOrder>
+                                    <ra:nativeAttributeName>members_value</ra:nativeAttributeName>
+                                    <ra:frameworkAttributeName>members_value</ra:frameworkAttributeName>
                                 </xsd:appinfo>
                             </xsd:annotation>
                         </xsd:element>
                         <xsd:element name="displayName" type="xsd:string">
                             <xsd:annotation>
                                 <xsd:appinfo>
-                                    <a:displayOrder>20</a:displayOrder>
+                                    <a:displayName>displayName</a:displayName>
+                                    <a:displayOrder>110</a:displayOrder>
                                     <ra:nativeAttributeName>displayName</ra:nativeAttributeName>
-                                    <ra:frameworkAttributeName>displayName</ra:frameworkAttributeName>
-                                    <ra:returnedByDefault>true</ra:returnedByDefault>
+                                    <ra:frameworkAttributeName>__NAME__</ra:frameworkAttributeName>
                                 </xsd:appinfo>
                             </xsd:annotation>
                         </xsd:element>
-                        <xsd:element maxOccurs="unbounded" minOccurs="0" name="members" type="xsd:string">
+                        <xsd:element minOccurs="0" name="externalId" type="xsd:string">
                             <xsd:annotation>
                                 <xsd:appinfo>
-                                    <a:displayOrder>30</a:displayOrder>
-                                    <ra:nativeAttributeName>members</ra:nativeAttributeName>
-                                    <ra:frameworkAttributeName>members</ra:frameworkAttributeName>
-                                    <ra:returnedByDefault>true</ra:returnedByDefault>
+                                    <a:displayName>externalId</a:displayName>
+                                    <a:displayOrder>140</a:displayOrder>
+                                    <ra:nativeAttributeName>externalId</ra:nativeAttributeName>
+                                    <ra:frameworkAttributeName>externalId</ra:frameworkAttributeName>
                                 </xsd:appinfo>
                             </xsd:annotation>
                         </xsd:element>
+                        <xsd:element name="id" type="xsd:string">
+                            <xsd:annotation>
+                                <xsd:appinfo>
+                                    <a:displayName>id</a:displayName>
+                                    <a:displayOrder>100</a:displayOrder>
+                                    <a:access>create</a:access>
+                                    <a:access>read</a:access>
+                                    <ra:nativeAttributeName>id</ra:nativeAttributeName>
+                                    <ra:frameworkAttributeName>__UID__</ra:frameworkAttributeName>
+                                </xsd:appinfo>
+                            </xsd:annotation>
+                        </xsd:element>
+                        <xsd:any maxOccurs="unbounded" minOccurs="0" namespace="##other" processContents="lax"/>
                     </xsd:sequence>
                 </xsd:complexType>
             </xsd:schema>
         </definition>
     </schema>
     <schemaHandling>
-        <objectType>
+        <objectType id="4">
             <kind>account</kind>
             <intent>default</intent>
             <displayName>AWS User</displayName>
@@ -509,17 +637,17 @@
             <focus>
                 <type>c:UserType</type>
             </focus>
-            <attribute>
+            <attribute id="7">
                 <ref>ri:userName</ref>
                 <outbound>
                     <name>name</name>
-                    <strength>strong</strength>
                     <authoritative>false</authoritative>
+                    <strength>strong</strength>
                     <source>
                         <path>$focus/name</path>
                     </source>
                 </outbound>
-                <inbound>
+                <inbound id="29">
                     <name>userName</name>
                     <strength>weak</strength>
                     <target>
@@ -528,17 +656,17 @@
                     <use>correlation</use>
                 </inbound>
             </attribute>
-            <attribute>
+            <attribute id="8">
                 <ref>ri:name_givenName</ref>
                 <outbound>
                     <name>firstName</name>
-                    <strength>strong</strength>
                     <authoritative>false</authoritative>
+                    <strength>strong</strength>
                     <source>
                         <path>$focus/givenName</path>
                     </source>
                 </outbound>
-                <inbound>
+                <inbound id="30">
                     <name>firstName</name>
                     <strength>weak</strength>
                     <target>
@@ -546,7 +674,7 @@
                     </target>
                 </inbound>
             </attribute>
-            <attribute>
+            <attribute id="9">
                 <ref>ri:name_middleName</ref>
                 <outbound>
                     <name>middleName</name>
@@ -554,7 +682,7 @@
                         <path>additionalName</path>
                     </source>
                 </outbound>
-                <inbound>
+                <inbound id="31">
                     <name>middleName</name>
                     <strength>weak</strength>
                     <target>
@@ -562,7 +690,7 @@
                     </target>
                 </inbound>
             </attribute>
-            <attribute>
+            <attribute id="10">
                 <ref>ri:name_familyName</ref>
                 <outbound>
                     <name>lastName</name>
@@ -570,7 +698,7 @@
                         <path>$focus/familyName</path>
                     </source>
                 </outbound>
-                <inbound>
+                <inbound id="32">
                     <name>lastName</name>
                     <strength>weak</strength>
                     <target>
@@ -578,17 +706,17 @@
                     </target>
                 </inbound>
             </attribute>
-            <attribute>
+            <attribute id="11">
                 <ref>ri:name_honorificPrefix</ref>
                 <outbound>
                     <name>honorificPrefix</name>
-                    <strength>strong</strength>
                     <authoritative>false</authoritative>
+                    <strength>strong</strength>
                     <source>
                         <path>$focus/honorificPrefix</path>
                     </source>
                 </outbound>
-                <inbound>
+                <inbound id="33">
                     <name>honorificPrefix</name>
                     <strength>weak</strength>
                     <target>
@@ -596,17 +724,17 @@
                     </target>
                 </inbound>
             </attribute>
-            <attribute>
+            <attribute id="12">
                 <ref>ri:name_honorificSuffix</ref>
                 <outbound>
                     <name>honorificSuffix</name>
-                    <strength>strong</strength>
                     <authoritative>false</authoritative>
+                    <strength>strong</strength>
                     <source>
                         <path>$focus/honorificSuffix</path>
                     </source>
                 </outbound>
-                <inbound>
+                <inbound id="34">
                     <name>honorificSuffix</name>
                     <strength>weak</strength>
                     <target>
@@ -614,7 +742,7 @@
                     </target>
                 </inbound>
             </attribute>
-            <attribute>
+            <attribute id="13">
                 <ref>ri:nickName</ref>
                 <outbound>
                     <name>nickName</name>
@@ -622,7 +750,7 @@
                         <path>nickName</path>
                     </source>
                 </outbound>
-                <inbound>
+                <inbound id="35">
                     <name>nickName</name>
                     <strength>weak</strength>
                     <target>
@@ -630,55 +758,76 @@
                     </target>
                 </inbound>
             </attribute>
-            <attribute>
+            <attribute id="14">
                 <ref>ri:emails</ref>
                 <outbound>
                     <name>primaryEmail</name>
-                    <strength>strong</strength>
                     <authoritative>false</authoritative>
+                    <strength>strong</strength>
                     <source>
-                        <path>emailAddress</path>
+                        <path>$focus/emailAddress</path>
                     </source>
                     <expression>
                         <script>
-                            <code>
-                                import groovy.json.JsonOutput
+                            <code>import groovy.json.JsonOutput
 
-                                // IAM Identity Center does not support multiple values in multi-value attributes
-                                // (such as emails, addresses, phoneNumbers). Only single values are permitted.
-                                return JsonOutput.toJson([value: emailAddress, type: "work", primary: true])
+                            def map = new HashMap()
+                            map.put('value', emailAddress)
+                            map.put('primary', true)
+                            map.put('type', 'work')
+                            def primary = JsonOutput.toJson(map)
+                            log.warn("Primary email ZZZ {}", primary)
+                            return [primary]
                             </code>
                         </script>
                     </expression>
                 </outbound>
-                <inbound>
+                <inbound id="28">
                     <name>primaryEmail</name>
                     <strength>weak</strength>
                     <expression>
                         <script>
                             <code>
-                                map = new HashMap()
-                                map.put('input', input)
-                                return provision.execute('valueParser', map)
+
+                                log.warn("Email {}", input)
+                                def valueMap = new HashMap()
+                                valueMap.put("inbound", input)
+                                def value = provisionIAM.execute("getValueIfPrimary", valueMap)
+                                if ( value != null ) {
+                                    return value
+                                }
+
+                                return null
                             </code>
                         </script>
                     </expression>
                     <target>
-                        <path>emailAddress</path>
+                        <path>$focus/emailAddress</path>
                     </target>
+                    <condition>
+                        <script>
+                            <code>
+                                log.warn("Email Condition {}", input)
+                                def valueMap = new HashMap()
+                                valueMap.put("inbound", input)
+                                def value = provisionIAM.execute("getValueIfPrimary", valueMap)
+                                return ( value != null )
+                            </code>
+                        </script>
+                    </condition>
                 </inbound>
             </attribute>
-            <attribute>
+            <attribute id="15">
                 <ref>ri:timezone</ref>
                 <outbound>
                     <name>timezone</name>
-                    <strength>strong</strength>
                     <authoritative>false</authoritative>
+                    <strength>strong</strength>
                     <source>
                         <path>timezone</path>
                     </source>
                 </outbound>
-                <inbound>
+                <inbound id="37">
                     <name>timezone</name>
                     <strength>weak</strength>
                     <target>
@@ -686,17 +835,17 @@
                     </target>
                 </inbound>
             </attribute>
-            <attribute>
+            <attribute id="16">
                 <ref>ri:preferredLanguage</ref>
                 <outbound>
                     <name>preferredLanguage</name>
-                    <strength>strong</strength>
                     <authoritative>false</authoritative>
+                    <strength>strong</strength>
                     <source>
                         <path>$focus/preferredLanguage</path>
                     </source>
                 </outbound>
-                <inbound>
+                <inbound id="38">
                     <name>preferredLanguage</name>
                     <strength>weak</strength>
                     <target>
@@ -704,28 +853,28 @@
                     </target>
                 </inbound>
             </attribute>
-            <attribute>
+            <attribute id="17">
                 <ref>ri:displayName</ref>
                 <outbound>
                     <name>displayName</name>
-                    <strength>strong</strength>
                     <authoritative>false</authoritative>
+                    <strength>strong</strength>
                     <source>
                         <path>$focus/name</path>
                     </source>
                 </outbound>
             </attribute>
-            <attribute>
+            <attribute id="18">
                 <ref>ri:costCenter</ref>
                 <outbound>
                     <name>costCenter</name>
-                    <strength>strong</strength>
                     <authoritative>false</authoritative>
+                    <strength>strong</strength>
                     <source>
                         <path>$focus/costCenter</path>
                     </source>
                 </outbound>
-                <inbound>
+                <inbound id="39">
                     <name>costCenter</name>
                     <strength>weak</strength>
                     <target>
@@ -733,17 +882,17 @@
                     </target>
                 </inbound>
             </attribute>
-            <attribute>
+            <attribute id="19">
                 <ref>ri:title</ref>
                 <outbound>
                     <name>title</name>
-                    <strength>strong</strength>
                     <authoritative>false</authoritative>
+                    <strength>strong</strength>
                     <source>
                         <path>$focus/title</path>
                     </source>
                 </outbound>
-                <inbound>
+                <inbound id="40">
                     <name>title</name>
                     <strength>weak</strength>
                     <target>
@@ -751,17 +900,17 @@
                     </target>
                 </inbound>
             </attribute>
-            <attribute>
+            <attribute id="20">
                 <ref>ri:locale</ref>
                 <outbound>
                     <name>locale</name>
-                    <strength>strong</strength>
                     <authoritative>false</authoritative>
+                    <strength>strong</strength>
                     <source>
                         <path>$focus/locale</path>
                     </source>
                 </outbound>
-                <inbound>
+                <inbound id="41">
                     <name>locale</name>
                     <strength>weak</strength>
                     <target>
@@ -769,13 +918,26 @@
                     </target>
                 </inbound>
             </attribute>
-            <attribute>
+            <attribute id="21">
                 <ref>ri:addresses</ref>
                 <outbound>
-                    <strength>strong</strength>
+                    <name>address</name>
                     <authoritative>false</authoritative>
+                    <strength>strong</strength>
                     <source>
                         <path>$focus/locality</path>
+                    </source>
+                    <source>
+                        <path>$focus/extension/state</path>
+                    </source>
+                    <source>
+                        <path>$focus/extension/country</path>
+                    </source>
+                    <source>
+                        <path>$focus/extension/postalCode</path>
+                    </source>
+                    <source>
+                        <path>$focus/extension/streetAddress</path>
                     </source>
                     <expression>
                         <script>
@@ -783,9 +945,24 @@
                                 import groovy.json.JsonOutput
 
                                 def map = new HashMap()
-                                map.put('locality', locality.getOrig())
+                                if(locality !=null) {
+                                    map.put('locality', locality.getOrig())
+                                }
+                                if(state != null) {
+                                    map.put('region', state)
+                                }
+                                if (country != null) {
+                                    map.put('country', country)
+                                }
+                                if( postalCode != null) {
+                                    map.put('postalCode', postalCode)
+                                }
+                                if( streetAddress != null) {
+                                    map.put('streetAddress', streetAddress)
+                                }
+                                map.put('type', 'work')
                                 def out = JsonOutput.toJson(map)
-                                return out
+                                return [out]
                             </code>
                         </script>
                     </expression>
@@ -795,17 +972,18 @@
                         </script>
                     </condition>
                 </outbound>
-                <inbound>
+                <inbound id="42">
                     <name>locality</name>
                     <strength>weak</strength>
                     <expression>
                         <script>
                             <code>
+                                //will get a single value and we have to split into each array element field.
                                 map = new HashMap()
                                 map.put("input", input)
                                 map.put("item", "locality")
 
-                                return provision.execute("addressParser", map)
+                                return ProvisionIAM.execute("addressParser", map)
                             </code>
                         </script>
                     </expression>
@@ -813,7 +991,7 @@
                         <path>locality</path>
                     </target>
                 </inbound>
-                <inbound>
+                <inbound id="43">
                     <name>streetAddress</name>
                     <strength>weak</strength>
                     <expression>
@@ -823,7 +1001,7 @@
                                 map.put("input", input)
                                 map.put("item", "streetAddress")
 
-                                return provision.execute("addressParser", map)
+                                return ProvisionIAM.execute("addressParser", map)
                             </code>
                         </script>
                     </expression>
@@ -831,7 +1009,7 @@
                         <path>extension/streetAddress</path>
                     </target>
                 </inbound>
-                <inbound>
+                <inbound id="44">
                     <name>postalCode</name>
                     <strength>weak</strength>
                     <expression>
@@ -841,7 +1019,7 @@
                                 map.put("input", input)
                                 map.put("item", "postalCode")
 
-                                return provision.execute("addressParser", map)
+                                return ProvisionIAM.execute("addressParser", map)
                             </code>
                         </script>
                     </expression>
@@ -849,7 +1027,7 @@
                         <path>extension/postalCode</path>
                     </target>
                 </inbound>
-                <inbound>
+                <inbound id="45">
                     <name>country</name>
                     <strength>weak</strength>
                     <expression>
@@ -859,7 +1037,7 @@
                                 map.put("input", input)
                                 map.put("item", "country")
 
-                                return provision.execute("addressParser", map)
+                                return ProvisionIAM.execute("addressParser", map)
                             </code>
                         </script>
                     </expression>
@@ -867,7 +1045,7 @@
                         <path>extension/country</path>
                     </target>
                 </inbound>
-                <inbound>
+                <inbound id="46">
                     <name>state</name>
                     <strength>weak</strength>
                     <expression>
@@ -877,7 +1055,7 @@
                                 map.put("input", input)
                                 map.put("item", "region")
 
-                                return provision.execute("addressParser", map)
+                                return ProvisionIAM.execute("addressParser", map)
                             </code>
                         </script>
                     </expression>
@@ -886,17 +1064,17 @@
                     </target>
                 </inbound>
             </attribute>
-            <attribute>
+            <attribute id="22">
                 <ref>ri:employeeNumber</ref>
                 <outbound>
                     <name>employeeNumber</name>
-                    <strength>strong</strength>
                     <authoritative>false</authoritative>
+                    <strength>strong</strength>
                     <source>
                         <path>employeeNumber</path>
                     </source>
                 </outbound>
-                <inbound>
+                <inbound id="47">
                     <name>employeeNumber</name>
                     <strength>weak</strength>
                     <target>
@@ -904,18 +1082,19 @@
                     </target>
                 </inbound>
             </attribute>
-            <attribute>
+            <attribute id="23">
                 <ref>ri:groups</ref>
-                <inbound>
-                    <strength>strong</strength>
+                <inbound id="48">
                     <authoritative>false</authoritative>
+                    <strength>strong</strength>
                     <expression>
                         <script>
                             <code>
+                               if (input == null) return
                                 inputMap = new HashMap()
                                 inputMap.put("input", input)
 
-                                return provision.execute("valueParser", inputMap)
+                                return ProvisionIAM.execute("valueParser", inputMap)
                             </code>
                         </script>
                     </expression>
@@ -924,42 +1103,42 @@
                     </target>
                 </inbound>
             </attribute>
-            <attribute>
+            <attribute id="24">
                 <ref>ri:externalId</ref>
                 <outbound>
                     <name>externalId</name>
-                    <strength>strong</strength>
                     <authoritative>false</authoritative>
+                    <strength>strong</strength>
                     <source>
                         <path>employeeNumber</path>
                     </source>
                 </outbound>
             </attribute>
-            <attribute>
+            <attribute id="25">
                 <ref>ri:profileUrl</ref>
-                <inbound>
+                <inbound id="49">
                     <name>profileUrl</name>
-                    <strength>strong</strength>
                     <authoritative>false</authoritative>
+                    <strength>strong</strength>
                     <target>
                         <path>extension/profileUrl</path>
                     </target>
                 </inbound>
             </attribute>
-            <attribute>
+            <attribute id="26">
                 <ref>ri:division</ref>
-                <inbound>
+                <inbound id="50">
                     <name>division</name>
-                    <strength>strong</strength>
                     <authoritative>false</authoritative>
+                    <strength>strong</strength>
                     <target>
                         <path>extension/awsDivision</path>
                     </target>
                 </inbound>
             </attribute>
-            <attribute>
+            <attribute id="27">
                 <ref>ri:organization</ref>
-                <inbound>
+                <inbound id="51">
                     <name>organization</name>
                     <strength>strong</strength>
                     <target>
@@ -967,20 +1146,77 @@
                     </target>
                 </inbound>
             </attribute>
-            <attribute>
+            <attribute id="28">
                 <ref>ri:department</ref>
-                <inbound>
+                <inbound id="52">
                     <name>department</name>
-                    <strength>strong</strength>
                     <authoritative>false</authoritative>
+                    <strength>strong</strength>
                     <target>
                         <path>extension/awsDepartment</path>
                     </target>
                 </inbound>
             </attribute>
+            <attribute id="29">
+                <ref>ri:phoneNumbers</ref>
+                <outbound id="67">
+                    <name>phone</name>
+                    <authoritative>false</authoritative>
+                    <strength>strong</strength>
+                    <source>
+                        <path>$focus/telephoneNumber</path>
+                    </source>
+                    <expression>
+                        <script>
+                            <code>
+                                import groovy.json.JsonOutput
+
+                                def map = new HashMap()
+                                if(telephoneNumber !=null) {
+                                    map.put('value', telephoneNumber)
+                                }
+                                def out = JsonOutput.toJson(map)
+                                return [out]
+                            </code>
+                        </script>
+                    </expression>
+                    <condition>
+                        <script>
+                            <code>return telephoneNumber != null</code>
+                        </script>
+                    </condition>
+                </outbound>
+                <inbound id="68">
+                    <name>telephoneNumber</name>
+                    <strength>weak</strength>
+                    <expression>
+                        <script>
+                            <code>
+                                map = new HashMap()
+                                map.put("input", input)
+                                map.put("item", telephoneNumber)
+                                return ProvisionIAM.execute("valueParser", map)
+                            </code>
+                        </script>
+                    </expression>
+                    <target>
+                        <path>$focus/telephoneNumber</path>
+                    </target>
+                </inbound>
+            </attribute>
+            <association id="6">
+                <ref>ri:group</ref>
+                <kind>entitlement</kind>
+                <intent>groups</intent>
+                <direction>objectToSubject</direction>
+                <associationAttribute>ri:members_value</associationAttribute>
+                <valueAttribute>ri:id</valueAttribute>
+                <shortcutAssociationAttribute>ri:groups_value</shortcutAssociationAttribute>
+                <shortcutValueAttribute>ri:id</shortcutValueAttribute>
+            </association>
             <activation>
                 <administrativeStatus>
-                    <outbound>
+                    <outbound id="53">
                         <expression>
                             <asIs/>
                         </expression>
@@ -992,7 +1228,7 @@
             </activation>
             <credentials>
                 <password>
-                    <outbound>
+                    <outbound id="54">
                         <name>password</name>
                         <expression>
                             <asIs/>
@@ -1014,11 +1250,11 @@
             </configuredCapabilities>
             <correlation>
                 <correlators>
-                    <items>
+                    <items id="55">
                         <name>name</name>
                         <description>Match Username</description>
                         <enabled>true</enabled>
-                        <item>
+                        <item id="56">
                             <ref>c:name</ref>
                         </item>
                         <composition>
@@ -1028,21 +1264,21 @@
                 </correlators>
             </correlation>
             <synchronization>
-                <reaction>
+                <reaction id="57">
                     <situation>unlinked</situation>
                     <actions>
-                        <link/>
+                        <link id="59"/>
                     </actions>
                 </reaction>
-                <reaction>
+                <reaction id="58">
                     <situation>linked</situation>
                     <actions>
-                        <synchronize/>
+                        <synchronize id="60"/>
                     </actions>
                 </reaction>
             </synchronization>
         </objectType>
-        <objectType>
+        <objectType id="5">
             <kind>entitlement</kind>
             <intent>groups</intent>
             <displayName>AWS Groups</displayName>
@@ -1054,39 +1290,39 @@
                 <type>c:RoleType</type>
                 <archetypeRef oid="00000000-0000-0000-0000-000000000328" relation="org:default" type="c:ArchetypeType"/>
             </focus>
-            <attribute>
+            <attribute id="61">
                 <ref>ri:displayName</ref>
-                <inbound>
-                    <strength>strong</strength>
+                <inbound id="64">
                     <authoritative>false</authoritative>
+                    <strength>strong</strength>
                     <target>
                         <path>name</path>
                     </target>
                     <use>correlation</use>
                 </inbound>
             </attribute>
-            <attribute>
+            <attribute id="62">
                 <ref>ri:id</ref>
-                <inbound>
-                    <strength>strong</strength>
+                <inbound id="65">
                     <authoritative>false</authoritative>
+                    <strength>strong</strength>
                     <target>
                         <path>identifier</path>
                     </target>
                 </inbound>
             </attribute>
-            <attribute>
+            <attribute id="63">
                 <ref>ri:members</ref>
-                <inbound>
-                    <strength>strong</strength>
+                <inbound id="66">
                     <authoritative>false</authoritative>
+                    <strength>strong</strength>
                     <expression>
                         <script>
                             <code>
                                 inputMap = new HashMap()
                                 inputMap.put("input", input)
 
-                                return provision.execute("valueParser", inputMap)
+                                return ProvisionIAM.execute("valueParser", inputMap)
                             </code>
                         </script>
                     </expression>
@@ -1095,13 +1331,14 @@
                     </target>
                 </inbound>
             </attribute>
+
             <correlation>
                 <correlators>
-                    <items>
+                    <items id="67">
                         <name>name</name>
                         <description>Match DisplayName</description>
                         <enabled>true</enabled>
-                        <item>
+                        <item id="68">
                             <ref>c:name</ref>
                         </item>
                         <composition>
@@ -1111,30 +1348,34 @@
                 </correlators>
             </correlation>
             <synchronization>
-                <reaction>
+                <reaction id="69">
                     <situation>unlinked</situation>
                     <actions>
-                        <link/>
+                        <link id="72"/>
                     </actions>
                 </reaction>
-                <reaction>
+                <reaction id="70">
                     <situation>linked</situation>
                     <actions>
-                        <synchronize>
+                        <synchronize id="73">
                             <synchronize>true</synchronize>
                         </synchronize>
                     </actions>
                 </reaction>
-                <reaction>
+                <reaction id="71">
                     <situation>unmatched</situation>
                     <actions>
-                        <addFocus/>
+                        <addFocus id="74"/>
                     </actions>
                 </reaction>
             </synchronization>
         </objectType>
     </schemaHandling>
     <capabilities>
+        <cachingMetadata>
+            <retrievalTimestamp>2025-06-26T12:20:03.583-04:00</retrievalTimestamp>
+            <serialNumber>65ab767db364a287-3f6d8969068fdbe7</serialNumber>
+        </cachingMetadata>
         <native xmlns:cap="http://midpoint.evolveum.com/xml/ns/public/resource/capabilities-3">
             <cap:schema/>
             <cap:discoverConfiguration/>
@@ -1152,34 +1393,11 @@
             <cap:delete/>
             <cap:testConnection/>
             <cap:script>
-                <cap:host>
+                <cap:host id="81">
                     <cap:type>connector</cap:type>
                 </cap:host>
             </cap:script>
             <cap:pagedSearch/>
         </native>
-        <configured xmlns:cap="http://midpoint.evolveum.com/xml/ns/public/resource/capabilities-3">
-            <cap:references>
-                <cap:type>
-                    <cap:name>ri:groups</cap:name>
-                    <cap:subject>
-                        <cap:delineation>
-                            <cap:objectClass>ri:Scim2User</cap:objectClass>
-                        </cap:delineation>
-                        <cap:primaryBindingAttributeRef>ri:id</cap:primaryBindingAttributeRef>
-                        <cap:secondaryBindingAttributeRef>$focus/organization</cap:secondaryBindingAttributeRef>
-                        <cap:localItemName>ri:group</cap:localItemName>
-                    </cap:subject>
-                    <cap:object>
-                        <cap:delineation>
-                            <cap:objectClass>ri:Scim2Group</cap:objectClass>
-                        </cap:delineation>
-                        <cap:primaryBindingAttributeRef>$focus/extension/group_members</cap:primaryBindingAttributeRef>
-                        <cap:secondaryBindingAttributeRef>ri:id</cap:secondaryBindingAttributeRef>
-                    </cap:object>
-                    <cap:direction>objectToSubject</cap:direction>
-                </cap:type>
-            </cap:references>
-        </configured>
     </capabilities>
 </resource>

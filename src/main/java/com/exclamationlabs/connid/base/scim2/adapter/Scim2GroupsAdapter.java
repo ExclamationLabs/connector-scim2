@@ -13,11 +13,13 @@ import com.exclamationlabs.connid.base.scim2.model.Scim2Group;
 import java.util.*;
 
 import com.google.gson.Gson;
+import org.identityconnectors.common.logging.Log;
 import org.identityconnectors.framework.common.objects.*;
 
 public class Scim2GroupsAdapter extends BaseAdapter<Scim2Group, Scim2Configuration> {
   public static final String SCIM2_GROUP ="Scim2Group";
   public static final String SCIM2_CORE_GROUP_SCHEMA = "urn:ietf:params:scim:schemas:core:2.0:Group";
+  private static final Log LOG = Log.getLog(Scim2GroupsAdapter.class);
 
   @Override
   public ObjectClass getType() {
@@ -46,6 +48,20 @@ public class Scim2GroupsAdapter extends BaseAdapter<Scim2Group, Scim2Configurati
     }
     return members;
   }
+
+  private Set<Map<String, String>> getMembersFromValues(Set<String> listOfMembers)
+  {
+    Set<Map<String, String>> members = null;
+    if ( listOfMembers != null && !listOfMembers.isEmpty() ) {
+      members = new HashSet<>();
+      for (String member : listOfMembers) {
+        Map<String, String> memberMap = new HashMap<>();
+        memberMap.put("value", member);
+        members.add(memberMap);
+      }
+    }
+    return members;
+  }
   @Override
   public Set<ConnectorAttribute> getConnectorAttributes() {
 
@@ -68,7 +84,7 @@ public class Scim2GroupsAdapter extends BaseAdapter<Scim2Group, Scim2Configurati
      * value, $ref, and type
      */
     result.add(new ConnectorAttribute(members.name(), STRING, MULTIVALUED));
-
+    result.add(new ConnectorAttribute(members_value.name(), STRING, MULTIVALUED));
     return result;
   }
 
@@ -77,6 +93,7 @@ public class Scim2GroupsAdapter extends BaseAdapter<Scim2Group, Scim2Configurati
   {
     Set<Attribute> attributes = new HashSet<>();
     Set<String> memberSet = new HashSet<>();
+    Set<String> memberSetValues = new HashSet<>();
     //attributes.add(AttributeBuilder.build(displayName.name(), group.getDisplayName()));
     attributes.add(AttributeBuilder.build(Name.NAME, group.getIdentityNameValue()));
     attributes.add(AttributeBuilder.build(id.name(), group.getId()));
@@ -92,11 +109,15 @@ public class Scim2GroupsAdapter extends BaseAdapter<Scim2Group, Scim2Configurati
           StringJoiner joiner = new StringJoiner(",", "{", "}");
           item.forEach((key, value) -> {
             joiner.add(String.format("\"%s\":\"%s\"", key, value));
+            if (key.equals("value")) {
+              memberSetValues.add(value);
+            }
           });
           member = joiner.toString();
           memberSet.add(member);
       }
       attributes.add(AttributeBuilder.build(members.name(), memberSet));
+      attributes.add(AttributeBuilder.build(members_value.name(), memberSetValues));
     }
     return attributes;
   }
@@ -124,12 +145,22 @@ public class Scim2GroupsAdapter extends BaseAdapter<Scim2Group, Scim2Configurati
 
     Set<String> jsonMembers = readAssignments(attributes, members);
     group.setMembers(getMembersFromJSON(jsonMembers));
+
+    Set<String> membersValues = readAssignments(attributes, members_value);
+    group.setMembers(getMembersFromValues(membersValues));
     // Removed these members
     jsonMembers = readAssignments(removedMultiValueAttributes, members);
     group.setRemoveMembers(getMembersFromJSON(jsonMembers));
+
+    membersValues = readAssignments(removedMultiValueAttributes, members_value);
+    group.setRemoveMembers(getMembersFromValues(membersValues));
+
     // Add these members
     jsonMembers = readAssignments(addedMultiValueAttributes, members);
     group.setAddMembers(getMembersFromJSON(jsonMembers));
+
+    membersValues = readAssignments(addedMultiValueAttributes, members_value);
+    group.setAddMembers(getMembersFromValues(membersValues));
     // Set the schema List to groups
     Set<String> schemaList = new HashSet<>();
     schemaList.add(SCIM2_CORE_GROUP_SCHEMA);
