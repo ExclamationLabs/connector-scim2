@@ -1,0 +1,71 @@
+{
+    "name": "urn:ietf:params:scim:schemas:extension:slack:guest:2.0:User",
+    "type": "complex",
+    "multiValued": false,
+    "description": "The following SCIM extension defines attributes representing a Slack guest user. The Slack guest user extension is identified using the following URI: 'urn:scim:schemas:extension:slack:guest:1.0'.",
+    "mutability": "readWrite",
+    "returned": "default",
+    "uniqueness": "none",
+    "required": false,
+    "caseExact": false,
+    "subAttributes": [
+        {
+            "name": "type",
+            "type": "string",
+            "multiValued": false,
+            "description": "Identifies the guest type. The acceptable value is 'multi' for a multi channel guest.",
+            "mutability": "readWrite",
+            "returned": "default",
+            "uniqueness": "none",
+            "required": true,
+            "caseExact": false
+        },
+        {
+            "name": "expiration",
+            "type": "datetime",
+            "multiValued": false,
+            "description": "Identifies date and time the guest account will expire. The accepted format is ISO 8601. E.G 2020-10-31T23:59:59Z",
+            "mutability": "readWrite",
+            "returned": "default",
+            "uniqueness": "none",
+            "required": false,
+            "caseExact": false
+        },
+        {
+            "name": "channels",
+            "type": "complex",
+            "multiValued": true,
+            "multiValuedAttributeChildName": "channel",
+            "description": "A list of channels the user belongs to.",
+            "mutability": "readWrite",
+            "returned": "default",
+            "uniqueness": "none",
+            "required": false,
+            "caseExact": false,
+            "subAttributes": [
+                {
+                    "name": "value",
+                    "type": "string",
+                    "multiValued": false,
+                    "description": "The id of the channel a user has access to. REQUIRED.",
+                    "mutability": "readOnly",
+                    "returned": "default",
+                    "uniqueness": "none",
+                    "required": true,
+                    "caseExact": false
+                },
+                {
+                    "name": "display",
+                    "type": "string",
+                    "multiValued": false,
+                    "description": "The channel name.",
+                    "mutability": "readOnly",
+                    "returned": "default",
+                    "uniqueness": "none",
+                    "required": false,
+                    "caseExact": false
+                }
+            ]
+        }
+    ]
+}
