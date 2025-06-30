@@ -1,6 +1,7 @@
 # connector-scim2
 
 ## Change Log 
++ **1.2.9** - INT-210 AWS Resource Configuration with Group Support and Updated function libraries (2025/06/30)
 + **1.2.8** - INT-197 Improve connector test() method and add unit test support (2025/02/26)
 + **1.2.7** - AWS Get Users for a group and Get Groups for Auser changes implemented (2024/12/18)
 + **1.2.6** - INT-006 Various fixes (2024/09/24)
