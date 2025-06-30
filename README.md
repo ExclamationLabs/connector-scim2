@@ -484,6 +484,11 @@ The SCIM2 connector supports User and Group objects.  The full schemas for these
 			<td>A list of groups to which the user belongs, either through direct membership, through nested groups, or dynamically calculated.</td>
 		</tr>
 		<tr>
+			<td>groups_value</td>
+			<td>string</td>
+			<td>A list of groupId to which the user belongs as multivalued string. This is the value attribute of the groups complex type</td>
+		</tr>
+		<tr>
 			<td>entitlements</td>
 			<td>complex</td>
 			<td>A list of entitlements for the User that represent a thing the User has.</td>
@@ -543,43 +548,85 @@ In addition to all of the above fields, the SCIM2User object for Slack also incl
 	</tbody>
 </table>
 
-
 ## SCIM2Group Object
 
-<table style="border: 1px black;">
-	<thead style="border: 1px black;">
-		<tr>
-			<th>name</th>
-			<th>type</th>
-			<th>description</th>
-		</tr>
-	</thead>
-	<tbody style="vertical-align: top">
-		<tr>
-			<td>value</td>
-			<td>string</td>
-			<td>The identifier of the User's group.</td>
-		</tr>
-		<tr>
-			<td>$ref</td>
-			<td>reference</td>
-			<td>The URI of the corresponding 'Group' resource to which the user belongs.</td>
-		</tr>
-		<tr>
-			<td>display</td>
-			<td>string</td>
-			<td>A human-readable name, primarily used for display purposes.  READ-ONLY.</td>
-		</tr>
-		<tr>
-			<td>type</td>
-			<td>string</td>
-			<td>A label indicating the attribute's function, e.g., 'direct' or 'indirect'.</td>
-		</tr>
-	</tbody>
+
+<table>
+  <tr>
+   <td><strong>name</strong>
+   </td>
+   <td><strong>type</strong>
+   </td>
+   <td><strong>multivalued</strong>
+   </td>
+   <td><strong>description</strong>
+   </td>
+  </tr>
+  <tr>
+   <td>id
+   </td>
+   <td>string
+   </td>
+   <td>no
+   </td>
+   <td>The identifier of the Group.
+   </td>
+  </tr>
+  <tr>
+   <td>displayName
+   </td>
+   <td>string
+   </td>
+   <td>no
+   </td>
+   <td>A human-readable name, primarily used for display purposes.
+   </td>
+  </tr>
+  <tr>
+   <td>externalId
+   </td>
+   <td>string
+   </td>
+   <td>no
+   </td>
+   <td>A String that is an identifier for the resource as defined by the provisioning client.t'.
+   </td>
+  </tr>
+  <tr>
+   <td>members
+   </td>
+   <td>JSON String
+   </td>
+   <td>yes
+   </td>
+   <td>A list of members of the Group as a JSON array. 
+   </td>
+  </tr>
+  <tr>
+   <td>members_value
+   </td>
+   <td>string
+   </td>
+   <td>yes
+   </td>
+   <td>A list Group Identifiers for members of this Group.
+   </td>
+  </tr>
 </table>
 
 * ConnId UID -> SCIM2 id
 * ConnId Name -> SCIM2 displayName
+
+In a SCIM2 Group the members attribute is a multivalued string containing a map of members key/value pairs in JSON format. The following shows the expected return data for member:
+
+
+```
+{
+"value": "9067729b3d-94f1e0b3-c394-48d5-8ab1-2c122a167074",
+"$ref": "../Users/9067729b3d-94f1e0b3-c394-48d5-8ab1-2c122a167074",
+"type": "User"
+}
+```
 
 # 7 Connector Query Capabilities
 
