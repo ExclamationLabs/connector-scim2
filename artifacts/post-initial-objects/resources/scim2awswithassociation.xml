@@ -12,7 +12,7 @@
         <modifyChannel>http://midpoint.evolveum.com/xml/ns/public/common/channels-3#user</modifyChannel>
     </metadata>
     <lifecycleState>active</lifecycleState>
-    <operationExecution id="75">
+    <operationExecution>
         <recordType>simple</recordType>
         <timestamp>2025-06-19T11:40:48.509-04:00</timestamp>
         <operation>
@@ -32,7 +32,7 @@
         <initiatorRef oid="00000000-0000-0000-0000-000000000002" relation="org:default" type="c:UserType"/>
         <channel>http://midpoint.evolveum.com/xml/ns/public/common/channels-3#user</channel>
     </operationExecution>
-    <operationExecution id="77">
+    <operationExecution>
         <recordType>simple</recordType>
         <timestamp>2025-06-19T11:45:30.130-04:00</timestamp>
         <operation>
@@ -52,7 +52,7 @@
         <initiatorRef oid="00000000-0000-0000-0000-000000000002" relation="org:default" type="c:UserType"/>
         <channel>http://midpoint.evolveum.com/xml/ns/public/common/channels-3#user</channel>
     </operationExecution>
-    <operationExecution id="79">
+    <operationExecution>
         <recordType>simple</recordType>
         <timestamp>2025-06-26T09:54:34.392-04:00</timestamp>
         <operation>
@@ -72,7 +72,7 @@
         <initiatorRef oid="00000000-0000-0000-0000-000000000002" relation="org:default" type="c:UserType"/>
         <channel>http://midpoint.evolveum.com/xml/ns/public/common/channels-3#user</channel>
     </operationExecution>
-    <operationExecution id="80">
+    <operationExecution>
         <recordType>simple</recordType>
         <timestamp>2025-06-26T12:20:03.046-04:00</timestamp>
         <operation>
@@ -100,7 +100,7 @@
         <timestamp>2025-06-05T12:38:12.146-04:00</timestamp>
         <nodeId>DefaultNode</nodeId>
     </operationalState>
-    <operationalStateHistory id="3">
+    <operationalStateHistory>
         <lastAvailabilityStatus>up</lastAvailabilityStatus>
         <message>Status set to UP because resource schema was successfully fetched</message>
         <timestamp>2025-06-05T12:38:12.146-04:00</timestamp>
@@ -626,7 +626,7 @@
         </definition>
     </schema>
     <schemaHandling>
-        <objectType id="4">
+        <objectType>
             <kind>account</kind>
             <intent>default</intent>
             <displayName>AWS User</displayName>
@@ -637,7 +637,7 @@
             <focus>
                 <type>c:UserType</type>
             </focus>
-            <attribute id="7">
+            <attribute>
                 <ref>ri:userName</ref>
                 <outbound>
                     <name>name</name>
@@ -647,7 +647,7 @@
                         <path>$focus/name</path>
                     </source>
                 </outbound>
-                <inbound id="29">
+                <inbound>
                     <name>userName</name>
                     <strength>weak</strength>
                     <target>
@@ -656,7 +656,7 @@
                     <use>correlation</use>
                 </inbound>
             </attribute>
-            <attribute id="8">
+            <attribute>
                 <ref>ri:name_givenName</ref>
                 <outbound>
                     <name>firstName</name>
@@ -666,7 +666,7 @@
                         <path>$focus/givenName</path>
                     </source>
                 </outbound>
-                <inbound id="30">
+                <inbound>
                     <name>firstName</name>
                     <strength>weak</strength>
                     <target>
@@ -674,7 +674,7 @@
                     </target>
                 </inbound>
             </attribute>
-            <attribute id="9">
+            <attribute>
                 <ref>ri:name_middleName</ref>
                 <outbound>
                     <name>middleName</name>
@@ -682,7 +682,7 @@
                         <path>additionalName</path>
                     </source>
                 </outbound>
-                <inbound id="31">
+                <inbound>
                     <name>middleName</name>
                     <strength>weak</strength>
                     <target>
@@ -690,7 +690,7 @@
                     </target>
                 </inbound>
             </attribute>
-            <attribute id="10">
+            <attribute>
                 <ref>ri:name_familyName</ref>
                 <outbound>
                     <name>lastName</name>
@@ -698,7 +698,7 @@
                         <path>$focus/familyName</path>
                     </source>
                 </outbound>
-                <inbound id="32">
+                <inbound>
                     <name>lastName</name>
                     <strength>weak</strength>
                     <target>
@@ -706,7 +706,7 @@
                     </target>
                 </inbound>
             </attribute>
-            <attribute id="11">
+            <attribute>
                 <ref>ri:name_honorificPrefix</ref>
                 <outbound>
                     <name>honorificPrefix</name>
@@ -716,7 +716,7 @@
                         <path>$focus/honorificPrefix</path>
                     </source>
                 </outbound>
-                <inbound id="33">
+                <inbound>
                     <name>honorificPrefix</name>
                     <strength>weak</strength>
                     <target>
@@ -724,7 +724,7 @@
                     </target>
                 </inbound>
             </attribute>
-            <attribute id="12">
+            <attribute>
                 <ref>ri:name_honorificSuffix</ref>
                 <outbound>
                     <name>honorificSuffix</name>
@@ -734,7 +734,7 @@
                         <path>$focus/honorificSuffix</path>
                     </source>
                 </outbound>
-                <inbound id="34">
+                <inbound>
                     <name>honorificSuffix</name>
                     <strength>weak</strength>
                     <target>
@@ -742,7 +742,7 @@
                     </target>
                 </inbound>
             </attribute>
-            <attribute id="13">
+            <attribute>
                 <ref>ri:nickName</ref>
                 <outbound>
                     <name>nickName</name>
@@ -750,7 +750,7 @@
                         <path>nickName</path>
                     </source>
                 </outbound>
-                <inbound id="35">
+                <inbound>
                     <name>nickName</name>
                     <strength>weak</strength>
                     <target>
@@ -758,7 +758,7 @@
                     </target>
                 </inbound>
             </attribute>
-            <attribute id="14">
+            <attribute>
                 <ref>ri:emails</ref>
                 <outbound>
                     <name>primaryEmail</name>
@@ -782,7 +782,7 @@
                         </script>
                     </expression>
                 </outbound>
-                <inbound id="28">
+                <inbound>
                     <name>primaryEmail</name>
                     <strength>weak</strength>
                     <expression>
@@ -817,7 +817,7 @@
                     </condition>
                 </inbound>
             </attribute>
-            <attribute id="15">
+            <attribute>
                 <ref>ri:timezone</ref>
                 <outbound>
                     <name>timezone</name>
@@ -827,7 +827,7 @@
                         <path>timezone</path>
                     </source>
                 </outbound>
-                <inbound id="37">
+                <inbound>
                     <name>timezone</name>
                     <strength>weak</strength>
                     <target>
@@ -835,7 +835,7 @@
                     </target>
                 </inbound>
             </attribute>
-            <attribute id="16">
+            <attribute>
                 <ref>ri:preferredLanguage</ref>
                 <outbound>
                     <name>preferredLanguage</name>
@@ -845,7 +845,7 @@
                         <path>$focus/preferredLanguage</path>
                     </source>
                 </outbound>
-                <inbound id="38">
+                <inbound>
                     <name>preferredLanguage</name>
                     <strength>weak</strength>
                     <target>
@@ -853,7 +853,7 @@
                     </target>
                 </inbound>
             </attribute>
-            <attribute id="17">
+            <attribute>
                 <ref>ri:displayName</ref>
                 <outbound>
                     <name>displayName</name>
@@ -864,7 +864,7 @@
                     </source>
                 </outbound>
             </attribute>
-            <attribute id="18">
+            <attribute>
                 <ref>ri:costCenter</ref>
                 <outbound>
                     <name>costCenter</name>
@@ -874,7 +874,7 @@
                         <path>$focus/costCenter</path>
                     </source>
                 </outbound>
-                <inbound id="39">
+                <inbound>
                     <name>costCenter</name>
                     <strength>weak</strength>
                     <target>
@@ -882,7 +882,7 @@
                     </target>
                 </inbound>
             </attribute>
-            <attribute id="19">
+            <attribute>
                 <ref>ri:title</ref>
                 <outbound>
                     <name>title</name>
@@ -892,7 +892,7 @@
                         <path>$focus/title</path>
                     </source>
                 </outbound>
-                <inbound id="40">
+                <inbound>
                     <name>title</name>
                     <strength>weak</strength>
                     <target>
@@ -900,7 +900,7 @@
                     </target>
                 </inbound>
             </attribute>
-            <attribute id="20">
+            <attribute>
                 <ref>ri:locale</ref>
                 <outbound>
                     <name>locale</name>
@@ -910,7 +910,7 @@
                         <path>$focus/locale</path>
                     </source>
                 </outbound>
-                <inbound id="41">
+                <inbound>
                     <name>locale</name>
                     <strength>weak</strength>
                     <target>
@@ -918,7 +918,7 @@
                     </target>
                 </inbound>
             </attribute>
-            <attribute id="21">
+            <attribute>
                 <ref>ri:addresses</ref>
                 <outbound>
                     <name>address</name>
@@ -972,7 +972,7 @@
                         </script>
                     </condition>
                 </outbound>
-                <inbound id="42">
+                <inbound>
                     <name>locality</name>
                     <strength>weak</strength>
                     <expression>
@@ -991,7 +991,7 @@
                         <path>locality</path>
                     </target>
                 </inbound>
-                <inbound id="43">
+                <inbound>
                     <name>streetAddress</name>
                     <strength>weak</strength>
                     <expression>
@@ -1009,7 +1009,7 @@
                         <path>extension/streetAddress</path>
                     </target>
                 </inbound>
-                <inbound id="44">
+                <inbound>
                     <name>postalCode</name>
                     <strength>weak</strength>
                     <expression>
@@ -1027,7 +1027,7 @@
                         <path>extension/postalCode</path>
                     </target>
                 </inbound>
-                <inbound id="45">
+                <inbound>
                     <name>country</name>
                     <strength>weak</strength>
                     <expression>
@@ -1045,7 +1045,7 @@
                         <path>extension/country</path>
                     </target>
                 </inbound>
-                <inbound id="46">
+                <inbound>
                     <name>state</name>
                     <strength>weak</strength>
                     <expression>
@@ -1064,7 +1064,7 @@
                     </target>
                 </inbound>
             </attribute>
-            <attribute id="22">
+            <attribute>
                 <ref>ri:employeeNumber</ref>
                 <outbound>
                     <name>employeeNumber</name>
@@ -1074,7 +1074,7 @@
                         <path>employeeNumber</path>
                     </source>
                 </outbound>
-                <inbound id="47">
+                <inbound>
                     <name>employeeNumber</name>
                     <strength>weak</strength>
                     <target>
@@ -1082,9 +1082,9 @@
                     </target>
                 </inbound>
             </attribute>
-            <attribute id="23">
+            <attribute>
                 <ref>ri:groups</ref>
-                <inbound id="48">
+                <inbound>
                     <authoritative>false</authoritative>
                     <strength>strong</strength>
                     <expression>
@@ -1103,7 +1103,7 @@
                     </target>
                 </inbound>
             </attribute>
-            <attribute id="24">
+            <attribute>
                 <ref>ri:externalId</ref>
                 <outbound>
                     <name>externalId</name>
@@ -1114,9 +1114,9 @@
                     </source>
                 </outbound>
             </attribute>
-            <attribute id="25">
+            <attribute>
                 <ref>ri:profileUrl</ref>
-                <inbound id="49">
+                <inbound>
                     <name>profileUrl</name>
                     <authoritative>false</authoritative>
                     <strength>strong</strength>
@@ -1125,9 +1125,9 @@
                     </target>
                 </inbound>
             </attribute>
-            <attribute id="26">
+            <attribute>
                 <ref>ri:division</ref>
-                <inbound id="50">
+                <inbound>
                     <name>division</name>
                     <authoritative>false</authoritative>
                     <strength>strong</strength>
@@ -1136,9 +1136,9 @@
                     </target>
                 </inbound>
             </attribute>
-            <attribute id="27">
+            <attribute>
                 <ref>ri:organization</ref>
-                <inbound id="51">
+                <inbound>
                     <name>organization</name>
                     <strength>strong</strength>
                     <target>
@@ -1146,9 +1146,9 @@
                     </target>
                 </inbound>
             </attribute>
-            <attribute id="28">
+            <attribute>
                 <ref>ri:department</ref>
-                <inbound id="52">
+                <inbound>
                     <name>department</name>
                     <authoritative>false</authoritative>
                     <strength>strong</strength>
@@ -1157,9 +1157,9 @@
                     </target>
                 </inbound>
             </attribute>
-            <attribute id="29">
+            <attribute>
                 <ref>ri:phoneNumbers</ref>
-                <outbound id="67">
+                <outbound>
                     <name>phone</name>
                     <authoritative>false</authoritative>
                     <strength>strong</strength>
@@ -1186,7 +1186,7 @@
                         </script>
                     </condition>
                 </outbound>
-                <inbound id="68">
+                <inbound>
                     <name>telephoneNumber</name>
                     <strength>weak</strength>
                     <expression>
@@ -1204,7 +1204,7 @@
                     </target>
                 </inbound>
             </attribute>
-            <association id="6">
+            <association>
                 <ref>ri:group</ref>
                 <kind>entitlement</kind>
                 <intent>groups</intent>
@@ -1216,7 +1216,7 @@
             </association>
             <activation>
                 <administrativeStatus>
-                    <outbound id="53">
+                    <outbound>
                         <expression>
                             <asIs/>
                         </expression>
@@ -1228,7 +1228,7 @@
             </activation>
             <credentials>
                 <password>
-                    <outbound id="54">
+                    <outbound>
                         <name>password</name>
                         <expression>
                             <asIs/>
@@ -1250,11 +1250,11 @@
             </configuredCapabilities>
             <correlation>
                 <correlators>
-                    <items id="55">
+                    <items>
                         <name>name</name>
                         <description>Match Username</description>
                         <enabled>true</enabled>
-                        <item id="56">
+                        <item>
                             <ref>c:name</ref>
                         </item>
                         <composition>
@@ -1264,21 +1264,21 @@
                 </correlators>
             </correlation>
             <synchronization>
-                <reaction id="57">
+                <reaction>
                     <situation>unlinked</situation>
                     <actions>
-                        <link id="59"/>
+                        <link/>
                     </actions>
                 </reaction>
-                <reaction id="58">
+                <reaction>
                     <situation>linked</situation>
                     <actions>
-                        <synchronize id="60"/>
+                        <synchronize/>
                     </actions>
                 </reaction>
             </synchronization>
         </objectType>
-        <objectType id="5">
+        <objectType>
             <kind>entitlement</kind>
             <intent>groups</intent>
             <displayName>AWS Groups</displayName>
@@ -1290,9 +1290,16 @@
                 <type>c:RoleType</type>
                 <archetypeRef oid="00000000-0000-0000-0000-000000000328" relation="org:default" type="c:ArchetypeType"/>
             </focus>
-            <attribute id="61">
+            <attribute>
                 <ref>ri:displayName</ref>
-                <inbound id="64">
+                <outbound>
+                    <authoritative>false</authoritative>
+                    <strength>strong</strength>
+                    <source>
+                        <path>name</path>
+                    </source>
+                </outbound>
+                <inbound>
                     <authoritative>false</authoritative>
                     <strength>strong</strength>
                     <target>
@@ -1301,28 +1308,53 @@
                     <use>correlation</use>
                 </inbound>
             </attribute>
-            <attribute id="62">
+            <attribute>
                 <ref>ri:id</ref>
-                <inbound id="65">
+                <inbound>
                     <authoritative>false</authoritative>
-                    <strength>strong</strength>
+                    <strength>weak</strength>
                     <target>
                         <path>identifier</path>
                     </target>
                 </inbound>
             </attribute>
-            <attribute id="63">
+            <attribute>
                 <ref>ri:members</ref>
-                <inbound id="66">
+                <outbound>
                     <authoritative>false</authoritative>
                     <strength>strong</strength>
                     <expression>
                         <script>
                             <code>
                                 inputMap = new HashMap()
-                                inputMap.put("input", input)
+                                groupMembersMap = new HashMap()
+                                members = basic.getAttributeValues(projection, 'members')
+                                if(!members.toString().contains(group_members)) {
+                                    groupMembersMap.put("id", group_members)
+                                }
+                                inputMap.put("map", groupMembersMap)
 
-                                return ProvisionIAM.execute("valueParser", inputMap)
+                                return ProvisionIAM.execute("jsonComposer", inputMap)
+                            </code>
+                        </script>
+                    </expression>
+                    <source>
+                        <path>extension/group_members</path>
+                    </source>
+                </outbound>
+                <inbound>
+                    <authoritative>false</authoritative>
+                    <strength>strong</strength>
+                    <expression>
+                        <script>
+                            <code>
+                                if(input != null) {
+                                    inputMap = new HashMap()
+
+                                    inputMap.put("input", input)
+
+                                    return ProvisionIAM.execute("valueParser", inputMap)
+                                }
                             </code>
                         </script>
                     </expression>
@@ -1331,14 +1363,13 @@
                     </target>
                 </inbound>
             </attribute>
-
             <correlation>
                 <correlators>
-                    <items id="67">
+                    <items>
                         <name>name</name>
                         <description>Match DisplayName</description>
                         <enabled>true</enabled>
-                        <item id="68">
+                        <item>
                             <ref>c:name</ref>
                         </item>
                         <composition>
@@ -1348,24 +1379,24 @@
                 </correlators>
             </correlation>
             <synchronization>
-                <reaction id="69">
+                <reaction>
                     <situation>unlinked</situation>
                     <actions>
-                        <link id="72"/>
+                        <link/>
                     </actions>
                 </reaction>
-                <reaction id="70">
+                <reaction>
                     <situation>linked</situation>
                     <actions>
-                        <synchronize id="73">
+                        <synchronize>
                             <synchronize>true</synchronize>
                         </synchronize>
                     </actions>
                 </reaction>
-                <reaction id="71">
+                <reaction>
                     <situation>unmatched</situation>
                     <actions>
-                        <addFocus id="74"/>
+                        <addFocus/>
                     </actions>
                 </reaction>
             </synchronization>
@@ -1393,7 +1424,7 @@
             <cap:delete/>
             <cap:testConnection/>
             <cap:script>
-                <cap:host id="81">
+                <cap:host>
                     <cap:type>connector</cap:type>
                 </cap:host>
             </cap:script>
