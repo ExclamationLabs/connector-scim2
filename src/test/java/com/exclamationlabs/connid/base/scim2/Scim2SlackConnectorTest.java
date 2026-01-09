@@ -106,6 +106,10 @@ public class Scim2SlackConnectorTest extends ConnectorMockRestTest {
     configuration.setCurrentToken("token");
     configuration.setEnableSlackSchema(true);
     configuration.setToken(configuration.getCurrentToken());
+    // OAuth2 fields are required by validation even when not using OAuth2
+    configuration.setTokenUrl("https://dummy.oauth.url/token");
+    configuration.setClientId("dummy-client-id");
+    configuration.setClientSecret(new org.identityconnectors.common.security.GuardedString("dummy-secret".toCharArray()));
     connector.init(configuration);
   }
 

@@ -4,6 +4,10 @@ import com.exclamationlabs.connid.base.connector.driver.rest.BaseRestDriver;
 import com.exclamationlabs.connid.base.connector.driver.rest.RestFaultProcessor;
 import com.exclamationlabs.connid.base.connector.driver.rest.RestRequest;
 import com.exclamationlabs.connid.base.connector.driver.rest.RestResponseData;
+import org.apache.commons.lang3.BooleanUtils;
+import org.apache.http.HttpHeaders;
+import org.apache.http.client.methods.HttpRequestBase;
+import org.apache.http.entity.ContentType;
 import com.exclamationlabs.connid.base.connector.logging.Logger;
 import com.exclamationlabs.connid.base.connector.model.IdentityModel;
 import com.exclamationlabs.connid.base.scim2.configuration.Scim2Configuration;
@@ -14,6 +18,7 @@ import com.exclamationlabs.connid.base.scim2.model.response.ResourceTypesRespons
 import org.identityconnectors.framework.common.exceptions.ConnectorException;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 public class Scim2Driver extends BaseRestDriver<Scim2Configuration> {
@@ -26,7 +31,25 @@ public class Scim2Driver extends BaseRestDriver<Scim2Configuration> {
 
   @Override
   protected boolean usesBearerAuthorization() {
-    return true;
+    // Only use standard bearer auth when NOT using Enhanced OAuth2 auth
+    return !BooleanUtils.isTrue(getConfiguration().getUseEnhancedOAuth2());
+  }
+
+  @Override
+  protected void prepareHeaders(HttpRequestBase request, RestRequest<?> restRequest) {
+    // Set standard content type headers
+    request.setHeader(HttpHeaders.ACCEPT, ContentType.APPLICATION_JSON.getMimeType());
+    request.setHeader(HttpHeaders.CONTENT_TYPE, restRequest.getContentTypeHeader());
+
+    if (BooleanUtils.isTrue(getConfiguration().getUseEnhancedOAuth2())) {
+      // Enhanced OAuth2 uses custom headers
+      request.setHeader("entity-id", getConfiguration().getEntityId());
+      request.setHeader("entity-token", "Bearer " + getConfiguration().getCurrentToken());
+      request.setHeader("uuid", UUID.randomUUID().toString());
+    } else if (usesBearerAuthorization()) {
+      // Standard bearer auth
+      request.setHeader(HttpHeaders.AUTHORIZATION, "Bearer " + getConfiguration().getCurrentToken());
+    }
   }
 
   @Override

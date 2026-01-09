@@ -3,6 +3,8 @@ package com.exclamationlabs.connid.base.scim2;
 import com.exclamationlabs.connid.base.connector.BaseFullAccessConnector;
 import com.exclamationlabs.connid.base.connector.authenticator.Authenticator;
 import com.exclamationlabs.connid.base.connector.authenticator.DirectAccessTokenAuthenticator;
+import com.exclamationlabs.connid.base.connector.authenticator.OAuth2TokenClientCredentialsAuthenticator;
+import com.exclamationlabs.connid.base.scim2.authenticator.EnhancedOAuth2Authenticator;
 import com.exclamationlabs.connid.base.scim2.adapter.Scim2GroupsAdapter;
 import com.exclamationlabs.connid.base.scim2.adapter.Scim2UserAdapter;
 import com.exclamationlabs.connid.base.scim2.configuration.Scim2Configuration;
@@ -30,9 +32,20 @@ public class Scim2Connector extends BaseFullAccessConnector<Scim2Configuration> 
 
   public Scim2Connector() {
     super(Scim2Configuration.class);
-    setAuthenticator((Authenticator) new DirectAccessTokenAuthenticator());
     setDriver(new Scim2Driver());
     setAdapters(new Scim2UserAdapter(), new Scim2GroupsAdapter());
+  }
+
+  @Override
+  protected void initializeBaseConnector(Scim2Configuration config) {
+    if (BooleanUtils.isTrue(config.getUseEnhancedOAuth2())) {
+      setAuthenticator((Authenticator) new EnhancedOAuth2Authenticator());
+    } else if (BooleanUtils.isTrue(config.getUseOAuth2())) {
+      setAuthenticator((Authenticator) new OAuth2TokenClientCredentialsAuthenticator());
+    } else {
+      setAuthenticator((Authenticator) new DirectAccessTokenAuthenticator());
+    }
+    super.initializeBaseConnector(config);
   }
 
   @Override

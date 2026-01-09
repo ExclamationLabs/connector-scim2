@@ -9,6 +9,7 @@ results: true
 security:
   authenticator:
     directAccessToken: true
+    oauth2ClientCredentials: true
 custom:
   items:
     required:
@@ -55,6 +56,40 @@ custom:
         display: 'Groups Endpoint URL'
         help: 'Discovered from the resource type or entered manually'
     optional:
+      useOAuth2:
+        type: boolean
+        default: 'false'
+        order: 2400
+        display: 'Use OAuth2 Authentication'
+        help: 'Set to true to use OAuth2 client credentials instead of direct access token'
+      useEnhancedOAuth2:
+        type: boolean
+        default: 'false'
+        order: 2410
+        display: 'Use Enhanced OAuth2 Authentication'
+        help: 'Set to true to use Enhanced OAuth2 custom authentication'
+      entityId:
+        type: string
+        order: 2420
+        display: 'Entity ID'
+        help: 'Entity number for Enhanced OAuth2 (e.g., 00001)'
+      enhancedOAuth2Username:
+        type: string
+        order: 2430
+        display: 'Enhanced OAuth2 Username'
+        help: 'Username for Enhanced OAuth2 Basic authentication'
+      enhancedOAuth2Password:
+        type: guarded_string
+        order: 2440
+        confidential: true
+        display: 'Enhanced OAuth2 Password'
+        help: 'Password for Enhanced OAuth2 Basic authentication'
+      authorizeEndpoint:
+        type: string
+        default: '/authorize'
+        order: 2450
+        display: 'Authorize Endpoint'
+        help: 'Path to the authorization endpoint'
       userSchemaIdList:
         type: string_array
         order: 3100
