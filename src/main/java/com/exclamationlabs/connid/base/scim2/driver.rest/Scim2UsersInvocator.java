@@ -62,6 +62,7 @@ public class Scim2UsersInvocator implements DriverInvocator<Scim2Driver, Scim2Us
                             .withPost()
                             .withRequestUri(driver.getConfiguration().getUsersEndpointUrl())
                             .withRequestBody(user)
+                            .withContentTypeHeader("application/scim+json")
                             .build();
 
             RestResponseData<Scim2User> data = driver.executeRequest(request);
@@ -358,6 +359,7 @@ public class Scim2UsersInvocator implements DriverInvocator<Scim2Driver, Scim2Us
             RestRequest<Scim2User> req = new RestRequest.Builder<>(Scim2User.class)
                     .withPut()
                     .withRequestUri(config.getUsersEndpointUrl() + "/" + userId)
+                    .withContentTypeHeader("application/scim+json")
                     .withRequestBody(user)
                     .build();
             driver.executeRequest(req);
@@ -393,6 +395,7 @@ public class Scim2UsersInvocator implements DriverInvocator<Scim2Driver, Scim2Us
                             .withPatch()
                             .withRequestUri(url)
                             .withRequestBody(patchOp)
+                            .withContentTypeHeader("application/scim+json")
                             .build();
             RestResponseData<Scim2User> data = driver.executeRequest(request);
             if (data.getResponseStatusCode() != HttpStatus.SC_OK && data.getResponseStatusCode() != HttpStatus.SC_NO_CONTENT)
