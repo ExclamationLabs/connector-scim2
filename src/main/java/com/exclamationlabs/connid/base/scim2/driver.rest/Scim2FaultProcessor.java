@@ -31,8 +31,8 @@ public class Scim2FaultProcessor implements RestFaultProcessor {
       Logger.info(this, String.format("Raw Fault response %s", rawResponse));
 
       Header responseType = httpResponse.getFirstHeader("Content-Type");
-      String responseTypeValue = responseType.getValue();
-      if (!StringUtils.contains(responseTypeValue, ContentType.APPLICATION_JSON.getMimeType())) {
+      String responseTypeValue = responseType != null ? responseType.getValue() : null;
+      if (responseTypeValue == null || !responseTypeValue.toLowerCase().contains(ContentType.APPLICATION_JSON.getMimeType()) || !responseTypeValue.toLowerCase().contains("application/scim+json")) {
         String errorMessage = "Unable to parse response, not valid JSON: ";
         Logger.info(this, String.format("%s %s", errorMessage, rawResponse));
         throw new ConnectorException(errorMessage + rawResponse);
